@@ -155,8 +155,19 @@
         -->
         <div class="services-grid" role="list">
 
+          <!-- Tarjeta 1: Diagnóstico Computarizado -->
+          <!-- Pictograma SVG monocromático: lupa / búsqueda — coherente con los iconos de la sección contacto -->
           <article class="service-card" role="listitem">
-            <div class="service-card__icon" aria-hidden="true">🔍</div>
+            <div class="service-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="40" height="40" fill="none"
+                   stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"
+                   aria-hidden="true" focusable="false">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                <!-- Chip OBD interno -->
+                <rect x="8" y="8" width="6" height="6" rx="1"/>
+              </svg>
+            </div>
             <h3 class="service-card__title" data-i18n="service_1_title">
               Diagnóstico Computarizado
             </h3>
@@ -166,8 +177,22 @@
             </p>
           </article>
 
+          <!-- Tarjeta 2: Cambio de Aceite y Filtros -->
+          <!-- Pictograma SVG monocromático: gota de aceite / lubricante -->
           <article class="service-card" role="listitem">
-            <div class="service-card__icon" aria-hidden="true">🛢️</div>
+            <div class="service-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="40" height="40" fill="none"
+                   stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"
+                   aria-hidden="true" focusable="false">
+                <!-- Bidón de aceite -->
+                <rect x="3" y="7" width="14" height="13" rx="2"/>
+                <path d="M17 10h2a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2"/>
+                <!-- Tapón superior -->
+                <rect x="6" y="4" width="5" height="3" rx="1"/>
+                <!-- Línea de nivel -->
+                <line x1="6" y1="14" x2="14" y2="14"/>
+              </svg>
+            </div>
             <h3 class="service-card__title" data-i18n="service_2_title">
               Cambio de Aceite y Filtros
             </h3>
@@ -177,8 +202,16 @@
             </p>
           </article>
 
+          <!-- Tarjeta 3: Mecánica General -->
+          <!-- Pictograma SVG monocromático: llave de tuercas (wrench) -->
           <article class="service-card" role="listitem">
-            <div class="service-card__icon" aria-hidden="true">🔧</div>
+            <div class="service-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="40" height="40" fill="none"
+                   stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"
+                   aria-hidden="true" focusable="false">
+                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+              </svg>
+            </div>
             <h3 class="service-card__title" data-i18n="service_3_title">
               Mecánica General
             </h3>
@@ -188,36 +221,32 @@
             </p>
           </article>
 
+          <!-- Tarjeta 4: Sistema Eléctrico -->
+          <!-- Pictograma SVG monocromático: rayo / electricidad -->
           <article class="service-card" role="listitem">
-            <div class="service-card__icon" aria-hidden="true">❄️</div>
-            <h3 class="service-card__title" data-i18n="service_4_title">
-              Aire Acondicionado
-            </h3>
-            <p class="service-card__desc" data-i18n="service_4_desc">
-              Revisión, recarga y reparación del sistema de climatización para
-              viajes siempre confortables.
-            </p>
-          </article>
-
-          <article class="service-card" role="listitem">
-            <div class="service-card__icon" aria-hidden="true">⚡</div>
+            <div class="service-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="40" height="40" fill="none"
+                   stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"
+                   aria-hidden="true" focusable="false">
+                <!-- Batería de vehículo -->
+                <rect x="2" y="7" width="20" height="12" rx="2"/>
+                <line x1="6" y1="7" x2="6" y2="4"/>
+                <line x1="10" y1="7" x2="10" y2="4"/>
+                <!-- Polo positivo y negativo -->
+                <line x1="6" y1="4" x2="10" y2="4"/>
+                <line x1="14" y1="7" x2="14" y2="4"/>
+                <line x1="18" y1="7" x2="18" y2="4"/>
+                <line x1="14" y1="4" x2="18" y2="4"/>
+                <!-- Rayo interior -->
+                <polyline points="13,11 11,13 13,13 11,16"/>
+              </svg>
+            </div>
             <h3 class="service-card__title" data-i18n="service_5_title">
               Sistema Eléctrico
             </h3>
             <p class="service-card__desc" data-i18n="service_5_desc">
               Diagnóstico y corrección de fallas eléctricas: batería, alternador,
               arranque y cableado general.
-            </p>
-          </article>
-
-          <article class="service-card" role="listitem">
-            <div class="service-card__icon" aria-hidden="true">🏎️</div>
-            <h3 class="service-card__title" data-i18n="service_6_title">
-              Alineación y Balanceo
-            </h3>
-            <p class="service-card__desc" data-i18n="service_6_desc">
-              Alineación computarizada de dirección y balanceo de ruedas para mayor
-              seguridad y durabilidad de sus llantas.
             </p>
           </article>
 

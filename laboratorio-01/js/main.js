@@ -775,7 +775,7 @@ const Slider = (() => {
     dots.forEach((dot, i) => {
       const isActive = i === currentIndex;
       dot.classList.toggle('slider__dot--active', isActive);
-      dot.setAttribute('aria-selected', String(isActive));
+      dot.setAttribute('aria-pressed', String(isActive));
     });
 
     // Actualizar aria-label de la pista para lectores de pantalla
@@ -855,7 +855,7 @@ const Slider = (() => {
               dots.forEach((dot, i) => {
                 const isActive = i === currentIndex;
                 dot.classList.toggle('slider__dot--active', isActive);
-                dot.setAttribute('aria-selected', String(isActive));
+                dot.setAttribute('aria-pressed', String(isActive));
               });
             }
           }

@@ -2,21 +2,21 @@
 <html lang="es">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
-    content="Taller Mecánico ByB — Servicio automotriz profesional en Costa Rica. Diagnóstico, mantenimiento y reparación de toda clase de vehículos." />
-  <meta name="author" content="Taller Mecánico ByB" />
+    content="Taller Mecánico ByB — Servicio automotriz profesional en Costa Rica. Diagnóstico, mantenimiento y reparación de toda clase de vehículos.">
+  <meta name="author" content="Taller Mecánico ByB">
 
   <!-- Open Graph básico -->
-  <meta property="og:title" content="Taller Mecánico ByB" />
-  <meta property="og:description" content="Servicio automotriz profesional en Costa Rica." />
-  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Taller Mecánico ByB">
+  <meta property="og:description" content="Servicio automotriz profesional en Costa Rica.">
+  <meta property="og:type" content="website">
 
   <title>Taller Mecánico ByB</title>
 
   <!-- Hoja de estilos principal (Etapa 2) -->
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
@@ -30,7 +30,7 @@
   <!-- ============================================================
          HEADER / NAV PRINCIPAL
          ============================================================ -->
-  <header class="site-header" role="banner">
+  <header class="site-header">
     <div class="header-inner">
       <!-- Identidad de marca -->
       <a href="#inicio" class="brand" aria-label="Taller Mecánico ByB — Inicio">
@@ -56,8 +56,8 @@
         El elemento <ul> con role="list" no acepta aria-label según la
         especificación ARIA 1.2 cuando su rol implícito ya está definido.
       -->
-      <nav id="main-nav" class="main-nav" role="navigation" aria-label="Menú principal">
-        <ul class="main-nav__list" role="list">
+      <nav id="main-nav" class="main-nav" aria-label="Menú principal">
+        <ul class="main-nav__list">
           <li>
             <a class="main-nav__link" href="#inicio" data-i18n="nav_home">Inicio</a>
           </li>
@@ -102,11 +102,11 @@
   <!-- ============================================================
          MAIN — Contenido principal
          ============================================================ -->
-  <main id="main-content" role="main">
+  <main id="main-content">
 
-    <!-- ----------------------------------------------------------
+    <!-- ==========================================================
            SECCIÓN 1 — HERO / INICIO
-           ---------------------------------------------------------- -->
+           ========================================================== -->
     <section id="inicio" class="section section--hero" aria-labelledby="hero-heading">
       <div class="hero__content">
         <p class="hero__eyebrow" data-i18n="hero_eyebrow">
@@ -132,9 +132,9 @@
       <div class="hero__overlay" aria-hidden="true"></div>
     </section>
 
-    <!-- ----------------------------------------------------------
+    <!-- ==========================================================
            SECCIÓN 2 — SERVICIOS
-           ---------------------------------------------------------- -->
+           ========================================================== -->
     <section id="servicios" class="section section--services" aria-labelledby="services-heading">
       <div class="container">
         <header class="section__header">
@@ -157,7 +157,7 @@
 
           <!-- Tarjeta 1: Diagnóstico Computarizado -->
           <!-- Pictograma SVG monocromático: lupa / búsqueda — coherente con los iconos de la sección contacto -->
-          <article class="service-card" role="listitem">
+          <article class="service-card">
             <div class="service-card__icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="40" height="40" fill="none"
                    stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"
@@ -179,7 +179,7 @@
 
           <!-- Tarjeta 2: Cambio de Aceite y Filtros -->
           <!-- Pictograma SVG monocromático: gota de aceite / lubricante -->
-          <article class="service-card" role="listitem">
+          <article class="service-card">
             <div class="service-card__icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="40" height="40" fill="none"
                    stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"
@@ -204,7 +204,7 @@
 
           <!-- Tarjeta 3: Mecánica General -->
           <!-- Pictograma SVG monocromático: llave de tuercas (wrench) -->
-          <article class="service-card" role="listitem">
+          <article class="service-card">
             <div class="service-card__icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="40" height="40" fill="none"
                    stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"
@@ -223,7 +223,7 @@
 
           <!-- Tarjeta 4: Sistema Eléctrico -->
           <!-- Pictograma SVG monocromático: rayo / electricidad -->
-          <article class="service-card" role="listitem">
+          <article class="service-card">
             <div class="service-card__icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="40" height="40" fill="none"
                    stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"
@@ -254,9 +254,9 @@
       </div>
     </section>
 
-    <!-- ----------------------------------------------------------
+    <!-- ==========================================================
            SECCIÓN 3 — NOSOTROS
-           ---------------------------------------------------------- -->
+           ========================================================== -->
     <section id="nosotros" class="section section--about" aria-labelledby="about-heading">
       <!--
           Imagen de fondo del taller aplicada desde CSS.
@@ -283,9 +283,9 @@
       </div>
     </section>
 
-    <!-- ----------------------------------------------------------
+    <!-- ==========================================================
            SECCIÓN 4 — GALERÍA (Slider con CSS Scroll Snap)
-           ---------------------------------------------------------- -->
+           ========================================================== -->
     <section id="galeria" class="section section--gallery" aria-labelledby="gallery-heading">
       <div class="container">
         <header class="section__header">
@@ -311,45 +311,45 @@
           CORRECCIÓN W3C: aria-label en elementos con role="group" es válido
           (ARIA 1.2 §5.3.9). Se mantiene en cada <figure role="group">.
         -->
-        <figure class="slider__slide" role="group" aria-roledescription="diapositiva" aria-label="Imagen 1 de 5">
+        <figure class="slider__slide" aria-roledescription="diapositiva" aria-label="Imagen 1 de 5">
           <img src="img/gallery-01.jpg" alt="Vista general del área de trabajo del taller mecánico ByB"
-            class="slider__img" loading="lazy" width="900" height="600" />
+            class="slider__img" loading="lazy" width="900" height="600">
           <figcaption class="slider__caption" data-i18n="gallery_caption_1">
             Área principal de trabajo
           </figcaption>
         </figure>
 
         <!-- Slide 2 -->
-        <figure class="slider__slide" role="group" aria-roledescription="diapositiva" aria-label="Imagen 2 de 5">
+        <figure class="slider__slide" aria-roledescription="diapositiva" aria-label="Imagen 2 de 5">
           <img src="img/gallery-02.jpg" alt="Técnico realizando diagnóstico computarizado a un vehículo"
-            class="slider__img" loading="lazy" width="900" height="600" />
+            class="slider__img" loading="lazy" width="900" height="600">
           <figcaption class="slider__caption" data-i18n="gallery_caption_2">
             Diagnóstico computarizado en proceso
           </figcaption>
         </figure>
 
         <!-- Slide 3 -->
-        <figure class="slider__slide" role="group" aria-roledescription="diapositiva" aria-label="Imagen 3 de 5">
+        <figure class="slider__slide" aria-roledescription="diapositiva" aria-label="Imagen 3 de 5">
           <img src="img/gallery-03.jpg" alt="Área de recepción de vehículos del taller ByB" class="slider__img"
-            loading="lazy" width="900" height="600" />
+            loading="lazy" width="900" height="600">
           <figcaption class="slider__caption" data-i18n="gallery_caption_3">
             Recepción y zona de espera
           </figcaption>
         </figure>
 
         <!-- Slide 4 -->
-        <figure class="slider__slide" role="group" aria-roledescription="diapositiva" aria-label="Imagen 4 de 5">
+        <figure class="slider__slide" aria-roledescription="diapositiva" aria-label="Imagen 4 de 5">
           <img src="img/gallery-04.jpg" alt="Herramientas profesionales organizadas en el taller" class="slider__img"
-            loading="lazy" width="900" height="600" />
+            loading="lazy" width="900" height="600">
           <figcaption class="slider__caption" data-i18n="gallery_caption_4">
             Herramientas y equipos profesionales
           </figcaption>
         </figure>
 
         <!-- Slide 5 -->
-        <figure class="slider__slide" role="group" aria-roledescription="diapositiva" aria-label="Imagen 5 de 5">
+        <figure class="slider__slide" aria-roledescription="diapositiva" aria-label="Imagen 5 de 5">
           <img src="img/gallery-05.jpg" alt="Vehículo siendo atendido en el foso de revisión del taller"
-            class="slider__img" loading="lazy" width="900" height="600" />
+            class="slider__img" loading="lazy" width="900" height="600">
           <figcaption class="slider__caption" data-i18n="gallery_caption_5">
             Revisión en foso especializado
           </figcaption>
@@ -375,15 +375,15 @@
           interactivo final) — correcto según ARIA Authoring Practices.
         -->
         <div class="slider__dots" role="tablist" aria-label="Seleccionar imagen">
-          <button class="slider__dot slider__dot--active" type="button" role="tab" aria-selected="true"
+          <button class="slider__dot slider__dot--active" type="button" aria-pressed="true"
             aria-label="Imagen 1" data-index="0"></button>
-          <button class="slider__dot" type="button" role="tab" aria-selected="false" aria-label="Imagen 2"
+          <button class="slider__dot" type="button" aria-pressed="false" aria-label="Imagen 2"
             data-index="1"></button>
-          <button class="slider__dot" type="button" role="tab" aria-selected="false" aria-label="Imagen 3"
+          <button class="slider__dot" type="button" aria-pressed="false" aria-label="Imagen 3"
             data-index="2"></button>
-          <button class="slider__dot" type="button" role="tab" aria-selected="false" aria-label="Imagen 4"
+          <button class="slider__dot" type="button" aria-pressed="false" aria-label="Imagen 4"
             data-index="3"></button>
-          <button class="slider__dot" type="button" role="tab" aria-selected="false" aria-label="Imagen 5"
+          <button class="slider__dot" type="button" aria-pressed="false" aria-label="Imagen 5"
             data-index="4"></button>
         </div>
 
@@ -394,9 +394,9 @@
       </div>
     </section>
 
-    <!-- ----------------------------------------------------------
+    <!-- ==========================================================
            SECCIÓN 5 — RESEÑAS
-           ---------------------------------------------------------- -->
+           ========================================================== -->
     <section id="resenas" class="section section--reviews" aria-labelledby="reviews-heading">
       <div class="container">
         <header class="section__header">
@@ -415,14 +415,14 @@
         -->
         <div class="reviews-grid" role="list">
 
-          <article class="review-card" role="listitem">
+          <article class="review-card">
             <header class="review-card__header">
               <img class="review-card__avatar" src="img/review-placeholder.jpg" alt="Foto de cliente — por agregar"
-                width="56" height="56" loading="lazy" />
+                width="56" height="56" loading="lazy">
               <div class="review-card__meta">
-                <p class="review-card__name" data-i18n="review_1_name">
+                <h3 class="review-card__name" data-i18n="review_1_name">
                   [Nombre del cliente]
-                </p>
+                </h3>
                 <div class="review-card__stars" aria-label="5 de 5 estrellas" role="img">
                   <span aria-hidden="true">★★★★★</span>
                 </div>
@@ -435,14 +435,14 @@
             </blockquote>
           </article>
 
-          <article class="review-card" role="listitem">
+          <article class="review-card">
             <header class="review-card__header">
               <img class="review-card__avatar" src="img/review-placeholder.jpg" alt="Foto de cliente — por agregar"
-                width="56" height="56" loading="lazy" />
+                width="56" height="56" loading="lazy">
               <div class="review-card__meta">
-                <p class="review-card__name" data-i18n="review_2_name">
+                <h3 class="review-card__name" data-i18n="review_2_name">
                   [Nombre del cliente]
-                </p>
+                </h3>
                 <div class="review-card__stars" aria-label="5 de 5 estrellas" role="img">
                   <span aria-hidden="true">★★★★★</span>
                 </div>
@@ -455,14 +455,14 @@
             </blockquote>
           </article>
 
-          <article class="review-card" role="listitem">
+          <article class="review-card">
             <header class="review-card__header">
               <img class="review-card__avatar" src="img/review-placeholder.jpg" alt="Foto de cliente — por agregar"
-                width="56" height="56" loading="lazy" />
+                width="56" height="56" loading="lazy">
               <div class="review-card__meta">
-                <p class="review-card__name" data-i18n="review_3_name">
+                <h3 class="review-card__name" data-i18n="review_3_name">
                   [Nombre del cliente]
-                </p>
+                </h3>
                 <div class="review-card__stars" aria-label="5 de 5 estrellas" role="img">
                   <span aria-hidden="true">★★★★★</span>
                 </div>
@@ -479,14 +479,14 @@
       </div>
     </section>
 
-    <!-- ----------------------------------------------------------
+    <!-- ==========================================================
            SECCIÓN 6 — CONTACTO
            Estructura: Fondo de imagen del taller (CSS).
            Bloque 1 (superior): Formulario independiente.
            Bloque 2 (inferior): Dos columnas —
              Columna A: Horarios + Redes sociales.
              Columna B: Dirección, teléfono, correo (<address>).
-           ---------------------------------------------------------- -->
+           ========================================================== -->
     <section id="contacto" class="section section--contact" aria-labelledby="contact-heading">
       <div class="contact__overlay" aria-hidden="true"></div>
 
@@ -516,8 +516,8 @@
                 Nombre completo <span class="form-required" aria-hidden="true">*</span>
               </label>
               <input class="form-input" type="text" id="field-name" name="name" autocomplete="name" required
-                aria-required="true" aria-describedby="name-error" data-i18n-placeholder="form_placeholder_name"
-                placeholder="Ej.: Juan Pérez" />
+                aria-describedby="name-error" data-i18n-placeholder="form_placeholder_name"
+                placeholder="Ej.: Juan Pérez">
               <!--
                 CORRECCIÓN W3C: Los <span> de error deben tener texto base para
                 que los validadores no los marquen como elementos de texto vacíos.
@@ -533,8 +533,8 @@
                 Correo electrónico <span class="form-required" aria-hidden="true">*</span>
               </label>
               <input class="form-input" type="email" id="field-email" name="email" autocomplete="email" required
-                aria-required="true" aria-describedby="email-error" data-i18n-placeholder="form_placeholder_email"
-                placeholder="correo@ejemplo.com" />
+                aria-describedby="email-error" data-i18n-placeholder="form_placeholder_email"
+                placeholder="correo@ejemplo.com">
               <span class="form-error" id="email-error" role="alert" aria-live="polite"
                 data-i18n="form_error_email">Por favor, ingrese un correo electrónico válido.</span>
             </div>
@@ -546,7 +546,7 @@
                 <span class="form-optional" data-i18n="form_optional">(opcional)</span>
               </label>
               <input class="form-input" type="tel" id="field-phone" name="phone" autocomplete="tel"
-                aria-describedby="phone-hint" data-i18n-placeholder="form_placeholder_phone" placeholder="8888-8888" />
+                aria-describedby="phone-hint" data-i18n-placeholder="form_placeholder_phone" placeholder="8888-8888">
               <span class="form-hint" id="phone-hint" data-i18n="form_hint_phone">
                 Formato: 8888-8888
               </span>
@@ -557,7 +557,7 @@
               <label class="form-label" for="field-subject" data-i18n="form_label_subject">
                 Asunto <span class="form-required" aria-hidden="true">*</span>
               </label>
-              <select class="form-select" id="field-subject" name="subject" required aria-required="true"
+              <select class="form-select" id="field-subject" name="subject" required
                 aria-describedby="subject-error">
                 <option value="" data-i18n="form_subject_default">Seleccione un asunto…</option>
                 <option value="diagnostico" data-i18n="form_subject_diag">Diagnóstico computarizado</option>
@@ -575,7 +575,7 @@
               <label class="form-label" for="field-message" data-i18n="form_label_message">
                 Mensaje <span class="form-required" aria-hidden="true">*</span>
               </label>
-              <textarea class="form-textarea" id="field-message" name="message" rows="5" required aria-required="true"
+              <textarea class="form-textarea" id="field-message" name="message" rows="5" required
                 aria-describedby="message-error" data-i18n-placeholder="form_placeholder_message"
                 placeholder="Describa brevemente el servicio que necesita o su consulta…"></textarea>
               <span class="form-error" id="message-error" role="alert" aria-live="polite"
@@ -640,7 +640,7 @@
               <h3 class="contact__col-title" data-i18n="contact_social_title">
                 Síguenos
               </h3>
-              <ul class="social-list" role="list">
+              <ul class="social-list">
                 <li>
                   <a class="social-link" href="https://www.facebook.com/Tallerburro/about/" target="_blank"
                     rel="noopener noreferrer" aria-label="Facebook de Taller ByB (abre en nueva pestaña)"
@@ -687,12 +687,12 @@
                 <svg class="contact-address__icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="20"
                   height="20">
                   <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                  <circle cx="12" cy="10" r="3" />
+                  <circle cx="12" cy="10" r="3"/>
                 </svg>
                 <div>
                   <p class="contact-address__label" data-i18n="contact_address_label">Dirección</p>
                   <p class="contact-address__value" data-i18n="contact_address_value">
-                    150 m sureste del Colegio Técnico Profesional de Venecia,<br />
+                    150 m sureste del Colegio Técnico Profesional de Venecia,<br>
                     San Carlos, Alajuela, Costa Rica
                   </p>
                 </div>
@@ -717,7 +717,7 @@
                 <svg class="contact-address__icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="20"
                   height="20">
                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                  <polyline points="22,6 12,13 2,6" />
+                  <polyline points="22,6 12,13 2,6"/>
                 </svg>
                 <div>
                   <p class="contact-address__label" data-i18n="contact_email_label">Correo electrónico</p>
@@ -745,7 +745,7 @@
   <!-- ============================================================
          FOOTER
          ============================================================ -->
-  <footer class="site-footer" role="contentinfo">
+  <footer class="site-footer">
     <div class="container footer__inner">
 
       <div class="footer__brand">
@@ -761,7 +761,7 @@
         el contexto lo provee el <nav aria-label="Mapa del sitio">.
       -->
       <nav class="footer__nav" aria-label="Mapa del sitio">
-        <ul class="footer__nav-list" role="list">
+        <ul class="footer__nav-list">
           <li><a class="footer__nav-link" href="#inicio" data-i18n="nav_home">Inicio</a></li>
           <li><a class="footer__nav-link" href="#servicios" data-i18n="nav_services">Servicios</a></li>
           <li><a class="footer__nav-link" href="#nosotros" data-i18n="nav_about">Nosotros</a></li>

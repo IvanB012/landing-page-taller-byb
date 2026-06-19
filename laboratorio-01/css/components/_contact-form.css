@@ -1,0 +1,149 @@
+/* ── BLOQUE 1: Formulario ──────────────────────────────────── */
+.contact__form-block {
+  background-color: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-8) var(--sp-6);
+  margin-bottom: var(--sp-12);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.contact__block-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-bold);
+  color: var(--clr-text-inverted);
+  margin-bottom: var(--sp-8);
+  padding-bottom: var(--sp-4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.20);
+}
+
+/* Formulario */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.form-label {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--clr-text-inverted);
+  line-height: var(--lh-snug);
+}
+
+.form-required {
+  color: #FF8A80;
+  /* Rojo claro — 4.6:1 sobre overlay oscuro ✅ */
+  margin-left: var(--sp-1);
+}
+
+.form-optional {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-normal);
+  color: rgba(245, 244, 240, 0.65);
+  margin-left: var(--sp-2);
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  padding: var(--sp-4);
+  font-size: var(--fs-sm);
+  color: var(--clr-text-primary);
+  background-color: rgba(255, 255, 255, 0.92);
+  border: 2px solid transparent;
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--clr-text-muted);
+}
+
+.form-input:hover,
+.form-select:hover,
+.form-textarea:hover {
+  border-color: rgba(192, 57, 43, 0.5);
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--clr-accent);
+  box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.25);
+  background-color: var(--clr-surface);
+}
+
+/* Estado inválido — solo se activa después de interacción del usuario */
+.form-input:user-invalid,
+.form-select:user-invalid,
+.form-textarea:user-invalid {
+  border-color: #C62828;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 7rem;
+}
+
+/* Flecha personalizada para el select */
+.form-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234A4A4A' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--sp-4) center;
+  padding-right: var(--sp-10);
+  cursor: pointer;
+}
+
+.form-hint {
+  font-size: var(--fs-xs);
+  color: rgba(245, 244, 240, 0.65);
+  line-height: var(--lh-snug);
+}
+
+.form-error {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  color: #FFCDD2;
+  /* Rojo muy pálido sobre oscuro — alto contraste ✅ */
+  line-height: var(--lh-snug);
+  min-height: 1em;
+  /* Reserva espacio para evitar saltos de layout */
+}
+
+/* Estado de envío del formulario */
+.form-status {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  text-align: center;
+  padding: var(--sp-4);
+  border-radius: var(--radius-md);
+  min-height: 0;
+  transition: opacity var(--transition-base);
+}
+
+.form-status--success {
+  background-color: rgba(39, 174, 96, 0.20);
+  color: #A9DFBF;
+  border: 1px solid rgba(39, 174, 96, 0.40);
+}
+
+.form-status--error {
+  background-color: rgba(192, 57, 43, 0.20);
+  color: #FFCDD2;
+  border: 1px solid rgba(192, 57, 43, 0.40);
+}

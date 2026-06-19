@@ -1,0 +1,66 @@
+/* ================================================================
+   5. CONTENEDOR REUTILIZABLE
+   ================================================================ */
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--sp-6);
+}
+
+/* Padding horizontal reducido en móvil */
+@media (max-width: 480px) {
+  .container {
+    padding-inline: var(--sp-4);
+  }
+}
+
+
+/* ================================================================
+   7. UTILIDADES DE SECCIÓN
+   ================================================================ */
+
+/* Todas las secciones reciben padding vertical consistente */
+.section {
+  padding-block: var(--section-py);
+}
+
+/* Encabezado de sección centrado */
+.section__header {
+  text-align: center;
+  margin-bottom: var(--sp-12);
+}
+
+.section__header--light .section__title,
+.section__header--light .section__subtitle {
+  color: var(--clr-text-inverted);
+}
+
+.section__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-tight);
+  color: var(--clr-text-primary);
+  margin-bottom: var(--sp-4);
+}
+
+/* Línea decorativa bajo el título */
+.section__title::after {
+  content: '';
+  display: block;
+  width: 3.5rem;
+  height: 3px;
+  background-color: var(--clr-accent);
+  margin: var(--sp-4) auto 0;
+  border-radius: var(--radius-full);
+}
+
+.section__subtitle {
+  font-size: var(--fs-md);
+  color: var(--clr-text-secondary);
+  max-width: 55ch;
+  margin-inline: auto;
+  line-height: var(--lh-relaxed);
+}

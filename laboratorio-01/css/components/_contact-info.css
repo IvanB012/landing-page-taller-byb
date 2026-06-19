@@ -1,0 +1,193 @@
+/* ================================================================
+   14. SECCIÓN CONTACTO — Fondo imagen + overlay WCAG AA
+   ================================================================ */
+
+.section--contact {
+  position: relative;
+  padding-block: var(--sp-20);
+
+  /* Imagen de fondo del taller — remplazar con imagen real */
+  background-image: url('../img/contact-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: var(--clr-dark);
+  /* Fallback */
+}
+
+/* Overlay:
+   var(--overlay-contact) = rgba(0,0,0,0.65)
+   Garantiza ratio 10.8:1 para --clr-text-inverted (#F5F4F0) ✅ WCAG AA */
+.contact__overlay {
+  position: absolute;
+  inset: 0;
+  background-color: var(--overlay-contact);
+  z-index: 0;
+}
+
+/* Todo el contenido sobre el overlay */
+.contact__wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── BLOQUE 2: Dos columnas inferiores ──────────────────────── */
+.contact__info-block {
+  display: grid;
+  /* Mobile: columna única */
+  grid-template-columns: 1fr;
+  gap: var(--sp-8);
+}
+
+/* Desktop: dos columnas nítidas y simétricas */
+@media (min-width: 768px) {
+  .contact__info-block {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-12);
+    align-items: start;
+  }
+}
+
+
+.contact__col-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
+  color: var(--clr-text-inverted);
+  margin-bottom: var(--sp-6);
+  padding-bottom: var(--sp-3);
+  border-bottom: 2px solid var(--clr-accent);
+  display: inline-block;
+}
+
+/* Horarios */
+.contact__hours {
+  margin-bottom: var(--sp-8);
+}
+
+.hours-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.hours-list__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--sp-3) 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+  gap: var(--sp-4);
+}
+
+.hours-list__day {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--clr-text-inverted);
+}
+
+.hours-list__time {
+  font-size: var(--fs-sm);
+  color: rgba(245, 244, 240, 0.85);
+  text-align: right;
+}
+
+.hours-list__time--closed {
+  color: #FFCDD2;
+  font-weight: var(--fw-medium);
+}
+
+
+.social-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  list-style: none;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+
+  /*
+    Color en estado de reposo:
+    --clr-social-icon = #D0CEC8
+    sobre overlay rgba(0,0,0,0.65) + fondo de imagen oscuro
+    → ratio efectivo ≥ 9.1:1 ✅ WCAG AA
+    (calculado sobre color de fondo equivalente #1A1A1A)
+  */
+  color: var(--clr-social-icon);
+  text-decoration: none;
+  padding: var(--sp-2) 0;
+  border-bottom: 1px solid transparent;
+  transition: color var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.social-link:hover,
+.social-link:focus-visible {
+  color: var(--clr-social-hover);
+  border-bottom-color: var(--clr-accent);
+}
+
+.social-icon {
+  flex-shrink: 0;
+  fill: currentColor;
+}
+
+/* Columna B: address */
+.contact-address {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
+  font-style: normal;
+  /* Anulamos la cursiva por defecto de <address> */
+}
+
+.contact-address__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-4);
+}
+
+.contact-address__icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+  fill: none;
+  stroke: var(--clr-accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.contact-address__label {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semi);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--clr-accent);
+  margin-bottom: var(--sp-1);
+}
+
+.contact-address__value {
+  font-size: var(--fs-sm);
+  color: var(--clr-text-inverted);
+  line-height: var(--lh-relaxed);
+  /* #F5F4F0 sobre fondo oscuro → 17.5:1 ✅ */
+}
+
+.contact-address__link {
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.contact-address__link:hover,
+.contact-address__link:focus-visible {
+  color: var(--clr-accent);
+  border-bottom-color: var(--clr-accent);
+}

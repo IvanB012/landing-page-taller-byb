@@ -1,0 +1,89 @@
+/* ================================================================
+   2. RESET Y BASE GLOBAL
+   ================================================================ */
+
+/* Box-sizing universal */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Tipografía base */
+html {
+  font-size: 100%;
+  /* 16px — respeta preferencias del usuario */
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Respeto de preferencias de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-normal);
+  line-height: var(--lh-normal);
+  color: var(--clr-text-primary);
+  background-color: var(--clr-bg-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Imágenes responsivas por defecto */
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Herencia de fuente en controles nativos */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Quitar estilos por defecto de listas cuando no son decorativas */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+/* Eliminar estilos de lista en listas de navegación */
+nav ul {
+  list-style: none;
+}
+
+/* Párrafos y encabezados: overflow seguro */
+p,
+h1,
+h2,
+h3,
+h4 {
+  overflow-wrap: break-word;
+}
+
+/* Anclas sin estilo de usuario-agente */
+a {
+  color: inherit;
+  text-decoration: none;
+}

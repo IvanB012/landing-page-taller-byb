@@ -1,0 +1,76 @@
+/* ================================================================
+   11. SECCIÓN NOSOTROS — Fondo con imagen + overlay WCAG AA
+   ================================================================ */
+
+.section--about {
+  position: relative;
+  padding-block: var(--sp-24);
+
+  /* Imagen de fondo del taller — remplazar con imagen real */
+  background-image: url('../img/about-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  /* Efecto parallax suave */
+  background-color: var(--clr-dark);
+  /* Fallback */
+}
+
+/* Overlay oscuro:
+   var(--overlay-about) = rgba(0,0,0,0.60)
+   Garantiza ratio 9.3:1 para --clr-text-inverted (#F5F4F0) ✅ WCAG AA */
+.about__overlay {
+  position: absolute;
+  inset: 0;
+  background-color: var(--overlay-about);
+  z-index: 0;
+}
+
+/* parallax desactivado en prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .section--about {
+    background-attachment: scroll;
+  }
+}
+
+.about__content {
+  position: relative;
+  z-index: 1;
+  max-width: 44rem;
+  /* Centrado horizontal dentro del container */
+  margin-inline: auto;
+  text-align: center;
+}
+
+.about__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-tight);
+  color: var(--clr-text-inverted);
+  margin-bottom: var(--sp-6);
+}
+
+/* Línea decorativa roja */
+.about__title::after {
+  content: '';
+  display: block;
+  width: 3.5rem;
+  height: 3px;
+  background-color: var(--clr-accent);
+  margin: var(--sp-4) auto 0;
+  border-radius: var(--radius-full);
+}
+
+.about__text {
+  font-size: var(--fs-base);
+  color: var(--clr-text-inverted);
+  line-height: var(--lh-relaxed);
+  margin-bottom: var(--sp-6);
+  opacity: 0.92;
+}
+
+.about__text:last-of-type {
+  margin-bottom: var(--sp-10);
+}

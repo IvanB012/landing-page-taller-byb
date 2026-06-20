@@ -280,8 +280,7 @@ const i18n = (() => {
       contact_email_value:   'melbarh@gmail.com',
 
       // Footer
-      footer_tagline: 'Confianza y calidad en cada servicio.',
-      footer_copy:    '© 2025 Taller Mecánico ByB. Todos los derechos reservados.',
+      footer_copy:    '© 2026 Taller Mecánico ByB. Todos los derechos reservados.',
     },
 
     /* ----------------------------------------------------------
@@ -428,8 +427,7 @@ const i18n = (() => {
       contact_email_value:   'melbarh@gmail.com',
 
       // Footer
-      footer_tagline: 'Trust and quality in every service.',
-      footer_copy:    '© 2025 Taller Mecánico ByB. All rights reserved.',
+      footer_copy:    '© 2026 Taller Mecánico ByB. All rights reserved.',
     },
 
   }; // fin translations
@@ -1000,17 +998,43 @@ const FormValidator = (() => {
     }
   }
 
-  /** Simula el envío del formulario (sin backend real).
-   *  En un proyecto real, aquí iría el fetch a la API.
+  /*
+   * INTEGRACIÓN TEMPORAL — AIRTABLE (evaluación del laboratorio en GitHub Pages)
+   * El PAT queda expuesto en el código fuente del cliente. Esto es una limitación
+   * estructural de sitios estáticos sin backend y una decisión consciente:
+   * el token tiene scope mínimo (data.records:write, solo esta base) y el proyecto
+   * no maneja datos sensibles ni va a producción real. Después de la defensa,
+   * migrar a Formspree u otra solución con proxy para proteger credenciales.
+   */
+  const AIRTABLE_ENDPOINT =
+    'https://api.airtable.com/v0/appjCLy5yKilg4zav/Contactos';
+  const AIRTABLE_TOKEN =
+    'patGPwEkXX2A2NA0F.61214bef7902b54a5e22d9bead228ddbe38805e29d8cd031e256b946679a7088';
+
+  /** Envía los datos del formulario a Airtable con fetch nativo.
    *  @returns {Promise<boolean>}
    */
-  function submitForm() {
-    return new Promise((resolve) => {
-      // Simulamos latencia de red: 1200 ms
-      setTimeout(() => {
-        resolve(true);
-      }, 1200);
+  async function submitForm() {
+    const payload = {
+      fields: {
+        Name:    form.querySelector('#field-name').value.trim(),
+        email:   form.querySelector('#field-email').value.trim(),
+        phone:   form.querySelector('#field-phone').value.trim(),
+        subject: form.querySelector('#field-subject').value,
+        message: form.querySelector('#field-message').value.trim(),
+      },
+    };
+
+    const res = await fetch(AIRTABLE_ENDPOINT, {
+      method:  'POST',
+      headers: {
+        Authorization:  `Bearer ${AIRTABLE_TOKEN}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
     });
+
+    return res.ok;
   }
 
   function init() {

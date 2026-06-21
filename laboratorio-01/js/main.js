@@ -200,7 +200,7 @@ const i18n = (() => {
       review_2_name: 'Erick Rojas',
       review_2_text: 'Sé perfectamente lo difícil que es encontrar un taller con buen ojo para los detalles del motor y la suspensión. Suelo traer mis vehículos frecuentemente porque solo se lo confío a ellos; el diagnóstico siempre es preciso y el servicio es de primera calidad.',
       review_3_name: 'Adriel Córtes',
-      review_3_text: 'Les llevé mi Can-Am Outlander porque andaba con un fallo en la tracción y me lo dejaron como nuevo. En un par de días ya lo tenía listo para volver a usarlo sin problemas. Se nota que le entran de verdad a cualquier motor, 10 de 10.',
+      review_3_text: 'Les llevé mi Can-Am Outlander porque andaba con un fallo en la transmisión y me lo dejaron como nuevo. En un par de días ya lo tenía listo para volver a usarlo sin problemas. Se nota que le entran de verdad a cualquier motor, 10 de 10.',
 
       // Contacto — títulos de sección
       contact_title:    'Contáctenos',
@@ -335,11 +335,11 @@ const i18n = (() => {
       reviews_subtitle: 'The trust of those who already know us.',
 
       review_1_name: 'Yohel Barrantes',
-      review_1_text: 'Llevé mi Tacoma en 2 ocasiones y la verdad nunca he recibido una atención tan buena, se preocupan mucho por los detalles y buscan solucionar cada problema hasta que el carro quede en perfectas condiciones, super recomendado.',
+      review_1_text: 'I brought my Tacoma in twice and I have never received such great service — they pay close attention to every detail and work to solve each issue until the car is in perfect condition. Highly recommended.',
       review_2_name: 'Erick Rojas',
-      review_2_text: 'Sé perfectamente lo difícil que es encontrar un taller con buen ojo para los detalles del motor y la suspensión. Suelo traer mis vehículos frecuentemente porque solo se lo confío a ellos; el diagnóstico siempre es preciso y el servicio es de primera calidad.',
+      review_2_text: 'I know how hard it is to find a shop with a sharp eye for engine and suspension details. I bring my vehicles here regularly because I trust no one else; the diagnosis is always accurate and the service is top quality.',
       review_3_name: 'Adriel Córtes',
-      review_3_text: 'Les llevé mi Can-Am Outlander porque andaba con un fallo en la tracción y me lo dejaron como nuevo. En un par de días ya lo tenía listo para volver a usarlo sin problemas. Se nota que le entran de verdad a cualquier motor, 10 de 10.',
+      review_3_text: 'I brought in my Can-Am Outlander because it had a transmission fault and they left it good as new. In a couple of days it was ready to use again without any issues. You can tell they really know how to handle any engine — 10 out of 10.',
 
       // Contact — section headings
       contact_title:    'Contact Us',
@@ -640,30 +640,67 @@ const Header = (() => {
     headerEl.classList.toggle('site-header--scrolled', scrolled);
   }
 
-  /** Intersection Observer: resalta el enlace activo.
-   *  Observamos cada <section> con id; cuando el 40% de una
-   *  sección es visible en el viewport, su enlace correspondiente
-   *  recibe la clase --active.
-   */
+  /** Intersection Observer: resalta el enlace activo según la sección visible. */
   function initActiveNavLink() {
     const sections = document.querySelectorAll('main section[id]');
     const navLinks = document.querySelectorAll('.main-nav__link');
 
     if (!sections.length || !navLinks.length) return;
 
+    // Altura real renderizada del header (px), sin necesidad de parsear rem.
+    const headerHeightPx = headerEl.offsetHeight || 64;
+
+    // Mapa id-de-sección → elemento <a> del nav para búsqueda O(1).
+    const linkMap = new Map();
+    navLinks.forEach((link) => {
+      const href = link.getAttribute('href');
+      if (href && href.startsWith('#')) linkMap.set(href.slice(1), link);
+    });
+
+    function setActiveLink(id) {
+      navLinks.forEach((link) => link.classList.remove('main-nav__link--active'));
+      const target = linkMap.get(id);
+      if (target) target.classList.add('main-nav__link--active');
+    }
+
+    // Conjunto de secciones actualmente dentro de la zona de detección.
+    const visibleSections = new Set();
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          navLinks.forEach((link) => {
-            const isActive = link.getAttribute('href') === `#${entry.target.id}`;
-            link.classList.toggle('main-nav__link--active', isActive);
-          });
+          if (entry.isIntersecting) {
+            visibleSections.add(entry.target);
+          } else {
+            visibleSections.delete(entry.target);
+          }
         });
+
+        // Si la zona queda vacía (p. ej. scroll más allá de la última sección),
+        // se mantiene el enlace activo actual en lugar de borrarlo.
+        if (!visibleSections.size) return;
+
+        // De las secciones visibles, activar la que tenga el borde superior
+        // más alto en el viewport (la que el usuario está leyendo actualmente).
+        let activeSection = null;
+        visibleSections.forEach((section) => {
+          if (
+            !activeSection ||
+            section.getBoundingClientRect().top < activeSection.getBoundingClientRect().top
+          ) {
+            activeSection = section;
+          }
+        });
+
+        if (activeSection) setActiveLink(activeSection.id);
       },
       {
-        threshold: 0.40,
-        rootMargin: '-10% 0px -50% 0px',
+        // Superior: compensar la altura del header fijo para que las secciones
+        // ocultas detrás de él nunca se consideren activas.
+        // Inferior: reducir el 50 % para que solo el semipanel superior del
+        // viewport (bajo el header) actúe como zona de activación.
+        rootMargin: `-${headerHeightPx}px 0px -50% 0px`,
+        threshold: 0,
       }
     );
 

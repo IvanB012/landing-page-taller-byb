@@ -194,22 +194,16 @@ const i18n = (() => {
       gallery_prev:     'Imagen anterior',
       gallery_next:     'Imagen siguiente',
 
-      gallery_caption_1: 'Área principal de trabajo',
-      gallery_caption_2: 'Diagnóstico computarizado en proceso',
-      gallery_caption_3: 'Recepción y zona de espera',
-      gallery_caption_4: 'Herramientas y equipos profesionales',
-      gallery_caption_5: 'Revisión en foso especializado',
-
       // Reseñas
       reviews_title:    'Lo que dicen nuestros clientes',
       reviews_subtitle: 'La confianza de quienes ya nos conocen.',
 
-      review_1_name: '[Nombre del cliente]',
-      review_1_text: '[Reseña del cliente — por agregar en Etapa 4]',
-      review_2_name: '[Nombre del cliente]',
-      review_2_text: '[Reseña del cliente — por agregar en Etapa 4]',
-      review_3_name: '[Nombre del cliente]',
-      review_3_text: '[Reseña del cliente — por agregar en Etapa 4]',
+      review_1_name: 'Yohel Barrantes',
+      review_1_text: 'Llevé mi Tacoma en 2 ocasiones y la verdad nunca he recibido una atención tan buena, se preocupan mucho por los detalles y buscan solucionar cada problema hasta que el carro quede en perfectas condiciones, super recomendado.',
+      review_2_name: 'Erick Rojas',
+      review_2_text: 'Sé perfectamente lo difícil que es encontrar un taller con buen ojo para los detalles del motor y la suspensión. Suelo traer mis vehículos frecuentemente porque solo se lo confío a ellos; el diagnóstico siempre es preciso y el servicio es de primera calidad.',
+      review_3_name: 'Adriel Córtes',
+      review_3_text: 'Les llevé mi Can-Am Outlander porque andaba con un fallo en la tracción y me lo dejaron como nuevo. En un par de días ya lo tenía listo para volver a usarlo sin problemas. Se nota que le entran de verdad a cualquier motor, 10 de 10.',
 
       // Contacto — títulos de sección
       contact_title:    'Contáctenos',
@@ -280,8 +274,7 @@ const i18n = (() => {
       contact_email_value:   'melbarh@gmail.com',
 
       // Footer
-      footer_tagline: 'Confianza y calidad en cada servicio.',
-      footer_copy:    '© 2025 Taller Mecánico ByB. Todos los derechos reservados.',
+      footer_copy:    '© 2026 Taller Mecánico ByB. Todos los derechos reservados.',
     },
 
     /* ----------------------------------------------------------
@@ -342,22 +335,16 @@ const i18n = (() => {
       gallery_prev:     'Previous image',
       gallery_next:     'Next image',
 
-      gallery_caption_1: 'Main work area',
-      gallery_caption_2: 'Computerized diagnostics in progress',
-      gallery_caption_3: 'Reception and waiting area',
-      gallery_caption_4: 'Professional tools and equipment',
-      gallery_caption_5: 'Specialized pit inspection',
-
       // Reviews
       reviews_title:    'What our customers say',
       reviews_subtitle: 'The trust of those who already know us.',
 
-      review_1_name: '[Customer name]',
-      review_1_text: '[Customer review — to be added in Stage 4]',
-      review_2_name: '[Customer name]',
-      review_2_text: '[Customer review — to be added in Stage 4]',
-      review_3_name: '[Customer name]',
-      review_3_text: '[Customer review — to be added in Stage 4]',
+      review_1_name: 'Yohel Barrantes',
+      review_1_text: 'Llevé mi Tacoma en 2 ocasiones y la verdad nunca he recibido una atención tan buena, se preocupan mucho por los detalles y buscan solucionar cada problema hasta que el carro quede en perfectas condiciones, super recomendado.',
+      review_2_name: 'Erick Rojas',
+      review_2_text: 'Sé perfectamente lo difícil que es encontrar un taller con buen ojo para los detalles del motor y la suspensión. Suelo traer mis vehículos frecuentemente porque solo se lo confío a ellos; el diagnóstico siempre es preciso y el servicio es de primera calidad.',
+      review_3_name: 'Adriel Córtes',
+      review_3_text: 'Les llevé mi Can-Am Outlander porque andaba con un fallo en la tracción y me lo dejaron como nuevo. En un par de días ya lo tenía listo para volver a usarlo sin problemas. Se nota que le entran de verdad a cualquier motor, 10 de 10.',
 
       // Contact — section headings
       contact_title:    'Contact Us',
@@ -428,8 +415,7 @@ const i18n = (() => {
       contact_email_value:   'melbarh@gmail.com',
 
       // Footer
-      footer_tagline: 'Trust and quality in every service.',
-      footer_copy:    '© 2025 Taller Mecánico ByB. All rights reserved.',
+      footer_copy:    '© 2026 Taller Mecánico ByB. All rights reserved.',
     },
 
   }; // fin translations
@@ -1000,17 +986,43 @@ const FormValidator = (() => {
     }
   }
 
-  /** Simula el envío del formulario (sin backend real).
-   *  En un proyecto real, aquí iría el fetch a la API.
+  /*
+   * INTEGRACIÓN TEMPORAL — AIRTABLE (evaluación del laboratorio en GitHub Pages)
+   * El PAT queda expuesto en el código fuente del cliente. Esto es una limitación
+   * estructural de sitios estáticos sin backend y una decisión consciente:
+   * el token tiene scope mínimo (data.records:write, solo esta base) y el proyecto
+   * no maneja datos sensibles ni va a producción real. Después de la defensa,
+   * migrar a Formspree u otra solución con proxy para proteger credenciales.
+   */
+  const AIRTABLE_ENDPOINT =
+    'https://api.airtable.com/v0/appjCLy5yKilg4zav/Contactos';
+  const AIRTABLE_TOKEN =
+    'patGPwEkXX2A2NA0F.61214bef7902b54a5e22d9bead228ddbe38805e29d8cd031e256b946679a7088';
+
+  /** Envía los datos del formulario a Airtable con fetch nativo.
    *  @returns {Promise<boolean>}
    */
-  function submitForm() {
-    return new Promise((resolve) => {
-      // Simulamos latencia de red: 1200 ms
-      setTimeout(() => {
-        resolve(true);
-      }, 1200);
+  async function submitForm() {
+    const payload = {
+      fields: {
+        Name:    form.querySelector('#field-name').value.trim(),
+        email:   form.querySelector('#field-email').value.trim(),
+        phone:   form.querySelector('#field-phone').value.trim(),
+        subject: form.querySelector('#field-subject').value,
+        message: form.querySelector('#field-message').value.trim(),
+      },
+    };
+
+    const res = await fetch(AIRTABLE_ENDPOINT, {
+      method:  'POST',
+      headers: {
+        Authorization:  `Bearer ${AIRTABLE_TOKEN}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
     });
+
+    return res.ok;
   }
 
   function init() {

@@ -1,0 +1,88 @@
+/* ================================================================
+   3. INDICADOR DE FOCO — WCAG 2.1 AA (Criterio 2.4.7)
+   ================================================================ */
+
+/* Se usa :focus-visible para mostrar foco solo en navegación por teclado,
+   no al hacer clic con el ratón. Esto mejora la experiencia visual
+   sin sacrificar accesibilidad. */
+
+:focus-visible {
+  outline: 3px solid var(--clr-accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* Eliminar outline por defecto de :focus para evitar duplicados */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/*
+  Foco especial en fondos oscuros (secciones about/contact/footer
+  y ahora también services/reviews que migraron a modo oscuro).
+  El anillo blanco sobre #1A1A1A o #2C2C2C garantiza ratio ≥ 15:1 ✅ WCAG AA.
+*/
+.section--services :focus-visible,
+.section--reviews :focus-visible,
+.section--about :focus-visible,
+.section--contact :focus-visible,
+.site-footer :focus-visible {
+  outline-color: #FFFFFF;
+}
+
+
+/* ================================================================
+   4. SKIP LINK — Accesibilidad navegación por teclado
+   ================================================================ */
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--sp-4);
+  z-index: 9999;
+  padding: var(--sp-3) var(--sp-6);
+  background-color: var(--clr-accent);
+  color: var(--clr-surface);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semi);
+  border-radius: var(--radius-md);
+  transition: top var(--transition-fast);
+  /* El skip link es invisible hasta recibir foco */
+}
+
+.skip-link:focus {
+  top: var(--sp-4);
+  outline: 3px solid var(--clr-surface);
+  outline-offset: 2px;
+}
+
+
+/* ================================================================
+   17. UTILIDADES DE ACCESIBILIDAD (visually-hidden)
+   ================================================================ */
+
+/* Oculta visualmente pero mantiene el elemento accesible a
+   lectores de pantalla (más correcto que display:none o visibility:hidden) */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Versión que se muestra al recibir foco (usada en skip-link) */
+.visually-hidden--focusable:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: revert;
+  margin: revert;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}

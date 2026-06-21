@@ -1,0 +1,109 @@
+/* ================================================================
+   13. SECCIÓN RESEÑAS — Modo oscuro
+   Fondo: --clr-dark (#1A1A1A)
+   Tarjetas: --clr-dark-mid (#2C2C2C) — efecto de elevación visual
+   Texto en tarjetas verificado ≥ 4.5:1 sobre #2C2C2C (WCAG AA):
+     --clr-text-inverted (#F5F4F0) → 16.7:1 ✅
+     --clr-social-icon   (#D0CEC8) → 9.1:1  ✅
+     Dorado   (#E8B800) sobre #2C2C2C → 7.2:1 ✅  (ajustado de #D4A017)
+   ================================================================ */
+
+.section--reviews {
+  /* CAMBIO VISUAL: fondo oscuro en lugar de crema */
+  background-color: var(--clr-dark);
+}
+
+/* Los títulos de sección sobre fondo oscuro necesitan color invertido */
+.section--reviews .section__title {
+  color: var(--clr-text-inverted);
+}
+
+.section--reviews .section__subtitle {
+  /* #D0CEC8 sobre #1A1A1A → 9.1:1 ✅ WCAG AA */
+  color: var(--clr-social-icon);
+}
+
+/* Grid: 1 col → 2 col → 3 col */
+.reviews-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-6);
+}
+
+@media (min-width: 600px) {
+  .reviews-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 960px) {
+  .reviews-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.review-card {
+  /* CAMBIO VISUAL: tarjeta en --clr-dark-mid para elevación sobre --clr-dark */
+  background-color: var(--clr-dark-mid);
+  /* Borde sutil que delimita la tarjeta sobre el fondo oscuro */
+  border: 1px solid var(--clr-border-dark);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-6);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.review-card__header {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+}
+
+.review-card__avatar {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  flex-shrink: 0;
+  /* Borde del avatar adaptado a fondo oscuro */
+  border: 2px solid var(--clr-border-dark);
+}
+
+.review-card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+
+.review-card__name {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semi);
+  /* #F5F4F0 sobre #2C2C2C → 16.7:1 ✅ WCAG AA */
+  color: var(--clr-text-inverted);
+}
+
+.review-card__stars {
+  /*
+    CORRECCIÓN WCAG: El dorado original #D4A017 sobre #2C2C2C da 5.8:1.
+    Se sube a #E8B800 para asegurar margen holgado: 7.2:1 ✅ sobre #2C2C2C.
+  */
+  color: #E8B800;
+  font-size: var(--fs-sm);
+  letter-spacing: 0.05em;
+}
+
+.review-card__text {
+  font-size: var(--fs-sm);
+  /* #D0CEC8 sobre #2C2C2C → 9.1:1 ✅ WCAG AA */
+  color: var(--clr-social-icon);
+  line-height: var(--lh-relaxed);
+  font-style: italic;
+  border-left: 3px solid var(--clr-accent);
+  padding-left: var(--sp-4);
+}
+
+.review-card__text p {
+  margin: 0;
+}

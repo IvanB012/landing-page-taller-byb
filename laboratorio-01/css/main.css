@@ -1,0 +1,31 @@
+/* ================================================================
+   TALLER MECÁNICO ByB — Hoja de estilos modular
+   Metodología: Mobile-First
+   Estándar: CSS3 nativo, sin frameworks externos
+   Accesibilidad: WCAG 2.1 AA (contraste mínimo 4.5:1 texto normal)
+   Autor: Iván Barboza Blanco — ISW-521, UTN
+   ================================================================ */
+
+/* === BASE === */
+@import url('base/_variables.css');
+@import url('base/_reset.css');
+@import url('base/_utilities.css');
+
+/* === LAYOUT === */
+@import url('layout/_container.css');
+@import url('layout/_header.css');
+@import url('layout/_footer.css');
+
+/* === COMPONENTS === */
+@import url('components/_buttons.css');
+@import url('components/_nav.css');
+@import url('components/_hero.css');
+@import url('components/_services.css');
+@import url('components/_about.css');
+@import url('components/_gallery.css');
+@import url('components/_reviews.css');
+@import url('components/_contact-form.css');
+@import url('components/_contact-info.css');
+
+/* === RESPONSIVE (documentación) === */
+@import url('responsive/_breakpoints-summary.css');

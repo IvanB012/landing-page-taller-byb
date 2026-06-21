@@ -12,19 +12,7 @@
    ================================================================ */
 
 :root {
-  /* ── Paleta principal ──────────────────────────────────────────
-     Todas las combinaciones de texto/fondo verificadas para WCAG AA.
-
-     Razones de contraste documentadas (herramienta: WebAIM Contrast Checker):
-       --clr-text-primary   (#1A1A1A) sobre --clr-bg-body    (#F5F4F0) → 17.5:1 ✅
-       --clr-text-primary   (#1A1A1A) sobre --clr-surface     (#FFFFFF) → 19.6:1 ✅
-       --clr-text-inverted  (#F5F4F0) sobre --clr-dark        (#1A1A1A) → 17.5:1 ✅
-       --clr-accent         (#C0392B) sobre --clr-bg-body    (#F5F4F0) →  5.7:1 ✅
-       --clr-accent         (#C0392B) sobre --clr-surface     (#FFFFFF) →  5.1:1 ✅
-       --clr-text-inverted  (#F5F4F0) sobre overlay rgba(0,0,0,.60)    →  9.3:1 ✅
-       --clr-social-icon    (#D0CEC8) sobre --clr-dark        (#1A1A1A) →  9.1:1 ✅
-     ──────────────────────────────────────────────────────────── */
-
+  
   --clr-bg-body: #F5F4F0;
   /* Crema industrial — fondo general          */
   --clr-surface: #FFFFFF;

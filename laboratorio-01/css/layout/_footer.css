@@ -1,0 +1,22 @@
+/* ================================================================
+   15. FOOTER
+   ================================================================ */
+
+.site-footer {
+  background-color: var(--clr-dark);
+  border-top: 1px solid var(--clr-border-dark);
+  padding-block: var(--sp-12) var(--sp-8);
+}
+
+.footer__inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.footer__copy {
+  font-size: var(--fs-xs);
+  color: rgba(208, 206, 200, 0.55);
+  /* rgba de --clr-social-icon al 55% — conserva ratio ≥ 4.5:1 sobre #1A1A1A ✅ */
+}

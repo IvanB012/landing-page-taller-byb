@@ -1,6 +1,4 @@
-/* ================================================================
-   9. SECCIÓN HERO
-   ================================================================ */
+/* SECCIÓN HERO */
 
 .section--hero {
   position: relative;
@@ -43,9 +41,7 @@
   text-transform: uppercase;
   color: var(--clr-accent);
   margin-bottom: var(--sp-4);
-  /* text-shadow refuerza legibilidad: #C0392B no alcanza 4.5:1 en fondos oscuros
-     (máx. teórico 3.86:1 contra negro puro); la sombra oscura local mejora la
-     percepción visual sin alterar el color de marca. */
+  /* Sombra compensa ratio insuficiente de #C0392B sobre fondos oscuros (3.86:1 máx.) */
   text-shadow: 0 0 12px rgba(0, 0, 0, 0.95),
                0 1px 4px  rgba(0, 0, 0, 0.90);
 }

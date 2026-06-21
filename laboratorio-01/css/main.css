@@ -1,10 +1,4 @@
-/* ================================================================
-   TALLER MECÁNICO ByB — Hoja de estilos modular
-   Metodología: Mobile-First
-   Estándar: CSS3 nativo, sin frameworks externos
-   Accesibilidad: WCAG 2.1 AA (contraste mínimo 4.5:1 texto normal)
-   Autor: Iván Barboza Blanco — ISW-521, UTN
-   ================================================================ */
+/* Hoja de estilos modular — Mobile-First, CSS3 nativo, WCAG 2.1 AA */
 
 /* === BASE === */
 @import url('base/_variables.css');

@@ -1,20 +1,9 @@
-/* ================================================================
-   16. BREAKPOINTS DE RESPONSIVIDAD — Resumen de media queries
-   ================================================================
+/* BREAKPOINTS — Resumen de media queries
 
-   Breakpoint 1 — 480px (Teléfonos grandes / phablets):
-     - hero__cta-group: columna → fila
-
-   Breakpoint 2 — 600px (Tablets pequeñas):
-     - services-grid: 1 col → 2 col
-     - reviews-grid:  1 col → 2 col
-
-   Breakpoint 3 — 768px (Tablets / navegación horizontal):
-     - nav-toggle: oculto; main-nav: visible en fila
-     - contact__info-block: 1 col → 2 col (Grid)
-
-   Breakpoint 4 — 960px (Escritorio):
-     - services-grid: 2 col → 3 col
-     - reviews-grid:  2 col → 3 col
-
-   ================================================================ */
+   480px  hero__cta-group columna → fila; container padding móvil
+   600px  services-grid 1→2 col; reviews-grid 1→2 col
+   640px  gallery__grid 1→2 col; contact__info-block 1→2 col
+   768px  nav-toggle oculto; main-nav en fila; about parallax (fixed)
+   960px  services-grid 2 col max-width 820px; reviews-grid 2→3 col
+   1024px gallery__grid 2→3 col; contact__info-block 2→3 col
+*/

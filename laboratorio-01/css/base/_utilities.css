@@ -1,11 +1,6 @@
-/* ================================================================
-   3. INDICADOR DE FOCO — WCAG 2.1 AA (Criterio 2.4.7)
-   ================================================================ */
+/* FOCO VISIBLE — WCAG 2.1 AA (Criterio 2.4.7) */
 
-/* Se usa :focus-visible para mostrar foco solo en navegación por teclado,
-   no al hacer clic con el ratón. Esto mejora la experiencia visual
-   sin sacrificar accesibilidad. */
-
+/* :focus-visible muestra el anillo solo en navegación por teclado, no en clic */
 :focus-visible {
   outline: 3px solid var(--clr-accent);
   outline-offset: 3px;
@@ -17,11 +12,7 @@
   outline: none;
 }
 
-/*
-  Foco especial en fondos oscuros (secciones about/contact/footer
-  y ahora también services/reviews que migraron a modo oscuro).
-  El anillo blanco sobre #1A1A1A o #2C2C2C garantiza ratio ≥ 15:1 ✅ WCAG AA.
-*/
+/* Anillo blanco sobre fondos oscuros (#1A1A1A / #2C2C2C) → ratio ≥15:1 ✅ WCAG AA */
 .section--services :focus-visible,
 .section--reviews :focus-visible,
 .section--about :focus-visible,
@@ -31,9 +22,7 @@
 }
 
 
-/* ================================================================
-   4. SKIP LINK — Accesibilidad navegación por teclado
-   ================================================================ */
+/* SKIP LINK — accesibilidad por teclado */
 
 .skip-link {
   position: absolute;
@@ -57,12 +46,9 @@
 }
 
 
-/* ================================================================
-   17. UTILIDADES DE ACCESIBILIDAD (visually-hidden)
-   ================================================================ */
+/* UTILIDADES DE ACCESIBILIDAD (visually-hidden) */
 
-/* Oculta visualmente pero mantiene el elemento accesible a
-   lectores de pantalla (más correcto que display:none o visibility:hidden) */
+/* Oculta visualmente sin quitar del árbol de accesibilidad (más correcto que display:none) */
 .visually-hidden {
   position: absolute;
   width: 1px;

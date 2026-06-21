@@ -1,10 +1,8 @@
-/* ================================================================
-   12. SECCIÓN GALERÍA — CSS Grid Layout (Boxed)
-   ================================================================ */
+/* SECCIÓN GALERÍA — CSS Grid Layout */
 
 .section--gallery {
   background-color: var(--clr-dark);
-  padding-block: var(--sp-20);
+  padding-block: var(--sp-20); /* Padding intermedio: sección oscura sin imagen de fondo */
 }
 
 .section--gallery .section__title,
@@ -16,10 +14,7 @@
   background-color: var(--clr-accent);
 }
 
-/* ================================================================
-   CUADRÍCULA — Mobile First
-   Técnica: CSS Grid con Media Queries
-   ================================================================ */
+/* Cuadrícula Mobile-First con CSS Grid */
 
 /* ── Mobile (< 640px): columna única, apiladas ──────────────── */
 .gallery__grid {
@@ -54,11 +49,7 @@
   box-shadow: var(--shadow-md);
 }
 
-/*
-  Las fotos son 900×600 px (ratio 3:2). Usar aspect-ratio: 3/2 hace
-  que el contenedor coincida exactamente con las dimensiones originales,
-  por lo que object-fit: cover no necesita recortar ningún lado.
-*/
+/* 900×600 px (3:2) — aspect-ratio coincide, object-fit: cover no recorta */
 .gallery__img {
   display: block;
   width: 100%;

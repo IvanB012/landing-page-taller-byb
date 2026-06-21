@@ -6,15 +6,13 @@
   position: relative;
   padding-block: var(--sp-24);
 
-  /* Imagen de fondo del taller — remplazar con imagen real */
-  background-image: url('../img/about-bg.jpg');
+  background-image: url('../../img/seccion-nosotros.webp');
   background-size: cover;
-  background-position: center;
+  background-position: center 40%;
   background-repeat: no-repeat;
-  background-attachment: fixed;
-  /* Efecto parallax suave */
+  /* scroll en mobile-first: evita el bug de iOS Safari con fixed+cover */
+  background-attachment: scroll;
   background-color: var(--clr-dark);
-  /* Fallback */
 }
 
 /* Overlay oscuro:
@@ -27,7 +25,14 @@
   z-index: 0;
 }
 
-/* parallax desactivado en prefers-reduced-motion */
+/* Parallax solo en desktop — evita el bug de iOS Safari */
+@media (min-width: 768px) {
+  .section--about {
+    background-attachment: fixed;
+  }
+}
+
+/* Desactivar parallax si el usuario prefiere movimiento reducido */
 @media (prefers-reduced-motion: reduce) {
   .section--about {
     background-attachment: scroll;

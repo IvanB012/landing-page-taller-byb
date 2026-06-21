@@ -1,12 +1,14 @@
 /* ── BLOQUE 1: Formulario ──────────────────────────────────── */
 .contact__form-block {
-  background-color: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background-color: var(--glass-bg);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
   padding: var(--sp-8) var(--sp-6);
   margin-bottom: var(--sp-12);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.40),
+              inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 .contact__block-title {

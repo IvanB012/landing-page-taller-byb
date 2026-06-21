@@ -13,9 +13,9 @@
   padding-top: var(--header-height);
 
   /* Imagen de fondo — remplazar con imagen real del taller */
-  background-image: url('../img/hero-bg.jpg');
+  background-image: url('../../img/seccion-inicio.webp');
   background-size: cover;
-  background-position: center;
+  background-position: center 35%;
   background-repeat: no-repeat;
   /* Fallback si no carga la imagen */
   background-color: var(--clr-dark);

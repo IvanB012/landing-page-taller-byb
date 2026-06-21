@@ -113,6 +113,11 @@
   --shadow-lg: 0 10px 30px rgba(0, 0, 0, .14), 0 4px 12px rgba(0, 0, 0, .08);
   --shadow-card: 0 2px 8px rgba(0, 0, 0, .08);
 
+  /* ── Glassmorphism (tarjetas de contacto) ───────────────────── */
+  --glass-bg:     rgba(8, 8, 8, 0.62);      /* fondo oscuro semi-transparente */
+  --glass-border: rgba(255, 255, 255, 0.10); /* borde luminoso sutil           */
+  --glass-blur:   14px;                      /* radio del backdrop-filter       */
+
   /* ── Transiciones ───────────────────────────────────────────── */
   --transition-fast: 150ms ease;
   --transition-base: 250ms ease;

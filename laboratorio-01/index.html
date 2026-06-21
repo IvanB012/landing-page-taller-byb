@@ -284,7 +284,7 @@
     </section>
 
     <!-- ==========================================================
-           SECCIÓN 4 — GALERÍA (Slider con CSS Scroll Snap)
+           SECCIÓN 4 — GALERÍA (CSS Grid Layout — Boxed)
            ========================================================== -->
     <section id="galeria" class="section section--gallery" aria-labelledby="gallery-heading">
       <div class="container">
@@ -296,86 +296,46 @@
             Un vistazo a nuestras instalaciones y trabajos realizados.
           </p>
         </header>
-      </div>
 
-      <!-- Pista del slider — tabindex="0" para navegación por teclado -->
-      <!--
-        CORRECCIÓN W3C: aria-label en el <div role="region"> es válido
-        (ARIA 1.2 §5.3.7 — landmark region acepta aria-label).
-        aria-roledescription también es válido aquí como descripción del widget.
-      -->
-      <div class="slider" role="region" aria-label="Galería de imágenes del taller"
-        aria-roledescription="carrusel" tabindex="0">
-        <!-- Slide 1 -->
-        <!--
-          CORRECCIÓN W3C: aria-label en elementos con role="group" es válido
-          (ARIA 1.2 §5.3.9). Se mantiene en cada <figure role="group">.
-        -->
-        <figure class="slider__slide" aria-roledescription="diapositiva" aria-label="Imagen 1 de 5">
-          <img src="img/galeria-01.webp" alt="Técnico del taller ByB trabajando en el motor de un vehículo con herramienta eléctrica"
-            class="slider__img" loading="lazy" width="900" height="600">
-        </figure>
+        <div class="gallery__grid">
 
-        <!-- Slide 2 -->
-        <figure class="slider__slide" aria-roledescription="diapositiva" aria-label="Imagen 2 de 5">
-          <img src="img/galeria-02.webp" alt="Dos técnicos realizando reparación de motor, vista cenital del trabajo en equipo"
-            class="slider__img" loading="lazy" width="900" height="600">
-        </figure>
+          <figure class="gallery__item">
+            <img src="img/galeria-01.webp"
+              alt="Técnico del taller ByB trabajando en el motor de un vehículo con herramienta eléctrica"
+              class="gallery__img" loading="lazy" width="900" height="600">
+          </figure>
 
-        <!-- Slide 3 -->
-        <figure class="slider__slide" aria-roledescription="diapositiva" aria-label="Imagen 3 de 5">
-          <img src="img/galeria-03.webp" alt="Pickup Ford F-150 elevada en rampa hidráulica dentro de las instalaciones del taller ByB" class="slider__img"
-            loading="lazy" width="900" height="600">
-        </figure>
+          <figure class="gallery__item">
+            <img src="img/galeria-02.webp"
+              alt="Dos técnicos realizando reparación de motor, vista cenital del trabajo en equipo"
+              class="gallery__img" loading="lazy" width="900" height="600">
+          </figure>
 
-        <!-- Slide 4 -->
-        <figure class="slider__slide" aria-roledescription="diapositiva" aria-label="Imagen 4 de 5">
-          <img src="img/galeria-06.webp" alt="Toyota Hilux REVO gris en área techada del taller junto a otros vehículos atendidos" class="slider__img"
-            loading="lazy" width="900" height="600">
-        </figure>
+          <figure class="gallery__item">
+            <img src="img/galeria-03.webp"
+              alt="Pickup Ford F-150 elevada en rampa hidráulica dentro de las instalaciones del taller ByB"
+              class="gallery__img" loading="lazy" width="900" height="600">
+          </figure>
 
-        <!-- Slide 5 -->
-        <figure class="slider__slide" aria-roledescription="diapositiva" aria-label="Imagen 5 de 5">
-          <img src="img/galeria-05.webp" alt="Pickup RAM roja atendida en el área exterior del taller ByB"
-            class="slider__img" loading="lazy" width="900" height="600">
-        </figure>
-      </div>
+          <figure class="gallery__item">
+            <img src="img/galeria-04.webp"
+              alt="Interior del área de servicio del taller ByB con múltiples vehículos en proceso de reparación"
+              class="gallery__img" loading="lazy" width="900" height="600">
+          </figure>
 
-      <!-- Controles del slider -->
-      <!--
-        CORRECCIÓN W3C: aria-label en <div role="group"> es válido.
-        Los aria-label de los botones individuales se mantienen en los
-        elementos interactivos finales (<button>), que es el lugar correcto.
-      -->
-      <div class="slider__controls" role="group" aria-label="Controles del carrusel">
-        <button class="slider__btn slider__btn--prev" type="button" aria-label="Imagen anterior"
-          data-i18n-aria="gallery_prev">
-          <span aria-hidden="true">&#8592;</span>
-        </button>
+          <figure class="gallery__item">
+            <img src="img/galeria-05.webp"
+              alt="Pickup RAM roja atendida en el área exterior del taller ByB"
+              class="gallery__img" loading="lazy" width="900" height="600">
+          </figure>
 
-        <!-- Indicadores de posición -->
-        <!--
-          CORRECCIÓN W3C: role="tablist" acepta aria-label (ARIA 1.2 §5.28).
-          Los aria-label de los botones dot van en cada <button> (elemento
-          interactivo final) — correcto según ARIA Authoring Practices.
-        -->
-        <div class="slider__dots" role="tablist" aria-label="Seleccionar imagen">
-          <button class="slider__dot slider__dot--active" type="button" aria-pressed="true"
-            aria-label="Imagen 1" data-index="0"></button>
-          <button class="slider__dot" type="button" aria-pressed="false" aria-label="Imagen 2"
-            data-index="1"></button>
-          <button class="slider__dot" type="button" aria-pressed="false" aria-label="Imagen 3"
-            data-index="2"></button>
-          <button class="slider__dot" type="button" aria-pressed="false" aria-label="Imagen 4"
-            data-index="3"></button>
-          <button class="slider__dot" type="button" aria-pressed="false" aria-label="Imagen 5"
-            data-index="4"></button>
+          <figure class="gallery__item">
+            <img src="img/galeria-06.webp"
+              alt="Toyota Hilux REVO gris en área techada del taller junto a otros vehículos atendidos"
+              class="gallery__img" loading="lazy" width="900" height="600">
+          </figure>
+
         </div>
-
-        <button class="slider__btn slider__btn--next" type="button" aria-label="Imagen siguiente"
-          data-i18n-aria="gallery_next">
-          <span aria-hidden="true">&#8594;</span>
-        </button>
       </div>
     </section>
 
@@ -402,7 +362,7 @@
 
           <article class="review-card">
             <header class="review-card__header">
-              <img class="review-card__avatar" src="img/cliente-1.webp" alt="Foto de perfil del cliente 1 del Taller ByB"
+              <img class="review-card__avatar" src="img/cliente-1.webp" alt="Foto de perfil de Yohel Barrantes, cliente del Taller ByB"
                 width="56" height="56" loading="lazy">
               <div class="review-card__meta">
                 <h3 class="review-card__name" data-i18n="review_1_name">
@@ -422,7 +382,7 @@
 
           <article class="review-card">
             <header class="review-card__header">
-              <img class="review-card__avatar" src="img/cliente-2.webp" alt="Foto de perfil del cliente 2 del Taller ByB"
+              <img class="review-card__avatar" src="img/cliente-2.webp" alt="Foto de perfil de Erick Rojas, cliente del Taller ByB"
                 width="56" height="56" loading="lazy">
               <div class="review-card__meta">
                 <h3 class="review-card__name" data-i18n="review_2_name">
@@ -442,7 +402,7 @@
 
           <article class="review-card">
             <header class="review-card__header">
-              <img class="review-card__avatar" src="img/cliente-3.webp" alt="Foto de perfil del cliente 3 del Taller ByB"
+              <img class="review-card__avatar" src="img/cliente-3.webp" alt="Foto de perfil de Adriel Córtes, cliente del Taller ByB"
                 width="56" height="56" loading="lazy">
               <div class="review-card__meta">
                 <h3 class="review-card__name" data-i18n="review_3_name">

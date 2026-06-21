@@ -6,9 +6,8 @@
  *   1. StorageService    — Abstracción segura de localStorage
  *   2. i18n              — Sistema de internacionalización
  *   3. Header            — Comportamiento del encabezado / nav
- *   4. Slider            — Galería con CSS Scroll Snap
- *   5. FormValidator     — Validación accesible del formulario
- *   6. Init              — Orquestador de arranque
+ *   4. FormValidator     — Validación accesible del formulario
+ *   5. Init              — Orquestador de arranque
  *
  * Estándar : Vanilla JS ES6+ (sin librerías externas)
  * Autor    : Iván Barboza Blanco — ISW-521, UTN
@@ -191,8 +190,6 @@ const i18n = (() => {
       // Galería
       gallery_title:    'Nuestra Galería',
       gallery_subtitle: 'Un vistazo a nuestras instalaciones y trabajos realizados.',
-      gallery_prev:     'Imagen anterior',
-      gallery_next:     'Imagen siguiente',
 
       // Reseñas
       reviews_title:    'Lo que dicen nuestros clientes',
@@ -332,8 +329,6 @@ const i18n = (() => {
       // Gallery
       gallery_title:    'Our Gallery',
       gallery_subtitle: 'A look at our facilities and completed work.',
-      gallery_prev:     'Previous image',
-      gallery_next:     'Next image',
 
       // Reviews
       reviews_title:    'What our customers say',
@@ -720,150 +715,9 @@ const Header = (() => {
 })();
 
 
-/* ================================================================
-   MÓDULO 4 — Slider (Galería con CSS Scroll Snap)
-   ----------------------------------------------------------------
-   La pista del slider usa CSS Scroll Snap (scroll-snap-type: x mandatory).
-   El JS no recalcula posiciones ni anima: solo mueve el scrollLeft
-   de la pista y sincroniza los controles. El navegador se encarga
-   de la física del snap.
-
-   Navegación soportada:
-     - Botones Anterior / Siguiente
-     - Puntos indicadores (dots)
-     - Teclas Izquierda / Derecha cuando la pista tiene foco (tabindex="0")
-     - Swipe táctil nativo (lo gestiona el navegador con Scroll Snap)
-     - Autoavance cada 5 s (se pausa con hover / foco / tab-focus)
-   ================================================================ */
-
-const Slider = (() => {
-
-  const AUTOPLAY_INTERVAL = 5000; // ms entre slides en autoavance
-
-  let track, slides, dots, prevBtn, nextBtn;
-  let currentIndex = 0;
-  let totalSlides  = 0;
-  let autoplayTimer = null;
-
-  /** Desplaza la pista al slide indicado y actualiza el estado
-   *  de todos los controles.
-   *  @param {number} index
-   */
-  function goTo(index) {
-    // Normalizar índice con módulo para que sea circular
-    currentIndex = ((index % totalSlides) + totalSlides) % totalSlides;
-
-    // scrollLeft = ancho de un slide × índice
-    // El CSS Scroll Snap se encarga de "clavar" el scroll en el slide.
-    track.scrollLeft = track.offsetWidth * currentIndex;
-
-    // Sincronizar dots
-    dots.forEach((dot, i) => {
-      const isActive = i === currentIndex;
-      dot.classList.toggle('slider__dot--active', isActive);
-      dot.setAttribute('aria-pressed', String(isActive));
-    });
-
-    // Actualizar aria-label de la pista para lectores de pantalla
-    track.setAttribute(
-      'aria-label',
-      `Galería de imágenes del taller — Imagen ${currentIndex + 1} de ${totalSlides}`
-    );
-  }
-
-  function next() { goTo(currentIndex + 1); }
-  function prev() { goTo(currentIndex - 1); }
-
-  /** Autoavance: avanza cada AUTOPLAY_INTERVAL ms. */
-  function startAutoplay() {
-    stopAutoplay();
-    autoplayTimer = setInterval(next, AUTOPLAY_INTERVAL);
-  }
-
-  function stopAutoplay() {
-    if (autoplayTimer) {
-      clearInterval(autoplayTimer);
-      autoplayTimer = null;
-    }
-  }
-
-  function resetAutoplay() {
-    stopAutoplay();
-    startAutoplay();
-  }
-
-  function init() {
-    track   = document.querySelector('.slider');
-    prevBtn = document.querySelector('.slider__btn--prev');
-    nextBtn = document.querySelector('.slider__btn--next');
-    dots    = Array.from(document.querySelectorAll('.slider__dot'));
-    slides  = Array.from(document.querySelectorAll('.slider__slide'));
-
-    if (!track || !slides.length) return;
-
-    totalSlides = slides.length;
-
-    // ── Botones anterior / siguiente ─────────────────────────────
-    prevBtn && prevBtn.addEventListener('click', () => { prev(); resetAutoplay(); });
-    nextBtn && nextBtn.addEventListener('click', () => { next(); resetAutoplay(); });
-
-    // ── Dots ──────────────────────────────────────────────────────
-    dots.forEach((dot, i) => {
-      dot.addEventListener('click', () => { goTo(i); resetAutoplay(); });
-    });
-
-    // ── Navegación por teclado en la pista (tabindex="0") ────────
-    // Las teclas ArrowLeft/ArrowRight permiten navegar sin ratón.
-    // Esto satisface WCAG 2.1 Criterio 2.1.1 (Keyboard).
-    track.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight') { e.preventDefault(); next(); resetAutoplay(); }
-      if (e.key === 'ArrowLeft')  { e.preventDefault(); prev(); resetAutoplay(); }
-    });
-
-    // ── Pausar autoavance con hover o foco ───────────────────────
-    // Criterio WCAG 2.2.2: el usuario debe poder pausar o detener
-    // el contenido que se mueve automáticamente.
-    track.addEventListener('mouseenter', stopAutoplay);
-    track.addEventListener('mouseleave', startAutoplay);
-    track.addEventListener('focusin',    stopAutoplay);
-    track.addEventListener('focusout',   startAutoplay);
-
-    // ── Sincronizar dots al hacer scroll manual (swipe) ──────────
-    // IntersectionObserver detecta qué slide es más visible
-    // para actualizar los dots tras un swipe táctil.
-    const slideObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const idx = slides.indexOf(entry.target);
-            if (idx !== -1 && idx !== currentIndex) {
-              currentIndex = idx;
-              dots.forEach((dot, i) => {
-                const isActive = i === currentIndex;
-                dot.classList.toggle('slider__dot--active', isActive);
-                dot.setAttribute('aria-pressed', String(isActive));
-              });
-            }
-          }
-        });
-      },
-      { root: track, threshold: 0.55 }
-    );
-
-    slides.forEach((slide) => slideObserver.observe(slide));
-
-    // Estado inicial y arranque
-    goTo(0);
-    startAutoplay();
-  }
-
-  return { init };
-
-})();
-
 
 /* ================================================================
-   MÓDULO 5 — FormValidator
+   MÓDULO 4 — FormValidator
    ----------------------------------------------------------------
    Validación accesible del formulario de contacto.
 
@@ -1071,7 +925,7 @@ const FormValidator = (() => {
 
 
 /* ================================================================
-   MÓDULO 6 — Init (Orquestador de arranque)
+   MÓDULO 5 — Init (Orquestador de arranque)
    ----------------------------------------------------------------
    Punto de entrada único del script. Inicializa todos los módulos
    en el orden correcto una vez que el DOM está completamente cargado.
@@ -1103,10 +957,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 3. Header — navegación y comportamiento de scroll
   Header.init();
 
-  // 4. Slider — galería de imágenes
-  Slider.init();
-
-  // 5. FormValidator — validación del formulario de contacto
+  // 4. FormValidator — validación del formulario de contacto
   FormValidator.init();
 
 });

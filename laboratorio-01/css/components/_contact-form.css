@@ -42,7 +42,7 @@
 }
 
 .form-required {
-  color: #FF8A80;
+  color: var(--clr-error-light);
   /* Rojo claro — 4.6:1 sobre overlay oscuro ✅ */
   margin-left: var(--sp-1);
 }
@@ -94,7 +94,7 @@
 .form-input:user-invalid,
 .form-select:user-invalid,
 .form-textarea:user-invalid {
-  border-color: #C62828;
+  border-color: var(--clr-error-dark);
 }
 
 .form-textarea {
@@ -120,11 +120,16 @@
 .form-error {
   font-size: var(--fs-xs);
   font-weight: var(--fw-medium);
-  color: #FFCDD2;
+  color: var(--clr-error-pale);
   /* Rojo muy pálido sobre oscuro — alto contraste ✅ */
   line-height: var(--lh-snug);
   min-height: 1em;
   /* Reserva espacio para evitar saltos de layout */
+  visibility: hidden; /* oculto hasta que JS añada .form-error--visible */
+}
+
+.form-error--visible {
+  visibility: visible;
 }
 
 /* Estado de envío del formulario */
@@ -140,12 +145,12 @@
 
 .form-status--success {
   background-color: rgba(39, 174, 96, 0.20);
-  color: #A9DFBF;
+  color: var(--clr-success-text);
   border: 1px solid rgba(39, 174, 96, 0.40);
 }
 
 .form-status--error {
   background-color: rgba(192, 57, 43, 0.20);
-  color: #FFCDD2;
+  color: var(--clr-error-pale);
   border: 1px solid rgba(192, 57, 43, 0.40);
 }

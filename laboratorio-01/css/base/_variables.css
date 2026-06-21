@@ -16,8 +16,6 @@
   /* Rojo mecánico — CTA, énfasis              */
   --clr-accent-hover: #A93226;
   /* Rojo más oscuro — hover sobre accent       */
-  --clr-accent-light: #F9EBEA;
-  /* Rojo muy pálido — fondos de badge          */
   --clr-border: #DEDAD4;
   /* Borde sutil sobre crema                    */
   --clr-border-dark: #3D3D3D;
@@ -40,6 +38,16 @@
   --clr-social-icon: #D0CEC8;
   --clr-social-hover: #FFFFFF;
 
+  /* Colores de estado — formulario */
+  --clr-error-light: #FF8A80;
+  /* Rojo claro — asterisco de campo obligatorio (4.6:1 sobre overlay) */
+  --clr-error-pale:  #FFCDD2;
+  /* Rojo muy pálido — texto de error y horario cerrado     */
+  --clr-error-dark:  #C62828;
+  /* Rojo oscuro — borde de campo inválido (:user-invalid)  */
+  --clr-success-text: #A9DFBF;
+  /* Verde pálido — mensaje de éxito de formulario          */
+
   /* Overlays — aplicados sobre imágenes de fondo */
   --overlay-about: rgba(0, 0, 0, 0.72);
   /* Texto inv. → ≥8.5:1 sobre fondo blanco puro ✅  */
@@ -51,7 +59,6 @@
   /* ── Tipografía ─────────────────────────────────────────────── */
   --font-display: 'Georgia', 'Times New Roman', serif;
   --font-body: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'Courier New', Courier, monospace;
 
   /* Escala tipográfica (clamp: mín → fluido → máx) */
   --fs-xs: clamp(0.75rem, 1.5vw, 0.875rem);

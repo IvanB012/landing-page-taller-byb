@@ -66,8 +66,8 @@ const StorageService = (() => {
     try {
       const value = localStorage.getItem(key);
       return value !== null ? value : defaultValue;
-    } catch (_error) {
-      console.warn(`[StorageService] No se pudo leer la clave "${key}".`, _error);
+    } catch (error) {
+      console.warn(`[StorageService] No se pudo leer la clave "${key}".`, error);
       return defaultValue;
     }
   }
@@ -81,8 +81,8 @@ const StorageService = (() => {
     try {
       localStorage.setItem(key, String(value));
       return true;
-    } catch (_error) {
-      console.warn(`[StorageService] No se pudo escribir la clave "${key}".`, _error);
+    } catch (error) {
+      console.warn(`[StorageService] No se pudo escribir la clave "${key}".`, error);
       return false;
     }
   }
@@ -95,8 +95,8 @@ const StorageService = (() => {
     try {
       localStorage.removeItem(key);
       return true;
-    } catch (_error) {
-      console.warn(`[StorageService] No se pudo eliminar la clave "${key}".`, _error);
+    } catch (error) {
+      console.warn(`[StorageService] No se pudo eliminar la clave "${key}".`, error);
       return false;
     }
   }
@@ -174,12 +174,8 @@ const i18n = (() => {
       service_2_desc:  'Mantenimiento preventivo con aceites de la más alta calidad y reemplazo completo de filtros.',
       service_3_title: 'Mecánica General',
       service_3_desc:  'Reparación de motor, frenos, suspensión, transmisión y todos los sistemas mecánicos del vehículo.',
-      service_4_title: 'Aire Acondicionado',
-      service_4_desc:  'Revisión, recarga y reparación del sistema de climatización para viajes siempre confortables.',
-      service_5_title: 'Sistema Eléctrico',
-      service_5_desc:  'Diagnóstico y corrección de fallas eléctricas: batería, alternador, arranque y cableado general.',
-      service_6_title: 'Alineación y Balanceo',
-      service_6_desc:  'Alineación computarizada de dirección y balanceo de ruedas para mayor seguridad y durabilidad de sus llantas.',
+      service_4_title: 'Sistema Eléctrico',
+      service_4_desc:  'Diagnóstico y corrección de fallas eléctricas: batería, alternador, arranque y cableado general.',
 
       // Nosotros
       about_title:  'Quiénes Somos',
@@ -230,7 +226,8 @@ const i18n = (() => {
       form_subject_quote:   'Solicitar presupuesto',
       form_subject_other:   'Otro',
 
-      form_submit: 'Enviar mensaje',
+      form_submit:      'Enviar mensaje',
+      form_submitting:  'Enviando…',
 
       // Mensajes de validación del formulario
       form_error_name:    'Por favor ingrese su nombre completo.',
@@ -313,12 +310,8 @@ const i18n = (() => {
       service_2_desc:  'Preventive maintenance using the highest-quality oils and full filter replacement.',
       service_3_title: 'General Mechanics',
       service_3_desc:  'Engine, brake, suspension, transmission and all mechanical system repairs.',
-      service_4_title: 'Air Conditioning',
-      service_4_desc:  'Inspection, recharge and repair of the climate system for always-comfortable rides.',
-      service_5_title: 'Electrical System',
-      service_5_desc:  'Diagnosis and repair of electrical faults: battery, alternator, starter and general wiring.',
-      service_6_title: 'Wheel Alignment & Balancing',
-      service_6_desc:  'Computerized steering alignment and wheel balancing for greater safety and tire longevity.',
+      service_4_title: 'Electrical System',
+      service_4_desc:  'Diagnosis and repair of electrical faults: battery, alternator, starter and general wiring.',
 
       // About
       about_title:  'Who We Are',
@@ -369,7 +362,8 @@ const i18n = (() => {
       form_subject_quote:   'Request a quote',
       form_subject_other:   'Other',
 
-      form_submit: 'Send message',
+      form_submit:      'Send message',
+      form_submitting:  'Sending…',
 
       // Form validation messages
       form_error_name:    'Please enter your full name.',
@@ -426,9 +420,8 @@ const i18n = (() => {
    *  @returns {string} — 'es' | 'en'
    */
   function detectBrowserLang() {
-    // navigator.language devuelve 'es-CR', 'en-US', etc.
-    // Tomamos solo los dos primeros caracteres.
-    const browserLang = (navigator.language || navigator.userLanguage || '').slice(0, 2).toLowerCase();
+    // navigator.language devuelve 'es-CR', 'en-US', etc.; tomamos los dos primeros caracteres.
+    const browserLang = (navigator.language || '').slice(0, 2).toLowerCase();
     return SUPPORTED_LANGS.includes(browserLang) ? browserLang : DEFAULT_LANG;
   }
 
@@ -818,6 +811,7 @@ const FormValidator = (() => {
     const errorEl = document.getElementById(`${field.id.replace('field-', '')}-error`);
     if (errorEl) {
       errorEl.textContent = isValid ? '' : i18n.t(rule.errorKey);
+      errorEl.classList.toggle('form-error--visible', !isValid);
     }
 
     return isValid;
@@ -868,6 +862,7 @@ const FormValidator = (() => {
     });
     form.querySelectorAll('.form-error').forEach((el) => {
       el.textContent = '';
+      el.classList.remove('form-error--visible');
     });
 
     const statusEl = document.getElementById('form-status');
@@ -935,7 +930,7 @@ const FormValidator = (() => {
       const submitBtn = form.querySelector('[type="submit"]');
       const originalText = submitBtn.textContent;
       submitBtn.disabled = true;
-      submitBtn.textContent = i18n.getLang() === 'es' ? 'Enviando…' : 'Sending…';
+      submitBtn.textContent = i18n.t('form_submitting');
 
       try {
         const success = await submitForm();

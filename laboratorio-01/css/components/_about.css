@@ -4,7 +4,7 @@
 
 .section--about {
   position: relative;
-  padding-block: var(--sp-24);
+  padding-block: var(--sp-24); /* Mayor padding: sección con overlay/parallax */
 
   background-image: url('../../img/seccion-nosotros.webp');
   background-size: cover;
@@ -58,7 +58,7 @@
   margin-bottom: var(--sp-6);
 }
 
-/* Línea decorativa roja */
+/* Decorador rojo idéntico al de .section__title::after — mantener en sincronía */
 .about__title::after {
   content: '';
   display: block;

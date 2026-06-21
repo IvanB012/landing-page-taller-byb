@@ -155,7 +155,7 @@
           el <h2 id="services-heading"> enlazado mediante aria-labelledby en
           el <section> padre.
         -->
-        <div class="services-grid" role="list">
+        <div class="services-grid">
 
           <!-- Tarjeta 1: Diagnóstico Computarizado -->
           <!-- Pictograma SVG monocromático: lupa / búsqueda — coherente con los iconos de la sección contacto -->
@@ -243,10 +243,10 @@
                 <polyline points="13,11 11,13 13,13 11,16"/>
               </svg>
             </div>
-            <h3 class="service-card__title" data-i18n="service_5_title">
+            <h3 class="service-card__title" data-i18n="service_4_title">
               Sistema Eléctrico
             </h3>
-            <p class="service-card__desc" data-i18n="service_5_desc">
+            <p class="service-card__desc" data-i18n="service_4_desc">
               Diagnóstico y corrección de fallas eléctricas: batería, alternador,
               arranque y cableado general.
             </p>
@@ -279,7 +279,7 @@
           Contamos con técnicos certificados, equipos de diagnóstico de última
           generación y un compromiso firme con los tiempos de entrega acordados.
         </p>
-        <a class="btn btn--outline" href="#contacto" data-i18n="about_cta">
+        <a class="btn btn--secondary" href="#contacto" data-i18n="about_cta">
           Contáctenos
         </a>
       </div>
@@ -321,7 +321,7 @@
 
           <figure class="gallery__item">
             <img src="img/galeria-04.webp"
-              alt="Interior del área de servicio del taller ByB con múltiples vehículos en proceso de reparación"
+              alt="Chevrolet S10 azul con capó abierto mostrando el motor durante revisión en el taller ByB"
               class="gallery__img" loading="lazy" width="900" height="600">
           </figure>
 
@@ -333,7 +333,7 @@
 
           <figure class="gallery__item">
             <img src="img/galeria-06.webp"
-              alt="Toyota Hilux REVO gris en área techada del taller junto a otros vehículos atendidos"
+              alt="ATV Can-Am Renegade con protector delantero amarillo y llantas todo terreno en el taller ByB"
               class="gallery__img" loading="lazy" width="900" height="600">
           </figure>
 
@@ -360,7 +360,7 @@
           CORRECCIÓN W3C: Igual que services-grid, se elimina aria-label del
           <div role="list">. El contexto lo provee el <section aria-labelledby>.
         -->
-        <div class="reviews-grid" role="list">
+        <div class="reviews-grid">
 
           <article class="review-card">
             <header class="review-card__header">
@@ -470,8 +470,7 @@
                 que los validadores no los marquen como elementos de texto vacíos.
                 El texto se oculta visualmente cuando no hay error mediante CSS/JS.
               -->
-              <span class="form-error" id="name-error" role="alert" aria-live="polite"
-                data-i18n="form_error_name">Por favor, ingrese su nombre completo.</span>
+              <span class="form-error" id="name-error" role="alert" aria-live="polite"></span>
             </div>
 
             <!-- Correo electrónico -->
@@ -482,8 +481,7 @@
               <input class="form-input" type="email" id="field-email" name="email" autocomplete="email" required
                 aria-describedby="email-error" data-i18n-placeholder="form_placeholder_email"
                 placeholder="correo@ejemplo.com">
-              <span class="form-error" id="email-error" role="alert" aria-live="polite"
-                data-i18n="form_error_email">Por favor, ingrese un correo electrónico válido.</span>
+              <span class="form-error" id="email-error" role="alert" aria-live="polite"></span>
             </div>
 
             <!-- Teléfono (opcional) -->
@@ -513,8 +511,7 @@
                 <option value="presupuesto" data-i18n="form_subject_quote">Solicitar presupuesto</option>
                 <option value="otro" data-i18n="form_subject_other">Otro</option>
               </select>
-              <span class="form-error" id="subject-error" role="alert" aria-live="polite"
-                data-i18n="form_error_subject">Por favor, seleccione un asunto.</span>
+              <span class="form-error" id="subject-error" role="alert" aria-live="polite"></span>
             </div>
 
             <!-- Mensaje -->
@@ -525,8 +522,7 @@
               <textarea class="form-textarea" id="field-message" name="message" rows="5" required
                 aria-describedby="message-error" data-i18n-placeholder="form_placeholder_message"
                 placeholder="Describa brevemente el servicio que necesita o su consulta…"></textarea>
-              <span class="form-error" id="message-error" role="alert" aria-live="polite"
-                data-i18n="form_error_message">Por favor, escriba su mensaje.</span>
+              <span class="form-error" id="message-error" role="alert" aria-live="polite"></span>
             </div>
 
             <!-- Botón de envío -->

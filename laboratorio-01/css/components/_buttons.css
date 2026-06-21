@@ -54,19 +54,6 @@
   color: var(--clr-dark);
 }
 
-/* Botón outline: contorno rojo (sobre fondos claros) */
-.btn--outline {
-  background-color: transparent;
-  color: var(--clr-text-inverted);
-  border-color: var(--clr-text-inverted);
-}
-
-.btn--outline:hover,
-.btn--outline:focus-visible {
-  background-color: var(--clr-text-inverted);
-  color: var(--clr-dark);
-}
-
 /* Modificador: ancho completo */
 .btn--full {
   width: 100%;

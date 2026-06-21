@@ -4,7 +4,7 @@
 
 .section--gallery {
   background-color: var(--clr-dark);
-  padding-block: var(--sp-20);
+  padding-block: var(--sp-20); /* Padding intermedio: sección oscura sin imagen de fondo */
 }
 
 .section--gallery .section__title,

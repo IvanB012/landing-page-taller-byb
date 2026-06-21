@@ -4,7 +4,7 @@
 
 .section--contact {
   position: relative;
-  padding-block: var(--sp-20);
+  padding-block: var(--sp-20); /* Mayor padding: sección con imagen de fondo y overlay */
 
   background-image: url('../../img/seccion-contacto.webp');
   background-size: cover;
@@ -143,7 +143,7 @@
 }
 
 .hours-list__time--closed {
-  color: #FFCDD2;
+  color: var(--clr-error-pale);
   font-weight: var(--fw-medium);
 }
 

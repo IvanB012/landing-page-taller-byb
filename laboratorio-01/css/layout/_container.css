@@ -1,6 +1,4 @@
-/* ================================================================
-   5. CONTENEDOR REUTILIZABLE
-   ================================================================ */
+/* CONTENEDOR REUTILIZABLE */
 
 .container {
   width: 100%;
@@ -17,9 +15,7 @@
 }
 
 
-/* ================================================================
-   7. UTILIDADES DE SECCIÓN
-   ================================================================ */
+/* UTILIDADES DE SECCIÓN */
 
 /* Todas las secciones reciben padding vertical consistente */
 .section {

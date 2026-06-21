@@ -1,14 +1,7 @@
-/* ================================================================
-   10. SECCIÓN SERVICIOS — Modo oscuro
-   Fondo: --clr-dark (#1A1A1A)
-   Tarjetas: --clr-dark-mid (#2C2C2C) — efecto de elevación visual
-   Texto en tarjetas verificado ≥ 4.5:1 sobre #2C2C2C (WCAG AA):
-     --clr-text-inverted (#F5F4F0) → 16.7:1 ✅
-     --clr-social-icon   (#D0CEC8) → 9.1:1  ✅
-   ================================================================ */
+/* SECCIÓN SERVICIOS — fondo oscuro. Ratios sobre #2C2C2C:
+   --clr-text-inverted 16.7:1 ✅  --clr-social-icon 9.1:1 ✅ (WCAG AA) */
 
 .section--services {
-  /* CAMBIO VISUAL: fondo oscuro en lugar de crema */
   background-color: var(--clr-dark);
 }
 
@@ -36,9 +29,7 @@
 }
 
 @media (min-width: 960px) {
-  /* Con 4 tarjetas (tras eliminar Aire Acondicionado y Alineación/Balanceo),
-     se usa 2 columnas para lograr una cuadrícula 2×2 visualmente equilibrada.
-     Antes eran 3 columnas para 6 tarjetas (2 filas de 3). */
+  /* 4 tarjetas → cuadrícula 2×2 más equilibrada que 3 columnas con hueco */
   .services-grid {
     grid-template-columns: repeat(2, 1fr);
     max-width: 820px;
@@ -47,9 +38,7 @@
 }
 
 .service-card {
-  /* CAMBIO VISUAL: tarjeta en --clr-dark-mid para elevación sobre --clr-dark */
   background-color: var(--clr-dark-mid);
-  /* Borde sutil que delimita la tarjeta sobre el fondo oscuro */
   border: 1px solid var(--clr-border-dark);
   border-radius: var(--radius-lg);
   padding: var(--sp-8) var(--sp-6);
@@ -67,8 +56,7 @@
 }
 
 .service-card__icon {
-  /* SVG monocromático: se centra con flex, hereda color de acento
-     para que el stroke="currentColor" del SVG tome --clr-accent. */
+  /* currentColor hereda --clr-accent para el stroke del SVG */
   display: flex;
   align-items: center;
   justify-content: center;

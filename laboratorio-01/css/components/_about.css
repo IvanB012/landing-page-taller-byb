@@ -1,6 +1,4 @@
-/* ================================================================
-   11. SECCIÓN NOSOTROS — Fondo con imagen + overlay WCAG AA
-   ================================================================ */
+/* SECCIÓN NOSOTROS — fondo de imagen con overlay WCAG AA */
 
 .section--about {
   position: relative;
@@ -15,10 +13,7 @@
   background-color: var(--clr-dark);
 }
 
-/* Overlay oscuro:
-   var(--overlay-about) = rgba(0,0,0,0.72)
-   Garantiza ratio ≥8.5:1 para --clr-text-inverted (#F5F4F0) incluso sobre
-   fondo blanco puro (peor caso: vehículo blanco en imagen) ✅ WCAG AA */
+/* --overlay-about rgba(0,0,0,0.72) garantiza ≥8.5:1 sobre peor caso ✅ WCAG AA */
 .about__overlay {
   position: absolute;
   inset: 0;

@@ -1,6 +1,4 @@
-/* ================================================================
-   2. RESET Y BASE GLOBAL
-   ================================================================ */
+/* RESET Y BASE GLOBAL */
 
 /* Box-sizing universal */
 *,
@@ -17,6 +15,8 @@ html {
   /* 16px — respeta preferencias del usuario */
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  background-color: var(--clr-bg-body);
+  overscroll-behavior: none;
 }
 
 /* Respeto de preferencias de movimiento reducido */
@@ -45,6 +45,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  overscroll-behavior: none;
 }
 
 /* Imágenes responsivas por defecto */

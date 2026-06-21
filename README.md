@@ -1,1 +1,112 @@
-# landing-page-taller-byb
+# Taller Mecánico ByB — Landing Page
+
+Landing page responsiva para un taller mecánico automotriz ubicado en San Carlos, Costa Rica. El sitio presenta los servicios del negocio, galería de instalaciones, testimonios de clientes y un formulario de contacto funcional, con soporte bilingüe (español/inglés) y accesibilidad WCAG 2.1 AA.
+
+---
+
+## Información académica
+
+| Campo | Detalle |
+|---|---|
+| **Universidad** | Universidad Técnica Nacional (UTN) |
+| **Curso** | Programación en Ambiente Web I — ISW-521 |
+| **Laboratorio** | Laboratorio #1 — Landing Page Responsiva |
+| **Estudiante** | Iván Barboza Blanco |
+
+---
+
+## Tecnologías utilizadas
+
+- **HTML5 semántico** — estructura con `<header>`, `<nav>`, `<main>`, `<section>`, `<footer>`, `<address>`, `<dl>`, `<figure>`
+- **CSS3 nativo** — arquitectura modular (base / layout / components / responsive), Flexbox y CSS Grid Layout
+- **JavaScript nativo ES6+** — patrón IIFE, sin librerías ni frameworks externos
+- **Web Storage API** — `localStorage` para persistencia de preferencia de idioma entre sesiones
+- **Fetch API** — envío asincrónico del formulario de contacto a Airtable
+
+> Sin frameworks CSS (Bootstrap, Tailwind, etc.) ni librerías JavaScript externas.
+
+---
+
+## Estructura del proyecto
+
+```
+laboratorio-01/
+├── index.html
+├── css/
+│   ├── main.css                  # Punto de entrada; importa todos los módulos
+│   ├── base/
+│   │   ├── _reset.css            # Reset, html/body, overscroll-behavior
+│   │   ├── _variables.css        # Tokens de diseño (colores, tipografía, espaciado)
+│   │   └── _utilities.css        # Skip link, visually-hidden, focus-visible
+│   ├── layout/
+│   │   ├── _container.css        # Contenedor central responsivo
+│   │   ├── _header.css           # Shell del encabezado y nav desktop
+│   │   └── _footer.css           # Pie de página
+│   ├── components/
+│   │   ├── _nav.css              # Menú hamburguesa móvil y nav principal
+│   │   ├── _hero.css             # Sección de inicio con imagen de fondo
+│   │   ├── _buttons.css          # Variantes de botón (primario, secundario, ghost)
+│   │   ├── _services.css         # Cuadrícula de tarjetas de servicios
+│   │   ├── _about.css            # Sección "Quiénes somos"
+│   │   ├── _gallery.css          # Cuadrícula de galería fotográfica
+│   │   ├── _reviews.css          # Tarjetas de testimonios
+│   │   ├── _contact-form.css     # Formulario de contacto
+│   │   └── _contact-info.css     # Tarjetas glassmorphism de información de contacto
+│   └── responsive/
+│       └── _breakpoints-summary.css  # Referencia de breakpoints del proyecto
+├── js/
+│   └── main.js                   # Módulos: StorageService, i18n, Header, FormValidator, Init
+└── img/                          # Imágenes en formato WebP optimizado
+```
+
+---
+
+## Características principales
+
+- **Diseño responsivo Mobile-First** — 6 breakpoints (480 px, 600 px, 640 px, 768 px, 960 px, 1024 px); el layout se adapta desde móvil hasta escritorio amplio sin ningún framework
+- **Soporte bilingüe ES / EN** — sistema de internacionalización con diccionario plano; detecta automáticamente el idioma del navegador y persiste la elección en `localStorage`
+- **Accesibilidad WCAG 2.1 AA** — contraste verificado en todas las secciones, navegación completa por teclado, atributos ARIA, skip link y región aria-live para notificaciones dinámicas
+- **Formulario de contacto con validación JS** — validación en tiempo real controlada por JavaScript (`novalidate`), retroalimentación mediante `aria-invalid` y mensajes en región `aria-live`; el envío se realiza de forma asincrónica sin recargar la página
+- **Galería fotográfica con CSS Grid** — cuadrícula adaptativa (1 → 2 → 3 columnas) con transición hover y relación de aspecto fija (3:2)
+- **Navegación con IntersectionObserver** — el enlace activo del menú se actualiza automáticamente según la sección visible en pantalla
+- **Menú hamburguesa accesible** — apertura/cierre con teclado (tecla Escape), gestión de `aria-expanded` y cierre al hacer clic fuera del menú
+- **Imágenes optimizadas** — todas las imágenes en formato WebP; `aspect-ratio` y `object-fit: cover` garantizan proporciones consistentes
+
+---
+
+## Cómo visualizar el proyecto
+
+### Localmente (recomendado)
+
+Se recomienda utilizar la extensión **Live Server** de VS Code en lugar de abrir el archivo directamente desde el explorador de archivos. La apertura directa (`file://`) puede bloquear la carga de recursos por políticas de seguridad del navegador.
+
+1. Abrir la carpeta raíz del repositorio en VS Code.
+2. Hacer clic derecho sobre `laboratorio-01/index.html` → **Open with Live Server**.
+3. El sitio se abrirá en `http://127.0.0.1:5500/laboratorio-01/`.
+
+### Sitio desplegado
+
+> **GitHub Pages:** `https://ivanb012.github.io/landing-page-taller-byb/laboratorio-01/`
+> *(Actualizar este enlace una vez que GitHub Pages esté habilitado en la configuración del repositorio.)*
+
+---
+
+## Accesibilidad
+
+El sitio implementa las siguientes prácticas de accesibilidad:
+
+- **Contraste de color**: todos los pares texto/fondo cumplen la relación mínima de 4.5:1 (WCAG 2.1 AA); las secciones oscuras han sido verificadas individualmente con ratios documentados en el código
+- **Navegación por teclado**: todos los elementos interactivos son alcanzables con Tab; el foco visible está garantizado mediante `:focus-visible` en todos los componentes
+- **ARIA**: `aria-label` en elementos de navegación, `aria-expanded` en el botón hamburguesa, `aria-invalid` en campos de formulario, regiones `aria-live` para errores y confirmaciones
+- **Texto alternativo**: todas las imágenes incluyen atributo `alt` descriptivo; las imágenes decorativas tienen `alt=""` o se implementan como fondos CSS
+- **Skip link**: enlace "Saltar al contenido principal" visible al recibir foco, conforme a WCAG 2.4.1
+
+---
+
+## Formulario de contacto
+
+El formulario de contacto envía los datos directamente a una base de datos en Airtable mediante la Fetch API nativa del navegador. Esta integración fue implementada bajo indicación del docente como parte de los requerimientos del laboratorio. El campo de teléfono es opcional; los demás campos (nombre, correo, asunto y mensaje) son obligatorios y se validan antes del envío.
+
+---
+
+*Proyecto desarrollado con fines académicos para el curso ISW-521, Programación en Ambiente Web I — UTN.*

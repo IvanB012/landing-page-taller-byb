@@ -1,50 +1,12 @@
-/**
- * ================================================================
- * TALLER MECÁNICO ByB — Script principal
- * Archivo : js/main.js
- * Módulos :
- *   1. StorageService    — Abstracción segura de localStorage
- *   2. i18n              — Sistema de internacionalización
- *   3. Header            — Comportamiento del encabezado / nav
- *   4. FormValidator     — Validación accesible del formulario
- *   5. Init              — Orquestador de arranque
- *
- * Estándar : Vanilla JS ES6+ (sin librerías externas)
- * Autor    : Iván Barboza Blanco — ISW-521, UTN
- * ================================================================
- */
-
 'use strict';
 
-/* ================================================================
-   MÓDULO 1 — StorageService
-   ----------------------------------------------------------------
-   Encapsula todas las operaciones sobre localStorage en un único
-   objeto. El motivo de esta abstracción es doble:
-
-   1. DEFENSA TÉCNICA DE ELECCIÓN: localStorage persiste entre
-      sesiones (incluso después de cerrar el navegador), a diferencia
-      de sessionStorage que se borra al cerrar la pestaña. La
-      preferencia de idioma debe sobrevivir recargas y reaperturas,
-      por lo que localStorage es la elección correcta.
-
-   2. CONTROL DE EXCEPCIONES: localStorage puede lanzar excepciones
-      en tres escenarios reales:
-        a) Modo incógnito en Safari (bloqueo completo de acceso).
-        b) Cuota de almacenamiento superada (setItem lanza
-           DOMException: QuotaExceededError).
-        c) Políticas de seguridad restrictivas (iframes, extensiones).
-      Todos los métodos atrapan esos errores y degradan con gracia:
-      el sitio funciona normalmente pero sin persistencia.
-   ================================================================ */
+/* MÓDULO 1 — StorageService: abstracción de localStorage con degradación elegante.
+   localStorage persiste entre sesiones (sessionStorage no); el try/catch cubre
+   incógnito Safari, QuotaExceededError y políticas restrictivas de iframes. */
 
 const StorageService = (() => {
 
-  /** Verifica si localStorage está disponible en este entorno.
-   *  La verificación no puede hacerse solo con typeof, porque en
-   *  algunos navegadores el objeto existe pero lanza al accederse.
-   *  @returns {boolean}
-   */
+  /** @returns {boolean} — false en incógnito Safari / políticas restrictivas */
   function isAvailable() {
     try {
       const testKey = '__byb_storage_test__';
@@ -56,12 +18,7 @@ const StorageService = (() => {
     }
   }
 
-  /** Lee un valor del almacenamiento.
-   *  @param {string} key
-   *  @param {*} defaultValue — Valor de retorno si la clave no existe
-   *                            o si el almacenamiento no está disponible.
-   *  @returns {string|*}
-   */
+  /** @param {string} key @param {*} [defaultValue] @returns {string|*} */
   function get(key, defaultValue = null) {
     try {
       const value = localStorage.getItem(key);
@@ -72,11 +29,7 @@ const StorageService = (() => {
     }
   }
 
-  /** Escribe un valor en el almacenamiento.
-   *  @param {string} key
-   *  @param {string} value
-   *  @returns {boolean} — true si la escritura fue exitosa.
-   */
+  /** @param {string} key @param {string} value @returns {boolean} */
   function set(key, value) {
     try {
       localStorage.setItem(key, String(value));
@@ -87,10 +40,7 @@ const StorageService = (() => {
     }
   }
 
-  /** Elimina una clave del almacenamiento.
-   *  @param {string} key
-   *  @returns {boolean}
-   */
+  /** @param {string} key @returns {boolean} */
   function remove(key) {
     try {
       localStorage.removeItem(key);
@@ -107,22 +57,8 @@ const StorageService = (() => {
 })();
 
 
-/* ================================================================
-   MÓDULO 2 — i18n (Internacionalización)
-   ----------------------------------------------------------------
-   Sistema de traducción basado en objetos de diccionario planos.
-   Cada clave de traducción (token) coincide exactamente con el
-   atributo data-i18n del HTML correspondiente.
-
-   Flujo de aplicación:
-     1. Se lee el idioma guardado en localStorage (clave: 'byb_lang').
-     2. Si no hay valor, se detecta el idioma del navegador.
-     3. Se aplica el diccionario al DOM: textContent para nodos de
-        texto, placeholder y aria-label para atributos.
-     4. Se actualiza el atributo lang del elemento <html> para que
-        los lectores de pantalla anuncien el idioma correcto.
-     5. Los botones ES/EN actualizan su estado aria-pressed.
-   ================================================================ */
+/* MÓDULO 2 — i18n: diccionarios planos keyed por data-i18n; persiste idioma en localStorage.
+   Flujo: leer localStorage → fallback idioma del navegador → DEFAULT_LANG. */
 
 const i18n = (() => {
 
@@ -135,9 +71,7 @@ const i18n = (() => {
 
   const translations = {
 
-    /* ----------------------------------------------------------
-       ESPAÑOL
-       ---------------------------------------------------------- */
+    /* — ESPAÑOL — */
     es: {
       // Logo
       logo_alt: 'Logotipo oficial de Taller Mecánico ByB',
@@ -271,9 +205,7 @@ const i18n = (() => {
       footer_copy:    '© 2026 Taller Mecánico ByB. Todos los derechos reservados.',
     },
 
-    /* ----------------------------------------------------------
-       ENGLISH
-       ---------------------------------------------------------- */
+    /* — ENGLISH — */
     en: {
       // Logo
       logo_alt: 'Official logo of ByB Mechanic Workshop',
@@ -414,23 +346,14 @@ const i18n = (() => {
 
   /* ── Métodos privados ───────────────────────────────────────── */
 
-  /** Detecta el idioma preferido del navegador, acotado a los
-   *  idiomas soportados. Útil como fallback cuando no hay valor
-   *  guardado en localStorage.
-   *  @returns {string} — 'es' | 'en'
-   */
+  /** Fallback a idioma del navegador si localStorage no tiene valor. @returns {'es'|'en'} */
   function detectBrowserLang() {
     // navigator.language devuelve 'es-CR', 'en-US', etc.; tomamos los dos primeros caracteres.
     const browserLang = (navigator.language || '').slice(0, 2).toLowerCase();
     return SUPPORTED_LANGS.includes(browserLang) ? browserLang : DEFAULT_LANG;
   }
 
-  /** Aplica una traducción (textContent) a todos los elementos del
-   *  DOM que tienen el atributo data-i18n con la clave dada.
-   *  Se actualiza el nodo de texto directamente para evitar
-   *  sobreescribir nodos hijos (ej.: spans de íconos dentro de botones).
-   *  @param {string} lang
-   */
+  /** Aplica el diccionario al DOM (text, placeholder, alt, aria-label, lang). @param {string} lang */
   function applyTranslations(lang) {
     const dict = translations[lang];
     if (!dict) return;
@@ -439,9 +362,7 @@ const i18n = (() => {
     document.querySelectorAll('[data-i18n]').forEach((el) => {
       const key = el.getAttribute('data-i18n');
       if (dict[key] !== undefined) {
-        // innerHTML permite usar <br> en la dirección pero sigue siendo
-        // contenido controlado (viene de nuestro propio diccionario),
-        // no de input del usuario — no hay riesgo de XSS aquí.
+        // innerHTML seguro: contenido controlado del diccionario, no de input de usuario
         el.innerHTML = dict[key];
       }
     });
@@ -471,18 +392,11 @@ const i18n = (() => {
     });
 
     // ── Atributo lang del elemento raíz ──────────────────────────
-    // Criterio WCAG 3.1.1: el idioma de la página debe estar
-    // indicado mediante el atributo lang de <html>. Los lectores
-    // de pantalla lo usan para seleccionar el motor de síntesis de
-    // voz correcto.
+    // WCAG 3.1.1: lang de <html> permite a lectores de pantalla seleccionar motor de voz
     document.documentElement.setAttribute('lang', lang);
   }
 
-  /** Actualiza el estado visual y ARIA de los botones de idioma.
-   *  aria-pressed="true/false" comunica el estado de un toggle
-   *  button a tecnologías asistivas.
-   *  @param {string} lang
-   */
+  /** Actualiza aria-pressed y clase activa en los botones de idioma. @param {string} lang */
   function updateLangButtons(lang) {
     document.querySelectorAll('.lang-btn').forEach((btn) => {
       const isActive = btn.dataset.lang === lang;
@@ -493,9 +407,7 @@ const i18n = (() => {
 
   /* ── API pública ────────────────────────────────────────────── */
 
-  /** Inicializa el módulo: carga el idioma guardado o detectado,
-   *  aplica las traducciones y registra los event listeners.
-   */
+  /** Carga idioma guardado o detectado, aplica traducciones y registra listeners. */
   function init() {
     // Prioridad: 1) localStorage, 2) idioma del navegador, 3) DEFAULT_LANG
     const saved = StorageService.get(STORAGE_KEY);
@@ -525,9 +437,7 @@ const i18n = (() => {
     updateLangButtons(lang);
     StorageService.set(STORAGE_KEY, lang);
 
-    // Anunciar el cambio a lectores de pantalla mediante una región
-    // aria-live existente (usaremos el form-status si está vacío,
-    // o creamos un nodo temporal de anuncio).
+    // Anunciar el cambio de idioma a lectores de pantalla
     announceToScreenReader(
       lang === 'es' ? 'Idioma cambiado a Español' : 'Language changed to English'
     );
@@ -541,7 +451,6 @@ const i18n = (() => {
   }
 
   /** Devuelve la traducción de una clave para el idioma activo.
-   *  Útil para obtener mensajes de error en validación JS.
    *  @param {string} key
    *  @returns {string}
    */
@@ -554,13 +463,7 @@ const i18n = (() => {
 })();
 
 
-/* ================================================================
-   UTILIDAD GLOBAL — announceToScreenReader
-   ----------------------------------------------------------------
-   Crea un nodo aria-live="polite" temporal para anunciar mensajes
-   que no están asociados a ningún elemento visible del DOM.
-   Se usa para anunciar cambios de idioma y otras acciones JS.
-   ================================================================ */
+/* Crea un nodo aria-live temporal para anunciar mensajes JS sin elemento visual asociado */
 
 function announceToScreenReader(message) {
   const announcer = document.createElement('div');
@@ -583,8 +486,7 @@ function announceToScreenReader(message) {
 
   document.body.appendChild(announcer);
 
-  // El navegador necesita un tick para registrar el nodo antes
-  // de que se le asigne texto, de lo contrario no lo anuncia.
+  // El navegador necesita un tick para registrar el nodo antes de asignarle texto
   requestAnimationFrame(() => {
     announcer.textContent = message;
   });
@@ -594,18 +496,7 @@ function announceToScreenReader(message) {
 }
 
 
-/* ================================================================
-   MÓDULO 3 — Header
-   ----------------------------------------------------------------
-   Responsabilidades:
-     a) Menú hamburguesa: toggle de visibilidad + estado ARIA.
-     b) Clase "scrolled" en el header al desplazarse.
-     c) Cerrar el menú al hacer clic en un enlace de navegación
-        (Single Page Application pattern: todas las secciones
-        están en la misma página).
-     d) Resaltar el enlace activo según la sección visible
-        (Intersection Observer API).
-   ================================================================ */
+/* MÓDULO 3 — Header: hamburguesa, clase scrolled, cierre de menú, enlace activo por IntersectionObserver */
 
 const Header = (() => {
 
@@ -669,12 +560,10 @@ const Header = (() => {
           }
         });
 
-        // Si la zona queda vacía (p. ej. scroll más allá de la última sección),
-        // se mantiene el enlace activo actual en lugar de borrarlo.
+        // Si no hay secciones visibles, mantener el enlace activo actual
         if (!visibleSections.size) return;
 
-        // De las secciones visibles, activar la que tenga el borde superior
-        // más alto en el viewport (la que el usuario está leyendo actualmente).
+        // Activar la sección visible con el borde superior más alto (la que el usuario lee)
         let activeSection = null;
         visibleSections.forEach((section) => {
           if (
@@ -688,10 +577,8 @@ const Header = (() => {
         if (activeSection) setActiveLink(activeSection.id);
       },
       {
-        // Superior: compensar la altura del header fijo para que las secciones
-        // ocultas detrás de él nunca se consideren activas.
-        // Inferior: reducir el 50 % para que solo el semipanel superior del
-        // viewport (bajo el header) actúe como zona de activación.
+        // Superior: descuenta el header fijo para no activar secciones ocultas bajo él.
+        // Inferior: -50% limita la zona activa al semipanel superior del viewport.
         rootMargin: `-${headerHeightPx}px 0px -50% 0px`,
         threshold: 0,
       }
@@ -746,24 +633,7 @@ const Header = (() => {
 
 
 
-/* ================================================================
-   MÓDULO 4 — FormValidator
-   ----------------------------------------------------------------
-   Validación accesible del formulario de contacto.
-
-   Principios de diseño:
-     - El atributo novalidate en el <form> desactiva la validación
-       nativa del navegador, que no es estilizable ni traducible.
-       El JS retoma el control total.
-     - Los mensajes de error se inyectan en los spans con role="alert"
-       aria-live="polite" ya definidos en el HTML, de modo que los
-       lectores de pantalla los anuncian automáticamente sin que el
-       usuario tenga que navegar hasta ellos.
-     - Se valida campo por campo al perder el foco (evento blur)
-       para feedback inmediato, y el formulario completo al enviar.
-     - El estado aria-invalid="true/false" en cada campo comunica
-       su validez a tecnologías asistivas de forma estándar.
-   ================================================================ */
+/* MÓDULO 4 — FormValidator: novalidate + control JS, aria-invalid, validación en blur, errores en aria-live */
 
 const FormValidator = (() => {
 
@@ -794,10 +664,7 @@ const FormValidator = (() => {
 
   /* ── Métodos privados ───────────────────────────────────────── */
 
-  /** Valida un campo individual y actualiza su UI de error.
-   *  @param {HTMLElement} field
-   *  @returns {boolean} — true si el campo es válido.
-   */
+  /** @param {HTMLElement} field @returns {boolean} — true si válido */
   function validateField(field) {
     const rule = rules[field.id];
     if (!rule) return true; // Campo sin regla = siempre válido
@@ -817,9 +684,7 @@ const FormValidator = (() => {
     return isValid;
   }
 
-  /** Valida todos los campos del formulario.
-   *  @returns {boolean} — true si todos los campos son válidos.
-   */
+  /** @returns {boolean} — true si todos los campos son válidos */
   function validateAll() {
     const fields = form.querySelectorAll('[id^="field-"]');
     let allValid = true;
@@ -872,14 +737,8 @@ const FormValidator = (() => {
     }
   }
 
-  /*
-   * INTEGRACIÓN TEMPORAL — AIRTABLE (evaluación del laboratorio en GitHub Pages)
-   * El PAT queda expuesto en el código fuente del cliente. Esto es una limitación
-   * estructural de sitios estáticos sin backend y una decisión consciente:
-   * el token tiene scope mínimo (data.records:write, solo esta base) y el proyecto
-   * no maneja datos sensibles ni va a producción real. Después de la defensa,
-   * migrar a Formspree u otra solución con proxy para proteger credenciales.
-   */
+  /* PAT expuesto en cliente: limitación de sitios estáticos sin backend.
+     Scope mínimo (data.records:write). Migrar a proxy en producción. */
   const AIRTABLE_ENDPOINT =
     'https://api.airtable.com/v0/appjCLy5yKilg4zav/Contactos';
   const AIRTABLE_TOKEN =
@@ -956,24 +815,12 @@ const FormValidator = (() => {
 })();
 
 
-/* ================================================================
-   MÓDULO 5 — Init (Orquestador de arranque)
-   ----------------------------------------------------------------
-   Punto de entrada único del script. Inicializa todos los módulos
-   en el orden correcto una vez que el DOM está completamente cargado.
-
-   Se usa DOMContentLoaded en lugar de window.load porque:
-     - DOMContentLoaded se dispara cuando el HTML fue parseado
-       completamente, sin esperar imágenes ni recursos externos.
-     - Permite que los módulos encuentren los elementos del DOM
-       inmediatamente, sin retrasos por imágenes grandes.
-   ================================================================ */
+/* MÓDULO 5 — Init: orquestador de arranque en DOMContentLoaded.
+   DOMContentLoaded en lugar de window.load: no espera imágenes, DOM disponible inmediatamente. */
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // 1. StorageService — verificar disponibilidad una vez al arrancar.
-  //    Si no está disponible, el sitio funciona normalmente
-  //    pero sin persistencia de preferencias (degradación elegante).
+  // 1. StorageService — degradación elegante si localStorage no está disponible
   if (!StorageService.isAvailable()) {
     console.warn(
       '[ByB] localStorage no está disponible en este entorno. ' +
@@ -982,8 +829,7 @@ document.addEventListener('DOMContentLoaded', () => {
     );
   }
 
-  // 2. i18n — debe inicializarse primero: los demás módulos
-  //    pueden llamar a i18n.t() para obtener cadenas traducidas.
+  // 2. i18n — primero: FormValidator y Header usan i18n.t()
   i18n.init();
 
   // 3. Header — navegación y comportamiento de scroll

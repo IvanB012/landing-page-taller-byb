@@ -1,6 +1,4 @@
-/* ================================================================
-   14. SECCIÓN CONTACTO — Fondo imagen + overlay WCAG AA
-   ================================================================ */
+/* SECCIÓN CONTACTO — fondo de imagen con overlay WCAG AA */
 
 .section--contact {
   position: relative;
@@ -13,10 +11,7 @@
   background-color: var(--clr-dark);
 }
 
-/* Overlay global:
-   --overlay-contact = rgba(0,0,0,0.78)
-   Garantiza ratio ≥10.6:1 para --clr-text-inverted (#F5F4F0) incluso sobre
-   fondo blanco puro (peor caso: techo de zinc reflectante) ✅ WCAG AA */
+/* --overlay-contact rgba(0,0,0,0.78) garantiza ≥10.6:1 sobre peor caso ✅ WCAG AA */
 .contact__overlay {
   position: absolute;
   inset: 0;
@@ -30,10 +25,7 @@
   z-index: 1;
 }
 
-/* ================================================================
-   BLOQUE 2 — Grid de tarjetas glassmorphism
-   Técnica: CSS Grid con Media Queries (Mobile-First)
-   ================================================================ */
+/* Grid de tarjetas glassmorphism — Mobile-First */
 
 /* ── Mobile (< 640px): columna única, apiladas ──────────────── */
 .contact__info-block {
@@ -51,11 +43,7 @@
     align-items: start;
   }
 
-  /*
-    La 3ra tarjeta ocupa toda la fila y se centra con
-    un max-width equivalente a una sola columna de la cuadrícula.
-    calc(50% - var(--sp-4)) = mitad del contenedor menos la mitad del gap.
-  */
+  /* 3ra tarjeta: fila completa centrada; calc(50% - gap/2) = 1 columna de ancho */
   .info-card:last-child {
     grid-column: 1 / -1;
     margin-inline: auto;
@@ -81,14 +69,7 @@
 
 /* ── Tarjeta glassmorphism ──────────────────────────────────── */
 
-/*
-  Contraste verificado (WCAG 2.1 §1.4.3 — nivel AA):
-  Texto: #F5F4F0  (L = 0.984)
-  Fondo efectivo: overlay(0.65) + glass(0.62) sobre imagen →
-    peor caso ~#141414 (L ≈ 0.006)
-  Ratio calculado: (0.984 + 0.05) / (0.006 + 0.05) ≈ 18.5:1 ✅
-  (Mínimo requerido para texto normal: 4.5:1)
-*/
+/* #F5F4F0 sobre fondo efectivo ~#141414 (overlay + glass) → 18.5:1 ✅ WCAG AA */
 .info-card {
   background-color: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur));
@@ -163,10 +144,7 @@
   font-size: var(--fs-sm);
   font-weight: var(--fw-medium);
 
-  /*
-    --clr-social-icon = #D0CEC8
-    sobre fondo glass efectivo ~#141414 → ratio ≥ 9.1:1 ✅ WCAG AA
-  */
+  /* #D0CEC8 sobre fondo glass ~#141414 → 9.1:1 ✅ WCAG AA */
   color: var(--clr-social-icon);
   text-decoration: none;
   padding: var(--sp-2) 0;

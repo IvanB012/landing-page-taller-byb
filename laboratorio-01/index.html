@@ -17,21 +17,17 @@
 
   <link rel="icon" type="image/webp" href="img/logo-byb.webp">
 
-  <!-- Hoja de estilos modular (Etapa 2) -->
+  <!-- Hoja de estilos modular -->
   <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
-  <!-- ============================================================
-         SKIP LINK — Accesibilidad: permite saltar al contenido
-         ============================================================ -->
+  <!-- Skip link para navegación por teclado (WCAG 2.4.1) -->
   <a class="skip-link" href="#main-content" data-i18n="skip_link">
     Saltar al contenido principal
   </a>
 
-  <!-- ============================================================
-         HEADER / NAV PRINCIPAL
-         ============================================================ -->
+  <!-- HEADER / NAV PRINCIPAL -->
   <header class="site-header">
     <div class="header-inner">
       <!-- Identidad de marca -->
@@ -53,11 +49,7 @@
       </button>
 
       <!-- Navegación principal -->
-      <!--
-        CORRECCIÓN W3C: aria-label va en el <nav>, no en el <ul>.
-        El elemento <ul> con role="list" no acepta aria-label según la
-        especificación ARIA 1.2 cuando su rol implícito ya está definido.
-      -->
+      <!-- aria-label en <nav>, no en <ul>: ARIA 1.2 §5.3 -->
       <nav id="main-nav" class="main-nav" aria-label="Menú principal">
         <ul class="main-nav__list">
           <li>
@@ -81,11 +73,7 @@
         </ul>
 
         <!-- Control de idioma -->
-        <!--
-          CORRECCIÓN W3C: role="group" es válido en <div>. El aria-label
-          permanece aquí porque <div role="group"> sí acepta aria-label
-          como etiqueta del grupo interactivo (ARIA 1.2 §5.3.2).
-        -->
+        <!-- <div role="group"> sí acepta aria-label (ARIA 1.2 §5.3.2) -->
         <div class="lang-switcher" role="group" aria-label="Selector de idioma">
           <button class="lang-btn lang-btn--active" type="button" data-lang="es" aria-pressed="true"
             aria-label="Cambiar idioma a Español">
@@ -101,14 +89,8 @@
     </div>
   </header>
 
-  <!-- ============================================================
-         MAIN — Contenido principal
-         ============================================================ -->
   <main id="main-content">
 
-    <!-- ==========================================================
-           SECCIÓN 1 — HERO / INICIO
-           ========================================================== -->
     <section id="inicio" class="section section--hero" aria-labelledby="hero-heading">
       <div class="hero__content">
         <p class="hero__eyebrow" data-i18n="hero_eyebrow">
@@ -134,9 +116,6 @@
       <div class="hero__overlay" aria-hidden="true"></div>
     </section>
 
-    <!-- ==========================================================
-           SECCIÓN 2 — SERVICIOS
-           ========================================================== -->
     <section id="servicios" class="section section--services" aria-labelledby="services-heading">
       <div class="container">
         <header class="section__header">
@@ -148,13 +127,7 @@
           </p>
         </header>
 
-        <!-- Grid de tarjetas de servicio -->
-        <!--
-          CORRECCIÓN W3C: El <div> con role="list" no acepta aria-label según
-          ARIA 1.2. Se elimina el atributo — el contexto semántico lo provee
-          el <h2 id="services-heading"> enlazado mediante aria-labelledby en
-          el <section> padre.
-        -->
+        <!-- aria-label eliminado del div: contexto lo provee el section aria-labelledby -->
         <div class="services-grid">
 
           <!-- Tarjeta 1: Diagnóstico Computarizado -->
@@ -256,14 +229,7 @@
       </div>
     </section>
 
-    <!-- ==========================================================
-           SECCIÓN 3 — NOSOTROS
-           ========================================================== -->
     <section id="nosotros" class="section section--about" aria-labelledby="about-heading">
-      <!--
-          Imagen de fondo del taller aplicada desde CSS.
-          El contenido textual va directamente sobre el fondo con overlay.
-        -->
       <div class="about__overlay" aria-hidden="true"></div>
       <div class="container about__content">
         <h2 id="about-heading" class="about__title" data-i18n="about_title">
@@ -285,9 +251,6 @@
       </div>
     </section>
 
-    <!-- ==========================================================
-           SECCIÓN 4 — GALERÍA (CSS Grid Layout — Boxed)
-           ========================================================== -->
     <section id="galeria" class="section section--gallery" aria-labelledby="gallery-heading">
       <div class="container">
         <header class="section__header">
@@ -341,9 +304,6 @@
       </div>
     </section>
 
-    <!-- ==========================================================
-           SECCIÓN 5 — RESEÑAS
-           ========================================================== -->
     <section id="resenas" class="section section--reviews" aria-labelledby="reviews-heading">
       <div class="container">
         <header class="section__header">
@@ -355,11 +315,8 @@
           </p>
         </header>
 
-        <!-- Grid de reseñas — datos reales se inyectan en Etapa 4 -->
-        <!--
-          CORRECCIÓN W3C: Igual que services-grid, se elimina aria-label del
-          <div role="list">. El contexto lo provee el <section aria-labelledby>.
-        -->
+        <!-- Grid de reseñas -->
+        <!-- aria-label eliminado: igual que services-grid, contexto lo provee aria-labelledby -->
         <div class="reviews-grid">
 
           <article class="review-card">
@@ -426,14 +383,7 @@
       </div>
     </section>
 
-    <!-- ==========================================================
-           SECCIÓN 6 — CONTACTO
-           Estructura: Fondo de imagen del taller (CSS).
-           Bloque 1 (superior): Formulario independiente.
-           Bloque 2 (inferior): Dos columnas —
-             Columna A: Horarios + Redes sociales.
-             Columna B: Dirección, teléfono, correo (<address>).
-           ========================================================== -->
+    <!-- CONTACTO: formulario + 3 tarjetas glassmorphism (dirección, horario, redes) -->
     <section id="contacto" class="section section--contact" aria-labelledby="contact-heading">
       <div class="contact__overlay" aria-hidden="true"></div>
 
@@ -448,9 +398,6 @@
           </p>
         </header>
 
-        <!-- ======================================================
-               BLOQUE 1 — FORMULARIO DE CONTACTO
-               ====================================================== -->
         <div class="contact__form-block">
           <h3 class="contact__block-title" data-i18n="contact_form_title">
             Envíenos un mensaje
@@ -465,11 +412,7 @@
               <input class="form-input" type="text" id="field-name" name="name" autocomplete="name" required
                 aria-describedby="name-error" data-i18n-placeholder="form_placeholder_name"
                 placeholder="Ej.: Juan Pérez">
-              <!--
-                CORRECCIÓN W3C: Los <span> de error deben tener texto base para
-                que los validadores no los marquen como elementos de texto vacíos.
-                El texto se oculta visualmente cuando no hay error mediante CSS/JS.
-              -->
+              <!-- span vacío válido: JS inyecta el texto de error; visibility:hidden evita anuncio espurio -->
               <span class="form-error" id="name-error" role="alert" aria-live="polite"></span>
             </div>
 
@@ -530,33 +473,16 @@
               Enviar mensaje
             </button>
 
-            <!-- Mensaje de éxito / error tras envío -->
-            <!--
-              NOTA: Este div permanece vacío por diseño — su contenido lo
-              inyecta el JS tras el envío del formulario. El W3C acepta
-              elementos con role="status" vacíos porque son live regions
-              reactivas (ARIA 1.2 §5.27). No se agrega texto base aquí
-              para no generar mensajes de estado espurios al cargar.
-            -->
+            <!-- Vacío por diseño: JS inyecta contenido. role="status" acepta nodos vacíos (ARIA 1.2 §5.27) -->
             <div id="form-status" class="form-status" role="status" aria-live="polite" aria-atomic="true"></div>
           </form>
         </div>
-        <!-- /BLOQUE 1 -->
 
-        <!-- ======================================================
-               BLOQUE 2 — TRES TARJETAS DE INFORMACIÓN (glassmorphism)
-               Estructura: CSS Grid responsivo Mobile-First.
-               Semántica: cada <article> es contenido auto-contenido
-               (horario / contacto / redes), correctamente etiquetado
-               con aria-labelledby apuntando a su <h3> interno.
-               ====================================================== -->
+        <!-- Tres tarjetas glassmorphism: cada <article> auto-contenido con aria-labelledby su <h3> -->
         <div class="contact__info-block">
 
           <!-- Tarjeta 1: Información de Contacto -->
-          <!--
-            <address> es la etiqueta semántica correcta para información
-            de contacto asociada a la organización más cercana (el taller).
-          -->
+          <!-- <address>: etiqueta semántica correcta para datos de contacto organizacional -->
           <article class="info-card" aria-labelledby="card-contact">
             <h3 id="card-contact" class="info-card__title" data-i18n="contact_info_title">
               Información de Contacto
@@ -616,12 +542,7 @@
             <h3 id="card-hours" class="info-card__title" data-i18n="contact_hours_title">
               Horario de Atención
             </h3>
-            <!--
-              <dl> es la estructura semántica correcta para pares
-              término–descripción. Cada fila usa Flexbox (justify-content:
-              space-between) para alinear día y hora elegantemente,
-              sin recurrir a tablas HTML.
-            -->
+            <!-- <dl> para pares término-descripción; Flexbox en cada fila evita tablas -->
             <dl class="hours-list">
               <div class="hours-list__row">
                 <dt class="hours-list__day" data-i18n="hours_weekdays">Lunes – Viernes</dt>
@@ -639,11 +560,7 @@
           </article>
 
           <!-- Tarjeta 3: Redes Sociales -->
-          <!--
-            El contexto semántico del listado lo provee el <h3 id="card-social">
-            enlazado con aria-labelledby. Los aria-label individuales van en
-            los elementos interactivos <a>, correcto según ARIA 1.2 §5.3.
-          -->
+          <!-- Contexto por aria-labelledby; aria-label individual en cada <a> (ARIA 1.2 §5.3) -->
           <article class="info-card" aria-labelledby="card-social">
             <h3 id="card-social" class="info-card__title" data-i18n="contact_social_title">
               Síguenos
@@ -677,18 +594,12 @@
           </article>
 
         </div>
-        <!-- /BLOQUE 2 -->
 
       </div>
-      <!-- /contact__wrapper -->
     </section>
-    <!-- /CONTACTO -->
 
   </main>
 
-  <!-- ============================================================
-         FOOTER
-         ============================================================ -->
   <footer class="site-footer">
     <div class="container footer__inner">
 
@@ -699,7 +610,7 @@
     </div>
   </footer>
 
-  <!-- Script principal (Etapa 3) -->
+  <!-- Script principal -->
   <script src="js/main.js" defer></script>
 </body>
 

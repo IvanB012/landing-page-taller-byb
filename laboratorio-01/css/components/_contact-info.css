@@ -14,8 +14,9 @@
 }
 
 /* Overlay global:
-   --overlay-contact = rgba(0,0,0,0.65)
-   Garantiza ratio 10.8:1 para --clr-text-inverted (#F5F4F0) ✅ WCAG AA */
+   --overlay-contact = rgba(0,0,0,0.78)
+   Garantiza ratio ≥10.6:1 para --clr-text-inverted (#F5F4F0) incluso sobre
+   fondo blanco puro (peor caso: techo de zinc reflectante) ✅ WCAG AA */
 .contact__overlay {
   position: absolute;
   inset: 0;

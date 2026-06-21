@@ -1,10 +1,10 @@
 /* ================================================================
-   12. SECCIÓN GALERÍA — Slider con CSS Scroll Snap
+   12. SECCIÓN GALERÍA — CSS Grid Layout (Boxed)
    ================================================================ */
 
 .section--gallery {
   background-color: var(--clr-dark);
-  padding-bottom: var(--sp-10);
+  padding-block: var(--sp-20);
 }
 
 .section--gallery .section__title,
@@ -16,121 +16,59 @@
   background-color: var(--clr-accent);
 }
 
-/* Pista del slider */
-.slider {
-  display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  gap: 0;
-  cursor: grab;
+/* ================================================================
+   CUADRÍCULA — Mobile First
+   Técnica: CSS Grid con Media Queries
+   ================================================================ */
 
-  /* Ocultar scrollbar visualmente sin quitar funcionalidad */
-  scrollbar-width: none;
-  /* Firefox */
-  -ms-overflow-style: none;
-  /* IE 10+ */
+/* ── Mobile (< 640px): columna única, apiladas ──────────────── */
+.gallery__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-4);
+  margin-top: var(--sp-10);
 }
 
-.slider::-webkit-scrollbar {
-  display: none;
-  /* Chrome/Safari */
+/* ── Breakpoint 1: Tablet (≥ 640px) — 2 columnas ───────────── */
+@media (min-width: 640px) {
+  .gallery__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-5);
+  }
 }
 
-.slider:active {
-  cursor: grabbing;
+/* ── Breakpoint 2: Desktop (≥ 1024px) — 3 columnas ─────────── */
+@media (min-width: 1024px) {
+  .gallery__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sp-6);
+  }
 }
 
-/* Cada diapositiva ocupa el 100% del ancho del slider */
-.slider__slide {
-  flex: 0 0 100%;
-  width: 100%;
-  scroll-snap-align: start;
-  position: relative;
-  overflow: hidden;
+/* ── Tarjeta de imagen ──────────────────────────────────────── */
+
+.gallery__item {
   margin: 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
 }
 
-.slider__img {
+/*
+  Las fotos son 900×600 px (ratio 3:2). Usar aspect-ratio: 3/2 hace
+  que el contenedor coincida exactamente con las dimensiones originales,
+  por lo que object-fit: cover no necesita recortar ningún lado.
+*/
+.gallery__img {
+  display: block;
   width: 100%;
-  height: clamp(220px, 50vw, 520px);
+  aspect-ratio: 3 / 2;
   object-fit: cover;
   object-position: center;
-  display: block;
   transition: transform var(--transition-slow);
 }
 
-.slider__slide:hover .slider__img {
-  transform: scale(1.02);
-}
-
-.slider__caption {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: var(--sp-4) var(--sp-6);
-  background: linear-gradient(to top, rgba(0, 0, 0, .70) 0%, transparent 100%);
-  font-size: var(--fs-sm);
-  font-weight: var(--fw-medium);
-  color: var(--clr-text-inverted);
-  /* rgba(0,0,0,.70) + texto blanco → ratio ≥ 7:1 ✅ */
-}
-
-/* Controles del slider: Flexbox centrado */
-.slider__controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--sp-6);
-  margin-top: var(--sp-6);
-}
-
-.slider__btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  background-color: transparent;
-  color: var(--clr-text-inverted);
-  border: 2px solid var(--clr-border-dark);
-  border-radius: var(--radius-full);
-  font-size: var(--fs-lg);
-  cursor: pointer;
-  transition: background-color var(--transition-fast),
-    border-color var(--transition-fast),
-    color var(--transition-fast);
-}
-
-.slider__btn:hover,
-.slider__btn:focus-visible {
-  background-color: var(--clr-accent);
-  border-color: var(--clr-accent);
-  color: var(--clr-surface);
-}
-
-/* Puntos indicadores */
-.slider__dots {
-  display: flex;
-  gap: var(--sp-2);
-}
-
-.slider__dot {
-  width: 0.6rem;
-  height: 0.6rem;
-  border-radius: var(--radius-full);
-  background-color: var(--clr-border-dark);
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  transition: background-color var(--transition-fast),
-    transform var(--transition-fast);
-}
-
-.slider__dot--active,
-.slider__dot:hover,
-.slider__dot:focus-visible {
-  background-color: var(--clr-accent);
-  transform: scale(1.3);
+.gallery__item:hover .gallery__img,
+.gallery__item:focus-within .gallery__img {
+  transform: scale(1.04);
 }

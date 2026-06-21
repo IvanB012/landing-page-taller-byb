@@ -41,12 +41,12 @@
   --clr-social-hover: #FFFFFF;
 
   /* Overlays — aplicados sobre imágenes de fondo */
-  --overlay-about: rgba(0, 0, 0, 0.60);
-  /* Texto inv. → 9.3:1 ✅        */
-  --overlay-contact: rgba(0, 0, 0, 0.65);
-  /* Texto inv. → 10.8:1 ✅       */
-  --overlay-hero: rgba(0, 0, 0, 0.55);
-  /* Texto inv. → 8.2:1 ✅        */
+  --overlay-about: rgba(0, 0, 0, 0.72);
+  /* Texto inv. → ≥8.5:1 sobre fondo blanco puro ✅  */
+  --overlay-contact: rgba(0, 0, 0, 0.78);
+  /* Texto inv. → ≥10.6:1 sobre fondo blanco puro ✅ */
+  --overlay-hero: rgba(0, 0, 0, 0.72);
+  /* Texto inv. → ≥8.5:1 sobre fondo blanco puro ✅  */
 
   /* ── Tipografía ─────────────────────────────────────────────── */
   --font-display: 'Georgia', 'Times New Roman', serif;

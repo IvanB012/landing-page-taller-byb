@@ -4,6 +4,14 @@ Landing page responsiva para un taller mecánico automotriz ubicado en San Carlo
 
 ---
 
+## Demo en vivo
+
+El sitio está desplegado en Vercel y puede visitarse directamente desde el siguiente enlace:
+
+**[https://landing-page-taller-byb.vercel.app](https://landing-page-taller-byb.vercel.app)**
+
+---
+
 ## Información académica
 
 | Campo | Detalle |

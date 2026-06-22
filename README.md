@@ -74,23 +74,6 @@ laboratorio-01/
 
 ---
 
-## Cómo visualizar el proyecto
-
-### Localmente (recomendado)
-
-Se recomienda utilizar la extensión **Live Server** de VS Code en lugar de abrir el archivo directamente desde el explorador de archivos. La apertura directa (`file://`) puede bloquear la carga de recursos por políticas de seguridad del navegador.
-
-1. Abrir la carpeta raíz del repositorio en VS Code.
-2. Hacer clic derecho sobre `laboratorio-01/index.html` → **Open with Live Server**.
-3. El sitio se abrirá en `http://127.0.0.1:5500/laboratorio-01/`.
-
-### Sitio desplegado
-
-> **GitHub Pages:** `https://ivanb012.github.io/landing-page-taller-byb/laboratorio-01/`
-> *(Actualizar este enlace una vez que GitHub Pages esté habilitado en la configuración del repositorio.)*
-
----
-
 ## Accesibilidad
 
 El sitio implementa las siguientes prácticas de accesibilidad:

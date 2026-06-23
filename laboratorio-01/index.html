@@ -422,10 +422,12 @@
           </p>
         </header>
 
-        <div class="contact__form-block">
-          <h3 class="contact__block-title" data-i18n="contact_form_title">
-            Envíenos un mensaje
-          </h3>
+        <div class="contact__main-grid">
+
+          <div class="contact__form-block">
+            <h3 class="contact__block-title" data-i18n="contact_form_title">
+              Envíenos un mensaje
+            </h3>
 
           <form id="contact-form" class="contact-form" novalidate aria-label="Formulario de contacto">
             <!-- Nombre -->
@@ -500,7 +502,21 @@
             <!-- Vacío por diseño: JS inyecta contenido. role="status" acepta nodos vacíos (ARIA 1.2 §5.27) -->
             <div id="form-status" class="form-status" role="status" aria-live="polite" aria-atomic="true"></div>
           </form>
-        </div>
+          </div><!-- /.contact__form-block -->
+
+          <!-- Bloque: Mapa de ubicación del taller -->
+          <div class="contact__map-block">
+            <iframe
+              class="contact__map-iframe"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2775.3430131875493!2d-84.26629888196511!3d10.347663873271872!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa089a72a9e4ce3%3A0x162a4bc921a7b7ba!2sTaller%20B%20y%20B!5e0!3m2!1ses-419!2scr!4v1782254766450!5m2!1ses-419!2scr"
+              title="Ubicación del Taller Mecánico ByB en San Carlos, Alajuela, Costa Rica"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin"
+            ></iframe>
+          </div>
+
+        </div><!-- /.contact__main-grid -->
 
         <!-- Tres tarjetas glassmorphism: cada <article> auto-contenido con aria-labelledby su <h3> -->
         <div class="contact__info-block">

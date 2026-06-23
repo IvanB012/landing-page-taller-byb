@@ -1,10 +1,38 @@
-/* ── BLOQUE 1: Formulario ──────────────────────────────────── */
+/* ── Contenedor apilado: formulario → mapa ──────────────────── */
+.contact__main-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-8);
+  margin-bottom: var(--sp-12);
+}
+
+/* ── Bloque del mapa ────────────────────────────────────────── */
+.contact__map-block {
+  background-color: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-6);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.40),
+              inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  overflow: hidden; /* necesario para que border-radius recorte el <iframe> en Safari/Firefox */
+}
+
+.contact__map-iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border: 0;
+  border-radius: var(--radius-md);
+}
+
+/* ── BLOQUE 2: Formulario ──────────────────────────────────── */
 .contact__form-block {
   background-color: var(--glass-bg);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
   padding: var(--sp-8) var(--sp-6);
-  margin-bottom: var(--sp-12);
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.40),

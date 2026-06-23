@@ -139,8 +139,10 @@ const i18n = (() => {
       contact_title:    'Contáctenos',
       contact_subtitle: 'Estamos listos para atenderle. Escríbanos o visítenos.',
 
-      // Contacto — formulario
-      contact_form_title: 'Envíenos un mensaje',
+      // Contacto — bloques de contenido
+      contact_map_title:  'Encuéntranos',
+      contact_form_title: 'Escríbenos',
+      contact_form_desc:  'Cuéntenos qué servicio necesita, haga su consulta o solicite un presupuesto. Le respondemos a la brevedad.',
 
       form_label_name:    'Nombre completo',
       form_label_email:   'Correo electrónico',
@@ -276,8 +278,10 @@ const i18n = (() => {
       contact_title:    'Contact Us',
       contact_subtitle: 'We are ready to serve you. Write to us or visit us.',
 
-      // Contact — form
-      contact_form_title: 'Send us a message',
+      // Contact — content blocks
+      contact_map_title:  'Find Us',
+      contact_form_title: 'Write to Us',
+      contact_form_desc:  'Tell us what service you need, ask your question, or request a quote. We\'ll get back to you shortly.',
 
       form_label_name:    'Full name',
       form_label_email:   'Email address',

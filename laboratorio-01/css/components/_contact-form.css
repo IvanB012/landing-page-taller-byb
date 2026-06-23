@@ -44,9 +44,16 @@
   font-size: var(--fs-xl);
   font-weight: var(--fw-bold);
   color: var(--clr-text-inverted);
-  margin-bottom: var(--sp-8);
+  margin-bottom: var(--sp-4);
   padding-bottom: var(--sp-4);
   border-bottom: 1px solid rgba(255, 255, 255, 0.20);
+}
+
+.contact__block-desc {
+  font-size: var(--fs-sm);
+  color: rgba(245, 244, 240, 0.75);
+  line-height: var(--lh-normal);
+  margin-bottom: var(--sp-6);
 }
 
 /* Formulario */

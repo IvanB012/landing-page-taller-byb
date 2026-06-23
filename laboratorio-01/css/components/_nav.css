@@ -18,6 +18,11 @@
   display: flex;
 }
 
+/* Dropdown móvil: recalcular posición cuando el header se reduce */
+.site-header--scrolled .main-nav {
+  top: var(--header-height-scrolled);
+}
+
 .main-nav__list {
   display: flex;
   flex-direction: column;
@@ -102,6 +107,13 @@
 
   .main-nav__link {
     padding: var(--sp-2) var(--sp-3);
+    font-size: var(--fs-sm);
+    transition: color var(--transition-fast),
+      border-color var(--transition-fast),
+      font-size var(--transition-base);
+  }
+
+  .site-header--scrolled .main-nav__link {
     font-size: var(--fs-xs);
   }
 

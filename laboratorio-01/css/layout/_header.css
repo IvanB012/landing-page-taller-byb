@@ -10,11 +10,13 @@
   background-color: var(--clr-dark);
   border-bottom: 1px solid var(--clr-border-dark);
   transition: background-color var(--transition-base),
-    box-shadow var(--transition-base);
+    box-shadow var(--transition-base),
+    height var(--transition-base);
 }
 
 /* Estado "scrolled" — añadido por JS */
 .site-header--scrolled {
+  height: var(--header-height-scrolled);
   background-color: rgba(26, 26, 26, 0.97);
   box-shadow: var(--shadow-md);
 }
@@ -39,9 +41,14 @@
 }
 
 .brand__icon {
-  height: 2.5rem;
+  height: 3rem;
   width: auto;
   object-fit: contain;
+  transition: height var(--transition-base);
+}
+
+.site-header--scrolled .brand__icon {
+  height: 2.5rem;
 }
 
 .brand__name {

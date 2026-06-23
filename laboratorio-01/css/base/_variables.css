@@ -130,6 +130,7 @@
 
   /* ── Layout ─────────────────────────────────────────────────── */
   --container-max: 1140px;
-  --header-height: 4rem;
+  --header-height: 5rem;          /* estado expandido (sin scroll) */
+  --header-height-scrolled: 4rem; /* estado reducido (con scroll)  */
   --section-py: var(--sp-16);
 }

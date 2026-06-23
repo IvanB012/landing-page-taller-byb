@@ -110,6 +110,9 @@ const i18n = (() => {
       service_3_desc:  'Reparación de motor, frenos, suspensión, transmisión y todos los sistemas mecánicos del vehículo.',
       service_4_title: 'Sistema Eléctrico',
       service_4_desc:  'Diagnóstico y corrección de fallas eléctricas: batería, alternador, arranque y cableado general.',
+      service_5_title: '¿No encuentra su servicio?',
+      service_5_desc:  'Si no encontró lo que busca, escríbanos. Nos adaptamos a lo que su vehículo necesita.',
+      service_5_cta:   'Consúltenos',
 
       // Nosotros
       about_title:  'Quiénes Somos',
@@ -244,6 +247,9 @@ const i18n = (() => {
       service_3_desc:  'Engine, brake, suspension, transmission and all mechanical system repairs.',
       service_4_title: 'Electrical System',
       service_4_desc:  'Diagnosis and repair of electrical faults: battery, alternator, starter and general wiring.',
+      service_5_title: "Can't find your service?",
+      service_5_desc:  "If you didn't find what you need, write to us. We adapt to whatever your vehicle requires.",
+      service_5_cta:   'Ask us',
 
       // About
       about_title:  'Who We Are',

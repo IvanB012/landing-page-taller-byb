@@ -37,6 +37,16 @@
   }
 }
 
+/* Quinta tarjeta: si queda sola en su fila (last-child impar en grilla de 2 col),
+   se centra ocupando el ancho de una columna — cálculo: (100% - gap) / 2 */
+@media (min-width: 600px) {
+  .service-card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: calc(50% - var(--sp-3));
+  }
+}
+
 .service-card {
   background-color: var(--clr-dark-mid);
   border: 1px solid var(--clr-border-dark);
@@ -80,4 +90,8 @@
   /* #D0CEC8 sobre #2C2C2C → 9.1:1 ✅ WCAG AA */
   color: var(--clr-social-icon);
   line-height: var(--lh-relaxed);
+}
+
+.service-card__cta {
+  margin-top: var(--sp-6);
 }

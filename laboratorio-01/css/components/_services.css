@@ -73,6 +73,13 @@
   margin-bottom: var(--sp-4);
   color: var(--clr-accent);
   line-height: 1;
+  /* Círculo de fondo: accent al 15% sobre --clr-dark-mid ≈ #372121 — buen contraste con el stroke rojo */
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 50%;
+  background-color: rgba(192, 57, 43, 0.15);
+  margin-inline: auto;
+  flex-shrink: 0;
 }
 
 .service-card__title {

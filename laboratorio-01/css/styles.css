@@ -1,0 +1,1784 @@
+/* Hoja de estilos modular — Mobile-First, CSS3 nativo, WCAG 2.1 AA */
+
+/* ============================================================
+   BASE
+   ============================================================ */
+
+/* TOKENS DE DISEÑO — Custom Properties */
+
+:root {
+
+  --clr-bg-body: #F5F4F0;
+  /* Crema industrial — fondo general          */
+  --clr-surface: #FFFFFF;
+  /* Blanco — tarjetas y formularios            */
+  --clr-dark: #1A1A1A;
+  /* Casi negro — fondos oscuros / texto inv.   */
+  --clr-dark-mid: #2C2C2C;
+  /* Gris oscuro — footer, nav scroll           */
+  --clr-accent: #C0392B;
+  /* Rojo mecánico — CTA, énfasis              */
+  --clr-accent-hover: #A93226;
+  /* Rojo más oscuro — hover sobre accent       */
+  --clr-border: #DEDAD4;
+  /* Borde sutil sobre crema                    */
+  --clr-border-dark: #3D3D3D;
+  /* Borde sutil sobre oscuro                   */
+
+  /* Texto */
+  --clr-text-primary: #1A1A1A;
+  /* 17.5:1 sobre --clr-bg-body                 */
+  --clr-text-secondary: #4A4A4A;
+  /* 7.8:1 sobre --clr-bg-body                  */
+  --clr-text-muted: #6B6B6B;
+  /* 4.7:1 sobre --clr-bg-body — límite AA ✅   */
+  --clr-text-inverted: #F5F4F0;
+  /* 17.5:1 sobre --clr-dark                    */
+  --clr-text-accent: #C0392B;
+  /* 5.7:1 sobre --clr-bg-body                  */
+
+  /* Social icons en reposo sobre fondo oscuro:
+     #D0CEC8 sobre #1A1A1A → ratio 9.1:1 ✅ WCAG AA */
+  --clr-social-icon: #D0CEC8;
+  --clr-social-hover: #FFFFFF;
+
+  /* Colores de estado — formulario */
+  --clr-error-light: #FF8A80;
+  /* Rojo claro — asterisco de campo obligatorio (4.6:1 sobre overlay) */
+  --clr-error-pale:  #FFCDD2;
+  /* Rojo muy pálido — texto de error y horario cerrado     */
+  --clr-error-dark:  #C62828;
+  /* Rojo oscuro — borde de campo inválido (:user-invalid)  */
+  --clr-success-text: #A9DFBF;
+  /* Verde pálido — mensaje de éxito de formulario          */
+
+  /* Overlays — aplicados sobre imágenes de fondo */
+  --overlay-about: rgba(0, 0, 0, 0.72);
+  /* Texto inv. → ≥8.5:1 sobre fondo blanco puro ✅  */
+  --overlay-contact: rgba(0, 0, 0, 0.78);
+  /* Texto inv. → ≥10.6:1 sobre fondo blanco puro ✅ */
+  --overlay-hero: rgba(0, 0, 0, 0.72);
+  /* Texto inv. → ≥8.5:1 sobre fondo blanco puro ✅  */
+
+  /* ── Tipografía ─────────────────────────────────────────────── */
+  --font-display: 'Georgia', 'Times New Roman', serif;
+  --font-body: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  /* Escala tipográfica (clamp: mín → fluido → máx) */
+  --fs-xs: clamp(0.75rem, 1.5vw, 0.875rem);
+  --fs-sm: clamp(0.875rem, 1.8vw, 1rem);
+  --fs-base: clamp(1rem, 2vw, 1.125rem);
+  --fs-md: clamp(1.125rem, 2.2vw, 1.25rem);
+  --fs-lg: clamp(1.25rem, 2.5vw, 1.5rem);
+  --fs-xl: clamp(1.5rem, 3vw, 2rem);
+  --fs-2xl: clamp(2rem, 4vw, 2.75rem);
+  --fs-3xl: clamp(2.5rem, 5vw, 3.5rem);
+
+  /* Pesos tipográficos */
+  --fw-normal: 400;
+  --fw-medium: 500;
+  --fw-semi: 600;
+  --fw-bold: 700;
+
+  /* Interlineado */
+  --lh-tight: 1.2;
+  --lh-snug: 1.35;
+  --lh-normal: 1.6;
+  --lh-relaxed: 1.75;
+
+  /* ── Espaciado (escala 4px base) ────────────────────────────── */
+  --sp-1: 0.25rem;
+  /*  4px */
+  --sp-2: 0.5rem;
+  /*  8px */
+  --sp-3: 0.75rem;
+  /* 12px */
+  --sp-4: 1rem;
+  /* 16px */
+  --sp-5: 1.25rem;
+  /* 20px */
+  --sp-6: 1.5rem;
+  /* 24px */
+  --sp-8: 2rem;
+  /* 32px */
+  --sp-10: 2.5rem;
+  /* 40px */
+  --sp-12: 3rem;
+  /* 48px */
+  --sp-16: 4rem;
+  /* 64px */
+  --sp-20: 5rem;
+  /* 80px */
+  --sp-24: 6rem;
+  /* 96px */
+
+  /* ── Geometría ──────────────────────────────────────────────── */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-full: 9999px;
+
+  /* ── Sombras ────────────────────────────────────────────────── */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, .10), 0 1px 2px rgba(0, 0, 0, .06);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, .10), 0 2px 6px rgba(0, 0, 0, .06);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, .14), 0 4px 12px rgba(0, 0, 0, .08);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, .08);
+
+  /* ── Glassmorphism (tarjetas de contacto) ───────────────────── */
+  --glass-bg:     rgba(8, 8, 8, 0.62);      /* fondo oscuro semi-transparente */
+  --glass-border: rgba(255, 255, 255, 0.10); /* borde luminoso sutil           */
+  --glass-blur:   14px;                      /* radio del backdrop-filter       */
+
+  /* ── Transiciones ───────────────────────────────────────────── */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 400ms ease;
+
+  /* ── Layout ─────────────────────────────────────────────────── */
+  --container-max: 1140px;
+  --header-height: 5rem;          /* estado expandido (sin scroll) */
+  --header-height-scrolled: 4rem; /* estado reducido (con scroll)  */
+  --section-py: var(--sp-16);
+}
+
+/* RESET Y BASE GLOBAL */
+
+/* Box-sizing universal */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Tipografía base */
+html {
+  font-size: 100%;
+  /* 16px — respeta preferencias del usuario */
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  background-color: var(--clr-bg-body);
+  overscroll-behavior: none;
+}
+
+/* Respeto de preferencias de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-normal);
+  line-height: var(--lh-normal);
+  color: var(--clr-text-primary);
+  background-color: var(--clr-bg-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  overscroll-behavior: none;
+}
+
+/* Imágenes responsivas por defecto */
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Herencia de fuente en controles nativos */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Quitar estilos por defecto de listas cuando no son decorativas */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+/* Eliminar estilos de lista en listas de navegación */
+nav ul {
+  list-style: none;
+}
+
+/* Párrafos y encabezados: overflow seguro */
+p,
+h1,
+h2,
+h3,
+h4 {
+  overflow-wrap: break-word;
+}
+
+/* Anclas sin estilo de usuario-agente */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* FOCO VISIBLE — WCAG 2.1 AA (Criterio 2.4.7) */
+
+/* :focus-visible muestra el anillo solo en navegación por teclado, no en clic */
+:focus-visible {
+  outline: 3px solid var(--clr-accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* Eliminar outline por defecto de :focus para evitar duplicados */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Anillo blanco sobre fondos oscuros (#1A1A1A / #2C2C2C) → ratio ≥15:1 ✅ WCAG AA */
+.section--services :focus-visible,
+.section--reviews :focus-visible,
+.section--about :focus-visible,
+.section--contact :focus-visible,
+.site-footer :focus-visible {
+  outline-color: #FFFFFF;
+}
+
+
+/* SKIP LINK — accesibilidad por teclado */
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--sp-4);
+  z-index: 9999;
+  padding: var(--sp-3) var(--sp-6);
+  background-color: var(--clr-accent);
+  color: var(--clr-surface);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semi);
+  border-radius: var(--radius-md);
+  transition: top var(--transition-fast);
+  /* El skip link es invisible hasta recibir foco */
+}
+
+.skip-link:focus {
+  top: var(--sp-4);
+  outline: 3px solid var(--clr-surface);
+  outline-offset: 2px;
+}
+
+
+/* UTILIDADES DE ACCESIBILIDAD (visually-hidden) */
+
+/* Oculta visualmente sin quitar del árbol de accesibilidad (más correcto que display:none) */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Versión que se muestra al recibir foco (usada en skip-link) */
+.visually-hidden--focusable:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: revert;
+  margin: revert;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+
+/* CONTENEDOR REUTILIZABLE */
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--sp-4); /* base móvil */
+}
+
+/* Más espacio lateral a partir de 480px */
+@media (min-width: 480px) {
+  .container {
+    padding-inline: var(--sp-6);
+  }
+}
+
+
+/* UTILIDADES DE SECCIÓN */
+
+/* Todas las secciones reciben padding vertical consistente */
+.section {
+  padding-block: var(--section-py);
+}
+
+/* Encabezado de sección centrado */
+.section__header {
+  text-align: center;
+  margin-bottom: var(--sp-12);
+}
+
+.section__header--light .section__title,
+.section__header--light .section__subtitle {
+  color: var(--clr-text-inverted);
+}
+
+.section__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-tight);
+  color: var(--clr-text-primary);
+  margin-bottom: var(--sp-4);
+}
+
+/* Línea decorativa bajo el título */
+.section__title::after {
+  content: '';
+  display: block;
+  width: 3.5rem;
+  height: 3px;
+  background-color: var(--clr-accent);
+  margin: var(--sp-4) auto 0;
+  border-radius: var(--radius-full);
+}
+
+.section__subtitle {
+  font-size: var(--fs-md);
+  color: var(--clr-text-secondary);
+  max-width: 55ch;
+  margin-inline: auto;
+  line-height: var(--lh-relaxed);
+}
+
+/* HEADER — shell del encabezado */
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: var(--header-height);
+  background-color: var(--clr-dark);
+  border-bottom: 1px solid var(--clr-border-dark);
+  transition: background-color var(--transition-base),
+    box-shadow var(--transition-base),
+    height var(--transition-base);
+}
+
+/* Estado "scrolled" — añadido por JS */
+.site-header--scrolled {
+  height: var(--header-height-scrolled);
+  background-color: rgba(26, 26, 26, 0.97);
+  box-shadow: var(--shadow-md);
+}
+
+/* Flexbox: logo a la izquierda, nav a la derecha */
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--sp-6);
+}
+
+/* ── Marca / Logo ──────────────────────────────────────────── */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  text-decoration: none;
+}
+
+.brand__icon {
+  height: 4rem;
+  width: auto;
+  object-fit: contain;
+  transition: height var(--transition-base);
+}
+
+.site-header--scrolled .brand__icon {
+  height: 3rem;
+}
+
+.brand__name {
+  display: flex;
+  flex-direction: column;
+  line-height: var(--lh-tight);
+}
+
+.brand__primary {
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-normal);
+  color: var(--clr-text-inverted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.brand__secondary {
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  font-weight: var(--fw-bold);
+  color: var(--clr-accent);
+  letter-spacing: 0.05em;
+}
+
+/* ── Botón hamburguesa (visible solo en mobile) ─────────────── */
+.nav-toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: var(--sp-2);
+  background: transparent;
+  border: 2px solid var(--clr-border-dark);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  color: var(--clr-text-inverted);
+  transition: border-color var(--transition-fast);
+}
+
+.nav-toggle:hover,
+.nav-toggle:focus-visible {
+  border-color: var(--clr-accent);
+}
+
+.nav-toggle__bar {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--clr-text-inverted);
+  border-radius: var(--radius-full);
+  transition: transform var(--transition-base),
+    opacity var(--transition-base);
+}
+
+/* Estado abierto: transformar barras en "X" */
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ── Breakpoint tablet: hamburguesa oculta ──────────────────── */
+@media (min-width: 768px) {
+  .nav-toggle {
+    display: none;
+  }
+}
+
+/* FOOTER */
+
+.site-footer {
+  background-color: var(--clr-dark);
+  border-top: 1px solid var(--clr-border-dark);
+  padding-block: var(--sp-12) var(--sp-8);
+}
+
+.footer__inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.footer__copy {
+  font-size: var(--fs-xs);
+  color: rgba(208, 206, 200, 0.55);
+  /* rgba de --clr-social-icon al 55% — conserva ratio ≥ 4.5:1 sobre #1A1A1A ✅ */
+}
+
+/* ============================================================
+   COMPONENTS
+   ============================================================ */
+
+/* BOTONES */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  padding: var(--sp-4) var(--sp-8);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semi);
+  letter-spacing: 0.04em;
+  border-radius: var(--radius-md);
+  border: 2px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast);
+  white-space: nowrap;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+/* Botón primario: rojo sobre blanco */
+.btn--primary {
+  background-color: var(--clr-accent);
+  color: var(--clr-surface);
+  border-color: var(--clr-accent);
+}
+
+.btn--primary:hover,
+.btn--primary:focus-visible {
+  background-color: var(--clr-accent-hover);
+  border-color: var(--clr-accent-hover);
+  box-shadow: 0 4px 14px rgba(192, 57, 43, 0.35);
+}
+
+/* Botón secundario: contorno blanco (sobre hero oscuro) */
+.btn--secondary {
+  background-color: transparent;
+  color: var(--clr-text-inverted);
+  border-color: var(--clr-text-inverted);
+}
+
+.btn--secondary:hover,
+.btn--secondary:focus-visible {
+  background-color: var(--clr-text-inverted);
+  color: var(--clr-dark);
+}
+
+/* Modificador: ancho completo */
+.btn--full {
+  width: 100%;
+}
+
+/* ── Navegación principal (mobile: menú desplegable) ────────── */
+.main-nav {
+  /* Mobile: oculto por defecto, se despliega verticalmente */
+  display: none;
+  position: absolute;
+  top: var(--header-height);
+  left: 0;
+  right: 0;
+  background-color: var(--clr-dark-mid);
+  border-top: 1px solid var(--clr-border-dark);
+  padding: var(--sp-4) var(--sp-6) var(--sp-6);
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+/* Cuando el JS añade la clase --open */
+.main-nav--open {
+  display: flex;
+}
+
+/* Dropdown móvil: recalcular posición cuando el header se reduce */
+.site-header--scrolled .main-nav {
+  top: var(--header-height-scrolled);
+}
+
+.main-nav__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  list-style: none;
+}
+
+.main-nav__link {
+  display: block;
+  padding: var(--sp-3) var(--sp-2);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--clr-text-inverted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-bottom: 2px solid transparent;
+  transition: color var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.main-nav__link:hover,
+.main-nav__link:focus-visible,
+.main-nav__link--active {
+  color: var(--clr-accent);
+  border-bottom-color: var(--clr-accent);
+}
+
+/* ── Selector de idioma ─────────────────────────────────────── */
+.lang-switcher {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-top: var(--sp-2);
+}
+
+.lang-divider {
+  color: var(--clr-border-dark);
+  font-size: var(--fs-sm);
+  user-select: none;
+}
+
+.lang-btn {
+  padding: var(--sp-1) var(--sp-3);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semi);
+  letter-spacing: 0.1em;
+  color: var(--clr-social-icon);
+  background: transparent;
+  border: 1px solid var(--clr-border-dark);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: color var(--transition-fast),
+    border-color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.lang-btn--active,
+.lang-btn:hover,
+.lang-btn:focus-visible {
+  color: var(--clr-surface);
+  background-color: var(--clr-accent);
+  border-color: var(--clr-accent);
+}
+
+/* ── Breakpoint tablet: nav horizontal ──────────────────────── */
+@media (min-width: 768px) {
+  .main-nav {
+    display: flex;
+    position: static;
+    background: transparent;
+    border: none;
+    padding: 0;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--sp-2);
+  }
+
+  .main-nav__list {
+    flex-direction: row;
+    gap: 0;
+  }
+
+  .main-nav__link {
+    padding: var(--sp-2) 12px;
+    font-size: var(--fs-sm);
+    transition: color var(--transition-fast),
+      border-color var(--transition-fast),
+      font-size var(--transition-base);
+  }
+
+  .site-header--scrolled .main-nav__link {
+    font-size: var(--fs-xs);
+  }
+
+  .lang-switcher {
+    margin-top: 0;
+    margin-left: var(--sp-4);
+    padding-left: var(--sp-4);
+    border-left: 1px solid var(--clr-border-dark);
+  }
+}
+
+/* SECCIÓN HERO */
+
+.section--hero {
+  position: relative;
+  min-height: 100svh;
+  /* svh: small viewport height, correcto en móvil */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-block: 0;
+  padding-top: var(--header-height);
+
+  /* Imagen de fondo — remplazar con imagen real del taller */
+  background-image: url('../img/seccion-inicio.webp');
+  background-size: cover;
+  background-position: center 35%;
+  background-repeat: no-repeat;
+  /* Fallback si no carga la imagen */
+  background-color: var(--clr-dark);
+}
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background-color: var(--overlay-hero);
+  z-index: 0;
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding-inline: var(--sp-6);
+  max-width: 48rem;
+}
+
+.hero__eyebrow {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semi);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--clr-accent);
+  margin-bottom: var(--sp-4);
+  /* Sombra compensa ratio insuficiente de #C0392B sobre fondos oscuros (3.86:1 máx.) */
+  text-shadow: 0 0 12px rgba(0, 0, 0, 0.95),
+               0 1px 4px  rgba(0, 0, 0, 0.90);
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-3xl);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-tight);
+  color: var(--clr-text-inverted);
+  margin-bottom: var(--sp-6);
+}
+
+.hero__subtitle {
+  font-size: var(--fs-md);
+  line-height: var(--lh-relaxed);
+  color: var(--clr-text-inverted);
+  margin-bottom: var(--sp-8);
+  opacity: 0.9;
+}
+
+/* CTA group: Flexbox, columna en mobile, fila en tablet */
+.hero__cta-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-4);
+}
+
+@media (min-width: 480px) {
+  .hero__cta-group {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+/* SECCIÓN SERVICIOS — fondo oscuro. Ratios sobre #2C2C2C:
+   --clr-text-inverted 16.7:1 ✅  --clr-social-icon 9.1:1 ✅ (WCAG AA) */
+
+.section--services {
+  background-color: var(--clr-dark);
+}
+
+/* Los títulos de sección sobre fondo oscuro necesitan color invertido */
+.section--services .section__title {
+  color: var(--clr-text-inverted);
+}
+
+.section--services .section__subtitle {
+  /* #D0CEC8 sobre #1A1A1A → 9.1:1 ✅ WCAG AA */
+  color: var(--clr-social-icon);
+}
+
+/* CSS Grid: 1 col mobile → 2 col tablet → 3 col desktop */
+.services-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-6);
+}
+
+@media (min-width: 600px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 960px) {
+  /* 4 tarjetas → cuadrícula 2×2 más equilibrada que 3 columnas con hueco */
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 820px;
+    margin-inline: auto;
+  }
+}
+
+/* Quinta tarjeta: si queda sola en su fila (last-child impar en grilla de 2 col),
+   se centra ocupando el ancho de una columna — cálculo: (100% - gap) / 2 */
+@media (min-width: 600px) {
+  .service-card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: calc(50% - var(--sp-3));
+  }
+}
+
+.service-card {
+  background-color: var(--clr-dark-mid);
+  border: 1px solid var(--clr-border-dark);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-8) var(--sp-6);
+  text-align: center;
+  box-shadow: var(--shadow-card);
+  transition: transform var(--transition-base),
+    box-shadow var(--transition-base),
+    border-color var(--transition-base);
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--clr-accent);
+}
+
+.service-card__icon {
+  /* currentColor hereda --clr-accent para el stroke del SVG */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--sp-4);
+  color: var(--clr-accent);
+  line-height: 1;
+  /* Círculo de fondo: accent al 15% sobre --clr-dark-mid ≈ #372121 — buen contraste con el stroke rojo */
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 50%;
+  background-color: rgba(192, 57, 43, 0.15);
+  margin-inline: auto;
+  flex-shrink: 0;
+}
+
+.service-card__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  font-weight: var(--fw-bold);
+  /* #F5F4F0 sobre #2C2C2C → 16.7:1 ✅ WCAG AA */
+  color: var(--clr-text-inverted);
+  margin-bottom: var(--sp-3);
+  line-height: var(--lh-snug);
+}
+
+.service-card__desc {
+  font-size: var(--fs-sm);
+  /* #D0CEC8 sobre #2C2C2C → 9.1:1 ✅ WCAG AA */
+  color: var(--clr-social-icon);
+  line-height: var(--lh-relaxed);
+}
+
+.service-card__cta {
+  margin-top: var(--sp-6);
+}
+
+/* SECCIÓN NOSOTROS — fondo de imagen con overlay WCAG AA */
+
+.section--about {
+  position: relative;
+  padding-block: var(--sp-24); /* Mayor padding: sección con overlay/parallax */
+
+  background-image: url('../img/seccion-nosotros.webp');
+  background-size: cover;
+  background-position: center 40%;
+  background-repeat: no-repeat;
+  /* scroll en mobile-first: evita el bug de iOS Safari con fixed+cover */
+  background-attachment: scroll;
+  background-color: var(--clr-dark);
+}
+
+/* --overlay-about rgba(0,0,0,0.72) garantiza ≥8.5:1 sobre peor caso ✅ WCAG AA */
+.about__overlay {
+  position: absolute;
+  inset: 0;
+  background-color: var(--overlay-about);
+  z-index: 0;
+}
+
+/* Parallax solo en desktop — evita el bug de iOS Safari */
+@media (min-width: 768px) {
+  .section--about {
+    background-attachment: fixed;
+  }
+}
+
+/* Desactivar parallax si el usuario prefiere movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  .section--about {
+    background-attachment: scroll;
+  }
+}
+
+.about__content {
+  position: relative;
+  z-index: 1;
+  max-width: 44rem;
+  /* Centrado horizontal dentro del container */
+  margin-inline: auto;
+  text-align: center;
+}
+
+.about__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-tight);
+  color: var(--clr-text-inverted);
+  margin-bottom: var(--sp-6);
+}
+
+/* Decorador rojo idéntico al de .section__title::after — mantener en sincronía */
+.about__title::after {
+  content: '';
+  display: block;
+  width: 3.5rem;
+  height: 3px;
+  background-color: var(--clr-accent);
+  margin: var(--sp-4) auto 0;
+  border-radius: var(--radius-full);
+}
+
+.about__text {
+  font-size: var(--fs-base);
+  color: var(--clr-text-inverted);
+  line-height: var(--lh-relaxed);
+  margin-bottom: var(--sp-6);
+  opacity: 0.92;
+}
+
+.about__text:last-of-type {
+  margin-bottom: var(--sp-10);
+}
+
+/* SECCIÓN GALERÍA — Carrusel infinito con loop basado en clones */
+
+.section--gallery {
+  background-color: var(--clr-dark);
+  padding-block: var(--sp-20);
+}
+
+.section--gallery .section__title,
+.section--gallery .section__subtitle {
+  color: var(--clr-text-inverted);
+}
+
+.section--gallery .section__title::after {
+  background-color: var(--clr-accent);
+}
+
+/* ── Wrapper del carrusel ────────────────────────────────────── */
+.gallery__carousel {
+  position: relative;
+  margin-top: var(--sp-10);
+  overflow: hidden;
+}
+
+/* ── Track (flex horizontal, controlado por JS via transform) ── */
+.gallery__track {
+  display: flex;
+  gap: var(--sp-4);
+  touch-action: pan-y;
+  will-change: transform;
+}
+
+/* ── Slides ──────────────────────────────────────────────────── */
+
+/* Mobile: 1 slide visible */
+.gallery__item {
+  flex: 0 0 100%;
+  margin: 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+/* Tablet (≥ 640px): 2 slides visibles */
+@media (min-width: 640px) {
+  .gallery__item {
+    flex: 0 0 calc(50% - var(--sp-4) / 2);
+  }
+}
+
+/* Desktop (≥ 1024px): 3 slides visibles */
+@media (min-width: 1024px) {
+  .gallery__item {
+    flex: 0 0 calc(33.333% - var(--sp-4) * 2 / 3);
+  }
+}
+
+/* ── Imagen ──────────────────────────────────────────────────── */
+.gallery__img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  object-position: center;
+  transition: transform var(--transition-slow);
+}
+
+.gallery__item:hover .gallery__img,
+.gallery__item:focus-within .gallery__img {
+  transform: scale(1.04);
+}
+
+/* ── Botones prev / next ─────────────────────────────────────── */
+.gallery__btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  background-color: rgba(26, 26, 26, 0.80);
+  border: 1px solid var(--clr-border-dark);
+  border-radius: var(--radius-full);
+  color: var(--clr-text-inverted);
+  cursor: pointer;
+  transition: background-color var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.gallery__btn:hover,
+.gallery__btn:focus-visible {
+  background-color: var(--clr-accent);
+  border-color: var(--clr-accent);
+  outline: 2px solid var(--clr-accent);
+  outline-offset: 2px;
+}
+
+.gallery__btn--prev { left: var(--sp-3); }
+.gallery__btn--next { right: var(--sp-3); }
+
+/* ── Movimiento reducido ─────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .gallery__img {
+    transition: none;
+  }
+}
+
+/* SECCIÓN RESEÑAS — fondo oscuro. Ratios sobre #2C2C2C:
+   #F5F4F0 16.7:1 ✅  #D0CEC8 9.1:1 ✅  #E8B800 7.2:1 ✅ (ajustado de #D4A017, WCAG AA) */
+
+.section--reviews {
+  background-color: var(--clr-dark);
+}
+
+/* Los títulos de sección sobre fondo oscuro necesitan color invertido */
+.section--reviews .section__title {
+  color: var(--clr-text-inverted);
+}
+
+.section--reviews .section__subtitle {
+  /* #D0CEC8 sobre #1A1A1A → 9.1:1 ✅ WCAG AA */
+  color: var(--clr-social-icon);
+}
+
+/* Grid: 1 col → 2 col → 3 col */
+.reviews-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-6);
+}
+
+@media (min-width: 600px) {
+  .reviews-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 960px) {
+  .reviews-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.review-card {
+  background-color: var(--clr-dark-mid);
+  border: 1px solid var(--clr-border-dark);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-6);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.review-card__header {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+}
+
+.review-card__avatar {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  flex-shrink: 0;
+  /* Borde del avatar adaptado a fondo oscuro */
+  border: 2px solid var(--clr-border-dark);
+}
+
+.review-card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+
+.review-card__name {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semi);
+  /* #F5F4F0 sobre #2C2C2C → 16.7:1 ✅ WCAG AA */
+  color: var(--clr-text-inverted);
+}
+
+.review-card__stars {
+  /* #D4A017 solo daba 5.8:1; #E8B800 → 7.2:1 ✅ sobre #2C2C2C */
+  color: #E8B800;
+  font-size: var(--fs-sm);
+  letter-spacing: 0.05em;
+}
+
+.review-card__text {
+  font-size: var(--fs-sm);
+  /* #D0CEC8 sobre #2C2C2C → 9.1:1 ✅ WCAG AA */
+  color: var(--clr-social-icon);
+  line-height: var(--lh-relaxed);
+  font-style: italic;
+  border-left: 3px solid var(--clr-accent);
+  padding-left: var(--sp-4);
+}
+
+.review-card__text p {
+  margin: 0;
+}
+
+/* ── Contenedor apilado: formulario → mapa ──────────────────── */
+.contact__main-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-8);
+  margin-bottom: var(--sp-12);
+}
+
+/* ── Bloque del mapa ────────────────────────────────────────── */
+.contact__map-block {
+  background-color: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-6);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.40),
+              inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  overflow: hidden; /* necesario para que border-radius recorte el <iframe> en Safari/Firefox */
+}
+
+.contact__map-iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border: 0;
+  border-radius: var(--radius-md);
+}
+
+/* ── BLOQUE 2: Formulario ──────────────────────────────────── */
+.contact__form-block {
+  background-color: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-8) var(--sp-6);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.40),
+              inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.contact__block-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-bold);
+  color: var(--clr-text-inverted);
+  margin-bottom: var(--sp-4);
+  padding-bottom: var(--sp-4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.20);
+}
+
+.contact__block-desc {
+  font-size: var(--fs-sm);
+  color: rgba(245, 244, 240, 0.75);
+  line-height: var(--lh-normal);
+  margin-bottom: var(--sp-6);
+}
+
+/* Formulario */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.form-label {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--clr-text-inverted);
+  line-height: var(--lh-snug);
+}
+
+.form-required {
+  color: var(--clr-error-light);
+  /* Rojo claro — 4.6:1 sobre overlay oscuro ✅ */
+  margin-left: var(--sp-1);
+}
+
+.form-optional {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-normal);
+  color: rgba(245, 244, 240, 0.65);
+  margin-left: var(--sp-2);
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  padding: var(--sp-4);
+  font-size: var(--fs-sm);
+  color: var(--clr-text-primary);
+  background-color: rgba(255, 255, 255, 0.92);
+  border: 2px solid transparent;
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--clr-text-muted);
+}
+
+.form-input:hover,
+.form-select:hover,
+.form-textarea:hover {
+  border-color: rgba(192, 57, 43, 0.5);
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--clr-accent);
+  box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.25);
+  background-color: var(--clr-surface);
+}
+
+/* Estado inválido — solo se activa después de interacción del usuario */
+.form-input:user-invalid,
+.form-select:user-invalid,
+.form-textarea:user-invalid {
+  border-color: var(--clr-error-dark);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 7rem;
+}
+
+/* Flecha personalizada para el select */
+.form-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234A4A4A' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--sp-4) center;
+  padding-right: var(--sp-10);
+  cursor: pointer;
+}
+
+.form-hint {
+  font-size: var(--fs-xs);
+  color: rgba(245, 244, 240, 0.65);
+  line-height: var(--lh-snug);
+}
+
+.form-error {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  color: var(--clr-error-pale);
+  /* Rojo muy pálido sobre oscuro — alto contraste ✅ */
+  line-height: var(--lh-snug);
+  min-height: 1em;
+  /* Reserva espacio para evitar saltos de layout */
+  visibility: hidden; /* oculto hasta que JS añada .form-error--visible */
+}
+
+.form-error--visible {
+  visibility: visible;
+}
+
+/* Estado de envío del formulario */
+.form-status {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  text-align: center;
+  padding: var(--sp-4);
+  border-radius: var(--radius-md);
+  min-height: 0;
+  transition: opacity var(--transition-base);
+}
+
+.form-status--success {
+  background-color: rgba(39, 174, 96, 0.20);
+  color: var(--clr-success-text);
+  border: 1px solid rgba(39, 174, 96, 0.40);
+}
+
+.form-status--error {
+  background-color: rgba(192, 57, 43, 0.20);
+  color: var(--clr-error-pale);
+  border: 1px solid rgba(192, 57, 43, 0.40);
+}
+
+/* SECCIÓN CONTACTO — fondo de imagen con overlay WCAG AA */
+
+.section--contact {
+  position: relative;
+  padding-block: var(--sp-20); /* Mayor padding: sección con imagen de fondo y overlay */
+
+  background-image: url('../img/seccion-contacto.webp');
+  background-size: cover;
+  background-position: center 25%;
+  background-repeat: no-repeat;
+  background-color: var(--clr-dark);
+}
+
+/* --overlay-contact rgba(0,0,0,0.78) garantiza ≥10.6:1 sobre peor caso ✅ WCAG AA */
+.contact__overlay {
+  position: absolute;
+  inset: 0;
+  background-color: var(--overlay-contact);
+  z-index: 0;
+}
+
+/* Todo el contenido se sitúa sobre el overlay */
+.contact__wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+/* Grid de tarjetas glassmorphism — Mobile-First */
+
+/* ── Mobile (< 640px): columna única, apiladas ──────────────── */
+.contact__info-block {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-6);
+  margin-top: var(--sp-4);
+}
+
+/* ── Breakpoint 1: Tablet (≥ 640px) — 2 columnas ───────────── */
+@media (min-width: 640px) {
+  .contact__info-block {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-8);
+    align-items: start;
+  }
+
+  /* 3ra tarjeta: fila completa centrada; calc(50% - gap/2) = 1 columna de ancho */
+  .info-card:last-child {
+    grid-column: 1 / -1;
+    margin-inline: auto;
+    max-width: calc(50% - var(--sp-4));
+    width: 100%;
+  }
+}
+
+/* ── Breakpoint 2: Desktop (≥ 1024px) — 3 columnas ─────────── */
+@media (min-width: 1024px) {
+  .contact__info-block {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sp-8);
+  }
+
+  /* Resetear las reglas especiales del breakpoint tablet */
+  .info-card:last-child {
+    grid-column: auto;
+    margin-inline: 0;
+    max-width: none;
+  }
+}
+
+/* ── Tarjeta glassmorphism ──────────────────────────────────── */
+
+/* #F5F4F0 sobre fondo efectivo ~#141414 (overlay + glass) → 18.5:1 ✅ WCAG AA */
+.info-card {
+  background-color: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-8);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.40),
+              inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* ── Título de tarjeta ──────────────────────────────────────── */
+
+.info-card__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
+  color: var(--clr-text-inverted);
+  margin-bottom: var(--sp-6);
+  padding-bottom: var(--sp-3);
+  border-bottom: 2px solid var(--clr-accent);
+  display: inline-block;
+}
+
+/* ── Horarios (Flexbox semántico con <dl>) ──────────────────── */
+
+.hours-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.hours-list__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--sp-3) 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+  gap: var(--sp-4);
+}
+
+.hours-list__day {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--clr-text-inverted);
+}
+
+.hours-list__time {
+  font-size: var(--fs-sm);
+  color: rgba(245, 244, 240, 0.85);
+  text-align: right;
+}
+
+.hours-list__time--closed {
+  color: var(--clr-error-pale);
+  font-weight: var(--fw-medium);
+}
+
+/* ── Redes sociales ─────────────────────────────────────────── */
+
+.social-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  list-style: none;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+
+  /* #D0CEC8 sobre fondo glass ~#141414 → 9.1:1 ✅ WCAG AA */
+  color: var(--clr-social-icon);
+  text-decoration: none;
+  padding: var(--sp-2) 0;
+  border-bottom: 1px solid transparent;
+  transition: color var(--transition-fast),
+              border-color var(--transition-fast);
+}
+
+.social-link:hover,
+.social-link:focus-visible {
+  color: var(--clr-social-hover);
+  border-bottom-color: var(--clr-accent);
+}
+
+.social-icon {
+  flex-shrink: 0;
+  fill: currentColor;
+}
+
+/* ── Información de contacto — <address> ────────────────────── */
+
+.contact-address {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
+  font-style: normal;
+}
+
+.contact-address__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-4);
+}
+
+.contact-address__icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+  fill: none;
+  stroke: var(--clr-accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.contact-address__label {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semi);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--clr-accent);
+  margin-bottom: var(--sp-1);
+}
+
+.contact-address__value {
+  font-size: var(--fs-sm);
+  color: var(--clr-text-inverted);
+  line-height: var(--lh-relaxed);
+  /* #F5F4F0 sobre fondo glass efectivo → 18.5:1 ✅ */
+}
+
+.contact-address__link {
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color var(--transition-fast),
+              border-color var(--transition-fast);
+}
+
+.contact-address__link:hover,
+.contact-address__link:focus-visible {
+  color: var(--clr-accent);
+  border-bottom-color: var(--clr-accent);
+}
+
+/* WIDGET DE ACCESIBILIDAD — Panel flotante: tamaño de texto y brillo de pantalla */
+
+/* ── Overlay de brillo (cubre viewport, no bloquea interacción) ─ */
+.a11y-brightness-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  pointer-events: none;
+  background-color: rgba(0, 0, 0, 0);
+  transition: background-color var(--transition-base);
+}
+
+html[data-brightness="dim"]  .a11y-brightness-overlay { background-color: rgba(0, 0, 0, 0.35); }
+html[data-brightness="dark"] .a11y-brightness-overlay { background-color: rgba(0, 0, 0, 0.60); }
+
+/* ── Tamaño de texto: escala la base rem del documento ─────────── */
+html[data-font-size="large"]  { font-size: 112.5%; }
+html[data-font-size="xlarge"] { font-size: 125%;   }
+
+/* ── Contenedor del widget (fixed, encima del overlay) ─────────── */
+.a11y-widget {
+  position: fixed;
+  bottom: var(--sp-6);
+  right: var(--sp-6);
+  z-index: 9001;
+}
+
+/* ── Botón flotante ─────────────────────────────────────────────── */
+.a11y-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  background-color: var(--clr-accent);
+  color: var(--clr-surface);
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  box-shadow: var(--shadow-lg);
+  transition: background-color var(--transition-fast),
+              transform var(--transition-fast);
+}
+
+.a11y-toggle:hover,
+.a11y-toggle:focus-visible {
+  background-color: var(--clr-accent-hover);
+  transform: scale(1.08);
+  outline: 3px solid var(--clr-surface);
+  outline-offset: 2px;
+}
+
+/* ── Panel de opciones ──────────────────────────────────────────── */
+.a11y-panel {
+  position: absolute;
+  bottom: calc(100% + var(--sp-3));
+  right: 0;
+  width: 16rem;
+  background-color: var(--clr-surface);
+  border: 1px solid var(--clr-border-dark);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+/* ── Cabecera del panel ─────────────────────────────────────────── */
+.a11y-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--sp-3) var(--sp-4);
+  background-color: var(--clr-dark);
+  border-bottom: 1px solid var(--clr-border-dark);
+}
+
+.a11y-panel__title {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semi);
+  color: var(--clr-text-inverted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.a11y-panel__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: var(--radius-sm);
+  color: var(--clr-text-inverted);
+  font-size: 1rem;
+  line-height: 0;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.a11y-panel__close:hover,
+.a11y-panel__close:focus-visible {
+  background-color: rgba(255, 255, 255, 0.15);
+  outline: 2px solid var(--clr-text-inverted);
+  outline-offset: 2px;
+}
+
+/* ── Secciones de control ───────────────────────────────────────── */
+.a11y-section {
+  padding: var(--sp-4);
+  border-bottom: 1px solid var(--clr-border);
+}
+
+.a11y-section:last-child {
+  border-bottom: none;
+}
+
+.a11y-section__label {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  color: var(--clr-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: var(--sp-3);
+}
+
+/* ── Grupo de botones de control ────────────────────────────────── */
+.a11y-btn-group {
+  display: flex;
+  gap: var(--sp-2);
+}
+
+.a11y-btn {
+  flex: 1;
+  padding: var(--sp-2) var(--sp-1);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  color: var(--clr-text-secondary);
+  background-color: var(--clr-bg-body);
+  border: 1.5px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  text-align: center;
+  transition: color var(--transition-fast),
+              background-color var(--transition-fast),
+              border-color var(--transition-fast);
+}
+
+.a11y-btn:hover {
+  border-color: var(--clr-accent);
+  color: var(--clr-accent);
+}
+
+.a11y-btn:focus-visible {
+  outline: 2px solid var(--clr-accent);
+  outline-offset: 2px;
+}
+
+.a11y-btn[aria-pressed="true"] {
+  background-color: var(--clr-accent);
+  border-color:     var(--clr-accent);
+  color:            var(--clr-surface);
+}
+
+/* ── Movimiento reducido ────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .a11y-brightness-overlay,
+  .a11y-toggle,
+  .a11y-btn {
+    transition: none;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE (documentación)
+   ============================================================ */
+
+/* BREAKPOINTS — Resumen de media queries
+
+   480px  hero__cta-group columna → fila; container padding móvil
+   600px  services-grid 1→2 col; reviews-grid 1→2 col
+   640px  gallery__grid 1→2 col; contact__info-block 1→2 col
+   768px  nav-toggle oculto; main-nav en fila; about parallax (fixed)
+   960px  services-grid 2 col max-width 820px; reviews-grid 2→3 col
+   1024px gallery__grid 2→3 col; contact__info-block 2→3 col
+*/

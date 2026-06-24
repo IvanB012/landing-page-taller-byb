@@ -825,6 +825,187 @@ const FormValidator = (() => {
 })();
 
 
+/* MÓDULO 4 — Gallery: scroll continuo tipo cinta transportadora.
+   Motor: requestAnimationFrame con delta de tiempo — SCROLL_SPEED_PX_S px/s constante.
+   Interacción: pausa el rAF y navega con CSS transition; reanuda tras RESUME_DELAY_MS.
+   Loop: clones en extremos; offsetX se envuelve silenciosamente dentro del rAF. */
+const Gallery = (() => {
+
+  const SCROLL_SPEED_PX_S = 60;   /* px/s — ~6 s/slide en desktop, ajustable */
+  const RESUME_DELAY_MS   = 2000; /* ms sin interacción antes de reanudar el scroll */
+  const SWIPE_MIN_PX      = 50;
+  const CLONE_N           = 3;    /* = slides visibles máximos (desktop) */
+
+  function init() {
+    const carousel = document.querySelector('.gallery__carousel');
+    if (!carousel) return;
+
+    const track   = carousel.querySelector('.gallery__track');
+    const btnPrev = carousel.querySelector('.gallery__btn--prev');
+    const btnNext = carousel.querySelector('.gallery__btn--next');
+
+    const originals = Array.from(track.querySelectorAll('.gallery__item'));
+    const n = originals.length;
+    if (n === 0) return;
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ── Clones ─────────────────────────────────────────────────── */
+    originals.slice(-CLONE_N).reverse().forEach(s => {
+      const c = s.cloneNode(true);
+      c.setAttribute('aria-hidden', 'true');
+      const img = c.querySelector('img');
+      if (img) img.removeAttribute('loading');
+      track.insertBefore(c, track.firstChild);
+    });
+    originals.slice(0, CLONE_N).forEach(s => {
+      const c = s.cloneNode(true);
+      c.setAttribute('aria-hidden', 'true');
+      const img = c.querySelector('img');
+      if (img) img.removeAttribute('loading');
+      track.appendChild(c);
+    });
+
+    /* ── Step con caché — se invalida en cada resize ────────────── */
+    let cachedStep = 0;
+    function step() {
+      if (!cachedStep) {
+        const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+        cachedStep = track.children[0].offsetWidth + gap;
+      }
+      return cachedStep;
+    }
+
+    /* ── Estado de posición (píxeles, float) ────────────────────── */
+    let offsetX = CLONE_N * step();
+
+    /* Aplica offsetX al DOM sin transición (modo rAF) */
+    function applyRaw(x) {
+      track.style.transition = 'none';
+      track.style.transform  = `translateX(${-x}px)`;
+    }
+
+    /* Mantiene offsetX dentro del rango de slides reales */
+    function wrapOffset() {
+      const s = step();
+      if (offsetX >= (CLONE_N + n) * s) offsetX -= n * s;
+      else if (offsetX < CLONE_N * s)   offsetX += n * s;
+    }
+
+    applyRaw(offsetX);
+
+    /* ── Motor rAF: scroll continuo ─────────────────────────────── */
+    let rafId  = null;
+    let lastTs = null;
+
+    function tick(ts) {
+      if (lastTs === null) lastTs = ts;
+      const dt = Math.min((ts - lastTs) / 1000, 0.1); /* cap 100 ms: tab inactivo */
+      lastTs = ts;
+      offsetX += SCROLL_SPEED_PX_S * dt;
+      wrapOffset();
+      applyRaw(offsetX);
+      rafId = requestAnimationFrame(tick);
+    }
+
+    function startScroll() {
+      if (reduced || rafId !== null) return;
+      lastTs = null;
+      rafId  = requestAnimationFrame(tick);
+    }
+
+    function stopScroll() {
+      if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; }
+      lastTs = null;
+    }
+
+    /* ── Flags hover / focus (evitan reanudar mientras el cursor está encima) ── */
+    let hovered = false;
+    let focused  = false;
+
+    function maybeResume() {
+      if (!hovered && !focused) startScroll();
+    }
+
+    /* ── Navegación discreta (botón / tecla / swipe) ────────────── */
+    let resumeTimer = null;
+    let pendingNavX = null; /* target de la transición CSS en curso */
+
+    /* Al terminar la transición CSS: wrap, reaplica y programa reanudación */
+    track.addEventListener('transitionend', () => {
+      if (pendingNavX === null) return;
+      offsetX    = pendingNavX;
+      pendingNavX = null;
+      wrapOffset();
+      applyRaw(offsetX);
+      clearTimeout(resumeTimer);
+      resumeTimer = setTimeout(maybeResume, RESUME_DELAY_MS);
+    });
+
+    function navigateTo(slideIdx) {
+      stopScroll();
+      clearTimeout(resumeTimer);
+      pendingNavX = slideIdx * step();
+
+      if (!reduced) {
+        track.style.transition = 'transform 400ms ease';
+        track.style.transform  = `translateX(${-pendingNavX}px)`;
+        /* transitionend completa la actualización de offsetX y el wrap */
+      } else {
+        /* Reduced motion: salto instantáneo, sin reanudar rAF */
+        offsetX    = pendingNavX;
+        pendingNavX = null;
+        wrapOffset();
+        applyRaw(offsetX);
+      }
+    }
+
+    /* Índice entero del slide más cercano a la posición actual */
+    function nearestIdx() {
+      return Math.round(offsetX / step());
+    }
+
+    /* ── Hover / focus: pausa inmediata, reanuda al salir ───────── */
+    carousel.addEventListener('mouseenter', () => { hovered = true;  stopScroll(); });
+    carousel.addEventListener('mouseleave', () => { hovered = false; clearTimeout(resumeTimer); startScroll(); });
+    carousel.addEventListener('focusin',    () => { focused = true;  stopScroll(); });
+    carousel.addEventListener('focusout',   () => { focused = false; clearTimeout(resumeTimer); startScroll(); });
+
+    /* ── Botones ────────────────────────────────────────────────── */
+    btnPrev.addEventListener('click', () => navigateTo(nearestIdx() - 1));
+    btnNext.addEventListener('click', () => navigateTo(nearestIdx() + 1));
+
+    /* ── Teclado ────────────────────────────────────────────────── */
+    carousel.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft')  navigateTo(nearestIdx() - 1);
+      if (e.key === 'ArrowRight') navigateTo(nearestIdx() + 1);
+    });
+
+    /* ── Swipe táctil ───────────────────────────────────────────── */
+    let txStart = 0;
+    carousel.addEventListener('touchstart', e => { txStart = e.touches[0].clientX; }, { passive: true });
+    carousel.addEventListener('touchend',   e => {
+      const delta = txStart - e.changedTouches[0].clientX;
+      if (Math.abs(delta) >= SWIPE_MIN_PX)
+        delta > 0 ? navigateTo(nearestIdx() + 1) : navigateTo(nearestIdx() - 1);
+    });
+
+    /* ── Resize: invalida caché y remapea offsetX al nuevo step ─── */
+    new ResizeObserver(() => {
+      const oldStep = cachedStep;
+      cachedStep = 0;
+      if (oldStep > 0) offsetX = (offsetX / oldStep) * step();
+      applyRaw(offsetX);
+    }).observe(carousel);
+
+    startScroll();
+  }
+
+  return { init };
+
+})();
+
+
 /* MÓDULO 5 — Init: orquestador de arranque en DOMContentLoaded.
    DOMContentLoaded en lugar de window.load: no espera imágenes, DOM disponible inmediatamente. */
 
@@ -847,5 +1028,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 4. FormValidator — validación del formulario de contacto
   FormValidator.init();
+
+  // 5. Gallery — carrusel infinito de galería
+  Gallery.init();
 
 });

@@ -1,6 +1,6 @@
 # Taller Mecánico ByB — Landing Page
 
-Landing page responsiva para un taller mecánico automotriz ubicado en San Carlos, Costa Rica. El sitio presenta los servicios del negocio, galería de instalaciones, testimonios de clientes y un formulario de contacto funcional, con soporte bilingüe (español/inglés) y accesibilidad WCAG 2.1 AA.
+Landing page responsiva para un taller mecánico automotriz ubicado en San Carlos, Costa Rica. El sitio presenta los servicios del negocio, galería de instalaciones y testimonios de clientes, con soporte bilingüe (español/inglés) y accesibilidad WCAG 2.1 AA.
 
 ---
 
@@ -26,10 +26,9 @@ El sitio está desplegado en Vercel y puede visitarse directamente desde el sigu
 ## Tecnologías utilizadas
 
 - **HTML5 semántico** — estructura con `<header>`, `<nav>`, `<main>`, `<section>`, `<footer>`, `<address>`, `<dl>`, `<figure>`
-- **CSS3 nativo** — arquitectura modular (base / layout / components / responsive), Flexbox y CSS Grid Layout
+- **CSS3 nativo** — archivo único centralizado (`styles.css`), Flexbox y CSS Grid Layout
 - **JavaScript nativo ES6+** — patrón IIFE, sin librerías ni frameworks externos
 - **Web Storage API** — `localStorage` para persistencia de preferencia de idioma entre sesiones
-- **Fetch API** — envío asincrónico del formulario de contacto a Airtable
 
 > Sin frameworks CSS (Bootstrap, Tailwind, etc.) ni librerías JavaScript externas.
 
@@ -41,27 +40,7 @@ El sitio está desplegado en Vercel y puede visitarse directamente desde el sigu
 laboratorio-01/
 ├── index.html
 ├── css/
-│   ├── main.css                  # Punto de entrada; importa todos los módulos
-│   ├── base/
-│   │   ├── _reset.css            # Reset, html/body, overscroll-behavior
-│   │   ├── _variables.css        # Tokens de diseño (colores, tipografía, espaciado)
-│   │   └── _utilities.css        # Skip link, visually-hidden, focus-visible
-│   ├── layout/
-│   │   ├── _container.css        # Contenedor central responsivo
-│   │   ├── _header.css           # Shell del encabezado y nav desktop
-│   │   └── _footer.css           # Pie de página
-│   ├── components/
-│   │   ├── _nav.css              # Menú hamburguesa móvil y nav principal
-│   │   ├── _hero.css             # Sección de inicio con imagen de fondo
-│   │   ├── _buttons.css          # Variantes de botón (primario, secundario, ghost)
-│   │   ├── _services.css         # Cuadrícula de tarjetas de servicios
-│   │   ├── _about.css            # Sección "Quiénes somos"
-│   │   ├── _gallery.css          # Cuadrícula de galería fotográfica
-│   │   ├── _reviews.css          # Tarjetas de testimonios
-│   │   ├── _contact-form.css     # Formulario de contacto
-│   │   └── _contact-info.css     # Tarjetas glassmorphism de información de contacto
-│   └── responsive/
-│       └── _breakpoints-summary.css  # Referencia de breakpoints del proyecto
+│   └── styles.css                # Estilos centralizados: variables, reset, layout, componentes y responsive
 ├── js/
 │   └── main.js                   # Módulos: StorageService, i18n, Header, FormValidator, Init
 └── img/                          # Imágenes en formato WebP optimizado
@@ -74,7 +53,6 @@ laboratorio-01/
 - **Diseño responsivo Mobile-First** — 6 breakpoints (480 px, 600 px, 640 px, 768 px, 960 px, 1024 px); el layout se adapta desde móvil hasta escritorio amplio sin ningún framework
 - **Soporte bilingüe ES / EN** — sistema de internacionalización con diccionario plano; detecta automáticamente el idioma del navegador y persiste la elección en `localStorage`
 - **Accesibilidad WCAG 2.1 AA** — contraste verificado en todas las secciones, navegación completa por teclado, atributos ARIA, skip link y región aria-live para notificaciones dinámicas
-- **Formulario de contacto con validación JS** — validación en tiempo real controlada por JavaScript (`novalidate`), retroalimentación mediante `aria-invalid` y mensajes en región `aria-live`; el envío se realiza de forma asincrónica sin recargar la página
 - **Galería fotográfica con CSS Grid** — cuadrícula adaptativa (1 → 2 → 3 columnas) con transición hover y relación de aspecto fija (3:2)
 - **Navegación con IntersectionObserver** — el enlace activo del menú se actualiza automáticamente según la sección visible en pantalla
 - **Menú hamburguesa accesible** — apertura/cierre con teclado (tecla Escape), gestión de `aria-expanded` y cierre al hacer clic fuera del menú
@@ -88,15 +66,9 @@ El sitio implementa las siguientes prácticas de accesibilidad:
 
 - **Contraste de color**: todos los pares texto/fondo cumplen la relación mínima de 4.5:1 (WCAG 2.1 AA); las secciones oscuras han sido verificadas individualmente con ratios documentados en el código
 - **Navegación por teclado**: todos los elementos interactivos son alcanzables con Tab; el foco visible está garantizado mediante `:focus-visible` en todos los componentes
-- **ARIA**: `aria-label` en elementos de navegación, `aria-expanded` en el botón hamburguesa, `aria-invalid` en campos de formulario, regiones `aria-live` para errores y confirmaciones
+- **ARIA**: `aria-label` en elementos de navegación, `aria-expanded` en el botón hamburguesa, regiones `aria-live` para notificaciones dinámicas
 - **Texto alternativo**: todas las imágenes incluyen atributo `alt` descriptivo; las imágenes decorativas tienen `alt=""` o se implementan como fondos CSS
 - **Skip link**: enlace "Saltar al contenido principal" visible al recibir foco, conforme a WCAG 2.4.1
-
----
-
-## Formulario de contacto
-
-El formulario de contacto envía los datos directamente a una base de datos en Airtable mediante la Fetch API nativa del navegador. Esta integración fue implementada bajo indicación del docente como parte de los requerimientos del laboratorio. El campo de teléfono es opcional; los demás campos (nombre, correo, asunto y mensaje) son obligatorios y se validan antes del envío.
 
 ---
 

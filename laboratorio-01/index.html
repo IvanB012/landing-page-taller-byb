@@ -19,6 +19,18 @@
 
   <!-- Hoja de estilos modular -->
   <link rel="stylesheet" href="css/main.css">
+
+  <!-- Anti-flash: aplica preferencias de accesibilidad antes del primer render -->
+  <script>
+    (function () {
+      try {
+        var f = localStorage.getItem('byb_a11y_font');
+        var b = localStorage.getItem('byb_a11y_brightness');
+        if (f && f !== 'normal') document.documentElement.setAttribute('data-font-size', f);
+        if (b && b !== 'normal') document.documentElement.setAttribute('data-brightness', b);
+      } catch (_) {}
+    }());
+  </script>
 </head>
 
 <body>
@@ -711,6 +723,74 @@
 
     </div>
   </footer>
+
+  <!-- Overlay de brillo (pointer-events:none — no intercepta clics) -->
+  <div class="a11y-brightness-overlay" aria-hidden="true"></div>
+
+  <!-- Widget de Accesibilidad -->
+  <div class="a11y-widget">
+
+    <button
+      class="a11y-toggle"
+      id="a11y-toggle"
+      type="button"
+      aria-controls="a11y-panel"
+      aria-expanded="false"
+      data-i18n-aria="a11y_toggle_open"
+      aria-label="Abrir opciones de accesibilidad"
+    >
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+           aria-hidden="true" focusable="false">
+        <circle cx="12" cy="5" r="2.5"/>
+        <path d="M12 8v7"/>
+        <path d="M9 11h6"/>
+        <path d="M9 22l3-5 3 5"/>
+      </svg>
+    </button>
+
+    <div
+      class="a11y-panel"
+      id="a11y-panel"
+      role="dialog"
+      data-i18n-aria="a11y_panel_label"
+      aria-label="Opciones de accesibilidad"
+      aria-modal="false"
+      hidden
+    >
+      <div class="a11y-panel__header">
+        <span class="a11y-panel__title" data-i18n="a11y_panel_title">Accesibilidad</span>
+        <button
+          class="a11y-panel__close"
+          type="button"
+          data-i18n-aria="a11y_close_btn"
+          aria-label="Cerrar panel de accesibilidad"
+        >&times;</button>
+      </div>
+
+      <!-- Control: Tamaño de texto -->
+      <div class="a11y-section">
+        <p class="a11y-section__label" id="a11y-font-label" data-i18n="a11y_font_label">Tamaño de texto</p>
+        <div class="a11y-btn-group" role="group" aria-labelledby="a11y-font-label">
+          <button class="a11y-btn" type="button" data-a11y-font="normal"  aria-pressed="true"  data-i18n="a11y_font_normal">Normal</button>
+          <button class="a11y-btn" type="button" data-a11y-font="large"   aria-pressed="false" data-i18n="a11y_font_large">Grande</button>
+          <button class="a11y-btn" type="button" data-a11y-font="xlarge"  aria-pressed="false" data-i18n="a11y_font_xlarge">Muy grande</button>
+        </div>
+      </div>
+
+      <!-- Control: Brillo de pantalla -->
+      <div class="a11y-section">
+        <p class="a11y-section__label" id="a11y-brightness-label" data-i18n="a11y_brightness_label">Brillo de pantalla</p>
+        <div class="a11y-btn-group" role="group" aria-labelledby="a11y-brightness-label">
+          <button class="a11y-btn" type="button" data-a11y-brightness="normal" aria-pressed="true"  data-i18n="a11y_brightness_normal">Normal</button>
+          <button class="a11y-btn" type="button" data-a11y-brightness="dim"    aria-pressed="false" data-i18n="a11y_brightness_dim">Tenue</button>
+          <button class="a11y-btn" type="button" data-a11y-brightness="dark"   aria-pressed="false" data-i18n="a11y_brightness_dark">Oscuro</button>
+        </div>
+      </div>
+
+    </div><!-- /#a11y-panel -->
+
+  </div><!-- /.a11y-widget -->
 
   <!-- Script principal -->
   <script src="js/main.js" defer></script>

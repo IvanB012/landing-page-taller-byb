@@ -208,6 +208,21 @@ const i18n = (() => {
 
       // Footer
       footer_copy:    '© 2026 Taller Mecánico ByB. Todos los derechos reservados.',
+
+      // Widget de accesibilidad
+      a11y_toggle_open:       'Abrir opciones de accesibilidad',
+      a11y_toggle_close:      'Cerrar opciones de accesibilidad',
+      a11y_panel_label:       'Opciones de accesibilidad',
+      a11y_panel_title:       'Accesibilidad',
+      a11y_close_btn:         'Cerrar panel de accesibilidad',
+      a11y_font_label:        'Tamaño de texto',
+      a11y_font_normal:       'Normal',
+      a11y_font_large:        'Grande',
+      a11y_font_xlarge:       'Muy grande',
+      a11y_brightness_label:  'Brillo de pantalla',
+      a11y_brightness_normal: 'Normal',
+      a11y_brightness_dim:    'Tenue',
+      a11y_brightness_dark:   'Oscuro',
     },
 
     /* — ENGLISH — */
@@ -347,6 +362,21 @@ const i18n = (() => {
 
       // Footer
       footer_copy:    '© 2026 Taller Mecánico ByB. All rights reserved.',
+
+      // Accessibility widget
+      a11y_toggle_open:       'Open accessibility options',
+      a11y_toggle_close:      'Close accessibility options',
+      a11y_panel_label:       'Accessibility options',
+      a11y_panel_title:       'Accessibility',
+      a11y_close_btn:         'Close accessibility panel',
+      a11y_font_label:        'Text size',
+      a11y_font_normal:       'Normal',
+      a11y_font_large:        'Large',
+      a11y_font_xlarge:       'Extra large',
+      a11y_brightness_label:  'Screen brightness',
+      a11y_brightness_normal: 'Normal',
+      a11y_brightness_dim:    'Dim',
+      a11y_brightness_dark:   'Dark',
     },
 
   }; // fin translations
@@ -1006,6 +1036,117 @@ const Gallery = (() => {
 })();
 
 
+/* MÓDULO — AccessibilityWidget: controles de tamaño de texto y brillo de pantalla.
+   Mecanismo: data-font-size / data-brightness en <html>; CSS actúa sobre esos atributos.
+   Anti-flash: un inline script en <head> aplica los atributos antes del primer render.
+   Preferencias persisten en localStorage via StorageService. */
+const AccessibilityWidget = (() => {
+
+  const STORAGE_KEY_FONT       = 'byb_a11y_font';
+  const STORAGE_KEY_BRIGHTNESS = 'byb_a11y_brightness';
+  const FONT_LEVELS            = ['normal', 'large', 'xlarge'];
+  const BRIGHTNESS_LEVELS      = ['normal', 'dim', 'dark'];
+
+  function applyFont(level) {
+    if (!FONT_LEVELS.includes(level)) level = 'normal';
+    document.documentElement.setAttribute('data-font-size', level);
+    StorageService.set(STORAGE_KEY_FONT, level);
+  }
+
+  function applyBrightness(level) {
+    if (!BRIGHTNESS_LEVELS.includes(level)) level = 'normal';
+    document.documentElement.setAttribute('data-brightness', level);
+    StorageService.set(STORAGE_KEY_BRIGHTNESS, level);
+  }
+
+  function syncButtons(buttons, activeValue, dataKey) {
+    buttons.forEach(btn => {
+      btn.setAttribute('aria-pressed', btn.dataset[dataKey] === activeValue ? 'true' : 'false');
+    });
+  }
+
+  function init() {
+    const widget    = document.querySelector('.a11y-widget');
+    const toggleBtn = document.getElementById('a11y-toggle');
+    const panel     = document.getElementById('a11y-panel');
+    const closeBtn  = panel?.querySelector('.a11y-panel__close');
+    if (!widget || !toggleBtn || !panel || !closeBtn) return;
+
+    const fontBtns       = Array.from(panel.querySelectorAll('[data-a11y-font]'));
+    const brightnessBtns = Array.from(panel.querySelectorAll('[data-a11y-brightness]'));
+
+    /* Restaurar y sincronizar estado con lo que ya aplicó el inline script */
+    const savedFont       = StorageService.get(STORAGE_KEY_FONT, 'normal');
+    const savedBrightness = StorageService.get(STORAGE_KEY_BRIGHTNESS, 'normal');
+    applyFont(savedFont);
+    applyBrightness(savedBrightness);
+    syncButtons(fontBtns, savedFont, 'a11yFont');
+    syncButtons(brightnessBtns, savedBrightness, 'a11yBrightness');
+
+    /* ── Abrir / cerrar panel ─────────────────────────────────── */
+    function openPanel() {
+      panel.hidden = false;
+      toggleBtn.setAttribute('aria-expanded', 'true');
+      toggleBtn.setAttribute('aria-label', i18n.t('a11y_toggle_close'));
+      closeBtn.focus();
+    }
+
+    function closePanel() {
+      panel.hidden = true;
+      toggleBtn.setAttribute('aria-expanded', 'false');
+      toggleBtn.setAttribute('aria-label', i18n.t('a11y_toggle_open'));
+      toggleBtn.focus();
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      panel.hidden ? openPanel() : closePanel();
+    });
+
+    closeBtn.addEventListener('click', closePanel);
+
+    /* Escape cierra el panel + Tab queda atrapado dentro */
+    panel.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { closePanel(); return; }
+      if (e.key !== 'Tab') return;
+      const focusable = Array.from(panel.querySelectorAll('button'));
+      const first = focusable[0];
+      const last  = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault(); last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault(); first.focus();
+      }
+    });
+
+    /* Clic fuera del widget cierra el panel */
+    document.addEventListener('click', e => {
+      if (!panel.hidden && !widget.contains(e.target)) closePanel();
+    });
+
+    /* ── Controles de tamaño de texto ────────────────────────── */
+    fontBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const level = btn.dataset.a11yFont;
+        applyFont(level);
+        syncButtons(fontBtns, level, 'a11yFont');
+      });
+    });
+
+    /* ── Controles de brillo ─────────────────────────────────── */
+    brightnessBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const level = btn.dataset.a11yBrightness;
+        applyBrightness(level);
+        syncButtons(brightnessBtns, level, 'a11yBrightness');
+      });
+    });
+  }
+
+  return { init };
+
+})();
+
+
 /* MÓDULO 5 — Init: orquestador de arranque en DOMContentLoaded.
    DOMContentLoaded en lugar de window.load: no espera imágenes, DOM disponible inmediatamente. */
 
@@ -1020,16 +1161,19 @@ document.addEventListener('DOMContentLoaded', () => {
     );
   }
 
-  // 2. i18n — primero: FormValidator y Header usan i18n.t()
+  // 2. AccessibilityWidget — antes que todo: sincroniza estado visual con localStorage
+  AccessibilityWidget.init();
+
+  // 3. i18n — primero de los módulos de contenido: FormValidator y Header usan i18n.t()
   i18n.init();
 
-  // 3. Header — navegación y comportamiento de scroll
+  // 4. Header — navegación y comportamiento de scroll
   Header.init();
 
-  // 4. FormValidator — validación del formulario de contacto
+  // 5. FormValidator — validación del formulario de contacto
   FormValidator.init();
 
-  // 5. Gallery — carrusel infinito de galería
+  // 6. Gallery — carrusel infinito de galería
   Gallery.init();
 
 });

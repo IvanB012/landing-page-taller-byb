@@ -20,6 +20,7 @@
 @import url('components/_reviews.css');
 @import url('components/_contact-form.css');
 @import url('components/_contact-info.css');
+@import url('components/_accessibility-widget.css');
 
 /* === RESPONSIVE (documentación) === */
 @import url('responsive/_breakpoints-summary.css');

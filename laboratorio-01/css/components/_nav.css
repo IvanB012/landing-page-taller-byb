@@ -106,7 +106,7 @@
   }
 
   .main-nav__link {
-    padding: var(--sp-2) var(--sp-3);
+    padding: var(--sp-2) 12px;
     font-size: var(--fs-sm);
     transition: color var(--transition-fast),
       border-color var(--transition-fast),

@@ -41,14 +41,14 @@
 }
 
 .brand__icon {
-  height: 3rem;
+  height: 4rem;
   width: auto;
   object-fit: contain;
   transition: height var(--transition-base);
 }
 
 .site-header--scrolled .brand__icon {
-  height: 2.5rem;
+  height: 3rem;
 }
 
 .brand__name {
